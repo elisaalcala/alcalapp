@@ -73,8 +73,7 @@ jobs:
         run: |
           git config --global user.name "elisaalcala"
           git config --global user.email "elisaalcgue@gmail.com"
+          git remote set-url origin https://elisaalcala:${{ secrets.GITHUB_TOKEN }}@github.com/elisaalcala/alcalapp.git
           git add pom.xml
           git commit -m "Update version to ${{ env.NEW_VERSION }} [skip ci]"
           git push origin develop
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
