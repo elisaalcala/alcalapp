@@ -3,7 +3,6 @@ package com.app.alcala.web.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.app.alcala.entities.Employee;
 import com.app.alcala.entities.Project;
@@ -29,6 +27,7 @@ import com.app.alcala.service.TeamService;
 import com.app.alcala.service.TicketService;
 import com.app.alcala.service.impl.RepositoryUserDetailsService;
 import com.app.alcala.web.model.ProjectTable;
+import com.app.alcala.web.model.TableTeam;
 import com.app.alcala.web.model.WorkLoad;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -105,6 +104,7 @@ public class AlcalappController {
 		WorkLoad workLoad = alcalappService.calculateWorkLoad(team);
 		List<String> userPerEmployee = alcalappService.userPerEmployee(workLoad);
 		List<String> loadPerEmployee = alcalappService.loadPerEmployee(workLoad);
+		TableTeam tableTeam = alcalappService.calculateTableTeam(team);
 		
 		model.addAttribute("createTicketTeamsList", createTicketTeamsList);
 		model.addAttribute("employee", employee);
@@ -114,6 +114,7 @@ public class AlcalappController {
 		model.addAttribute("workLoad", workLoad);
 		model.addAttribute("userPerEmployee", userPerEmployee);
 		model.addAttribute("loadPerEmployee", loadPerEmployee);
+		model.addAttribute("tableTeam", tableTeam.getListTablePerEmployee());
 		model.addAttribute("page", "TRABAJO DIARIO");
 		
 		return "dailywork";

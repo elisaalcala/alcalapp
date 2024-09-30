@@ -23,6 +23,8 @@ import com.app.alcala.service.ReleaseService;
 import com.app.alcala.service.TeamService;
 import com.app.alcala.service.TicketService;
 import com.app.alcala.web.model.ProjectTable;
+import com.app.alcala.web.model.TablePerEmployee;
+import com.app.alcala.web.model.TableTeam;
 import com.app.alcala.web.model.WorkLoad;
 import com.app.alcala.web.model.WorkPerEmployee;
 
@@ -193,6 +195,26 @@ public class AlcalappServiceImpl implements AlcalappService {
 		for (WorkPerEmployee perEmplpoyee : workload.getListWorkPerEmployee())
 			list.add('"'+ perEmplpoyee.getUserEmployee()+'"');
 		return list;
+	}
+
+	@Override
+	public TableTeam calculateTableTeam(Team team) {
+		TableTeam tableTeam = new TableTeam();
+		List<TablePerEmployee> tablePerEmployee = new ArrayList<>();
+		for(Employee employee: team.getEmployeeMap().values()) {
+			TablePerEmployee table = new TablePerEmployee();
+			table.setUserEmployee(employee.getUserEmployee());
+			table.setIdEmployee(employee.getEmployeeId());
+			table.setFinishTickets(ticketService.findCountTicketsFinishByEmployee(employee));
+			table.setNotCompletedTickets(ticketService.findCountTicketsNotCompletedByEmployee(employee));
+			table.setReadyTickets(ticketService.findCountTicketsReadyByEmployee(employee));
+			table.setFinishProjects(projectService.findCountProjectsFinishByEmployee(employee));
+			table.setNotCompletedProjects(projectService.findCountProjectsNotCompletedByEmployee(employee));
+			table.setReadyProjects(projectService.findCountProjectsReadyByEmployee(employee));
+			tablePerEmployee.add(table);
+		}
+		tableTeam.setListTablePerEmployee(tablePerEmployee);
+		return tableTeam;
 	}
 
 }
