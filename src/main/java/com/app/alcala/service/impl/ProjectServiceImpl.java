@@ -131,6 +131,26 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectRepository.findByEmployeeAssignAndStatusProjectIn(employee,
 				Arrays.asList("Finish"));
 	}
+
+	@Override
+	public Integer findCountProjectsReadyByEmployee(Employee employee) {
+		Integer projectCount = (int) projectRepository.countByEmployeeAssignAndStatusProjectIn(employee,
+				Arrays.asList("Test", "Ready to UAT", "Ready to PRO"));
+		return projectCount;
+	}
+
+	@Override
+	public Integer findCountProjectsNotCompletedByEmployee(Employee employee) {
+		Integer projectCount = (int) projectRepository.countByEmployeeAssignAndStatusProjectIn(employee,
+				Arrays.asList("Backlog", "In progress", "Blocked"));
+		return projectCount;
+	}
+
+	@Override
+	public Integer findCountProjectsFinishByEmployee(Employee employee) {
+		Integer projectCount = (int) projectRepository.countByEmployeeAssignAndStatusProjectIn(employee, Arrays.asList("Closed", "Finish"));
+		return projectCount;
+	}
 	
 
 

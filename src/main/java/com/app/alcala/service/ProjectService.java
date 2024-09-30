@@ -31,7 +31,11 @@ public interface ProjectService {
 
 	List<Project> findProjectsFinishByEmployee(Employee employee);
 
+	Integer findCountProjectsReadyByEmployee(Employee employee);
 
+	Integer findCountProjectsNotCompletedByEmployee(Employee employee);
+
+	Integer findCountProjectsFinishByEmployee(Employee employee);
 	
 
 }

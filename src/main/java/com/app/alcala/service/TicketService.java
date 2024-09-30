@@ -34,4 +34,10 @@ public interface TicketService {
 
 	List<Ticket> findTicketsFinishByEmployee(Employee employee);
 
+	Integer findCountTicketsReadyByEmployee(Employee employee);
+
+	Integer findCountTicketsNotCompletedByEmployee(Employee employee);
+
+	Integer findCountTicketsFinishByEmployee(Employee employee);
+
 }

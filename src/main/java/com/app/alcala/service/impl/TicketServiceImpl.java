@@ -106,9 +106,22 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
+	public Integer findCountTicketsNotCompletedByEmployee(Employee employee) {
+		Integer ticketCount = (int) ticketRepository.countByEmployeeAssignAndStatusTicketIn(employee,
+				Arrays.asList("Backlog", "In progress", "Blocked"));
+		return ticketCount;
+	}
+	@Override
 	public List<Ticket> findTicketsReadyByEmployee(Employee employee) {
 		return ticketRepository.findByEmployeeAssignAndStatusTicketIn(employee,
 				Arrays.asList("Test", "Ready to UAT", "Ready to PRO"));
+	}
+	
+	@Override
+	public Integer findCountTicketsReadyByEmployee(Employee employee) {
+		Integer ticketCount = (int) ticketRepository.countByEmployeeAssignAndStatusTicketIn(employee,
+				Arrays.asList("Test", "Ready to UAT", "Ready to PRO"));
+		return ticketCount;
 	}
 
 	@Override
@@ -167,6 +180,12 @@ public class TicketServiceImpl implements TicketService {
 	public List<Ticket> findTicketsFinishByEmployee(Employee employee) {
 		return ticketRepository.findByEmployeeAssignAndStatusTicketIn(employee,
 				Arrays.asList("Closed", "Finish"));
+	}
+	
+	@Override
+	public Integer findCountTicketsFinishByEmployee(Employee employee) {
+		Integer ticketCount = (int) ticketRepository.countByEmployeeAssignAndStatusTicketIn(employee, Arrays.asList("Closed", "Finish"));
+		return ticketCount;
 	}
 
 }

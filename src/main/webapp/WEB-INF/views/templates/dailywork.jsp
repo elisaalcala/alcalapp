@@ -27,6 +27,7 @@
           <h2>Trabajo diario - ${team.nameTeam}</h2>
         </div>
         <div class="columnas">
+          <div class="width70"> 
             <div class="columnas-izquierda">
 
               <c:forEach items="${projectsTables}" var="table">
@@ -88,17 +89,6 @@
               <div class="card shadow m-column m-right">
                 <div class=" card-header d-flex align-items-center justify-content-between bg-incidences">
                   <h6 class="m-0 font-weight-bold text-uppercase text-white">Incidencias</h6>
-                  <div class="dropdown">
-                      <a class="dropdown-toggle table text-white" href="#" role="button" id="dropdownMenuLink"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                          aria-labelledby="dropdownMenuLink">
-                          <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                      </div>
-                  </div>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body padding-0">
@@ -133,10 +123,55 @@
                   </div>
                 </div> 
               </div>
+
+              <div class="card shadow m-column m-right">
+
+                <div class=" card-header d-flex align-items-center justify-content-between bg-charts">
+                  <h6 class="m-0 font-weight-bold text-uppercase text-white">Estadísticas grupales</h6>
+                </div>
+
+                <!-- DataTales Example -->
+                  <div class="card shadow">
+                    <div class="card-body">
+                      <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <th>Nombre</th>
+                            <th>Tickets resueltos</th>
+                            <th>Proyectos resueltos</th>
+                            <th>Tickets por desplegar</th>
+                            <th>Proyectos por desplegar</th>
+                            <th>Tickets sin resolver</th>
+                            <th>Proyectos sin resolver</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <!-- Aquí se generan las filas de la tabla con JSP -->
+                          <c:forEach items="${tableTeam}" var="tableTeam">
+                            <tr>
+                              <td>${tableTeam.userEmployee}</td>
+                              <td>${tableTeam.finishTickets}</td>
+                              <td>${tableTeam.finishProjects}</td>
+                              <td>${tableTeam.readyTickets}</td>
+                              <td>${tableTeam.readyProjects}</td>
+                              <td>${tableTeam.notCompletedTickets}</td>
+                              <td>${tableTeam.notCompletedProjects}</td>
+                            </tr>
+                          </c:forEach>
+                        </tbody>
+                      </table>
+                        
+                    </div>
+                 </div>
+                
+              </div>
+
             </div>
+          </div>
+          <div class="width30"> 
             <div class="columnas-derecha align_columns">
 
-              <div class="wrapper m-bottom m-top m-left">
+              <div class="wrapper m-bottom m-top m-left width100">
                 <header>
                   <div class="current-date"></div>
                   <div class="icons">
@@ -162,7 +197,7 @@
                 </div>
               </div>
 
-              <div class="card shadow m-column m-left">
+              <div class="card shadow m-column m-left width100">
                 <div class=" card-header d-flex align-items-center justify-content-between bg-charts">
                   <h6 class="m-0 font-weight-bold text-uppercase text-white">Carga de trabajo</h6>
                 </div>
@@ -203,6 +238,7 @@
               </div>
               
             </div>
+          </div>
         </div>
         <!-- Footer  -->
         <%@ include file="footer.jsp" %>

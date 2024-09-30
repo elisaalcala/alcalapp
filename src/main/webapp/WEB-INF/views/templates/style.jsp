@@ -337,7 +337,7 @@ div.dt-container div.dt-search input:focus {
   color: white;
   display: flex;
   align-items: center;
-  padding: 20px 30px 20px;
+  padding: 10px 20px 10px;
   justify-content: space-between;
 }
 header .icons{
@@ -367,7 +367,7 @@ header .current-date{
   font-weight: 500;
 }
 .calendar{
-  padding: 20px;
+  padding: 15px;
 }
 .calendar ul{
   display: flex;
@@ -389,6 +389,9 @@ header .current-date{
 }
 ul.weeks, .margin-bottom-0 {
     margin-bottom: 0px;
+}
+ul.weeks, ul.days{
+    padding-left: 0px;
 }
 .calendar .days li{
   z-index: 1;
@@ -567,4 +570,17 @@ ul.weeks, .margin-bottom-0 {
 .m-50{
   margin-left: 50px;
 }
+
+.width70{
+  width: 70%;
+}
+
+.width30{
+  width: 30%;
+}
+
+.width100{
+  width: 100%;
+}
+
 </style>
