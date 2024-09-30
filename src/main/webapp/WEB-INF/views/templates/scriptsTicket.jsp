@@ -82,7 +82,7 @@
         });
         // Script para el botón "Asignarme a mí"
         document.getElementById('assignToMeButton').addEventListener('click', function() {
-        debugger
+        
             var selectedTeam = `${ticket.teamNameAssign}`;
             var employeeTeam = `${employee.nameTeam}`; 
             var selectElement = document.querySelector('.assignedEmployee');

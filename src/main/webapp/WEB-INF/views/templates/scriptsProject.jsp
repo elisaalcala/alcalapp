@@ -81,7 +81,7 @@
         });
         // Script para el botón "Asignarme a mí"
         document.getElementById('assignToMeButtonProject').addEventListener('click', function() {
-        debugger
+        
             var selectedTeam = `${project.teamNameAssign}`;
             var employeeTeam = `${employee.nameTeam}`; 
             var selectElement = document.querySelector('.assignedEmployee');
@@ -146,7 +146,7 @@
             var cloneProjectReleaseName = document.getElementById('cloneProjectReleaseName').value;
             var cloneProjectEnvironment = document.getElementById('cloneProjectEnvironment').value;
             var cloneProjectTeamNameAssign = document.getElementById('cloneProjectTeamNameAssign').value;
-            debugger
+            
             // Crear un objeto con los datos actualizados del ticket
             var cloneProject = {
                 titleProject: cloneProjectTitle,
