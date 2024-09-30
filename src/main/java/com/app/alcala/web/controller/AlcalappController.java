@@ -119,6 +119,7 @@ public class AlcalappController {
 		
 		return "dailywork";
 	}
+	
 
 	@GetMapping("/mywork")
 	public String myWorkPage(Model model, HttpServletRequest request) {
