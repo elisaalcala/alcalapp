@@ -28,6 +28,8 @@ import com.app.alcala.entities.Team;
 import com.app.alcala.entities.Ticket;
 import com.app.alcala.repositories.TicketRepository;
 import com.app.alcala.service.MessageService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ExtendWith(MockitoExtension.class)
 public class TicketServiceImplTest {
@@ -191,5 +193,89 @@ public class TicketServiceImplTest {
 
         assertTrue(ticketService.delete(ticket));
         verify(ticketRepository, times(1)).delete(ticket);
+    }
+    
+    @Test
+    void testGetTickedResolvedPerMonth() throws JsonProcessingException {
+        
+        Ticket ticket1 = new Ticket();
+        ticket1.setIdTicket(1L);
+        ticket1.setFinishDate(Timestamp.valueOf(LocalDateTime.now().minusMonths(1)));
+
+        Ticket ticket2 = new Ticket();
+        ticket2.setIdTicket(2L);
+        ticket2.setFinishDate(Timestamp.valueOf(LocalDateTime.now().minusMonths(3)));
+
+        Ticket ticket3 = new Ticket();
+        ticket3.setIdTicket(3L);
+        ticket3.setFinishDate(Timestamp.valueOf(LocalDateTime.now().minusMonths(7)));
+
+        List<Ticket> tickets = Arrays.asList(ticket1, ticket2, ticket3);
+
+        String jsonResult = ticketService.getTickedResolvedPerMonth(tickets);
+
+        List<Integer> expected = Arrays.asList(0, 0, 1, 0, 1, 0);
+        List<Integer> result = new ObjectMapper().readValue(jsonResult, List.class);
+
+        assertEquals(expected, result, "El conteo de tickets no es correcto para los últimos seis meses.");
+    }
+
+    @Test
+    void testGetMinTickedResolvedPerMonth() throws JsonProcessingException {
+
+    	Ticket ticket1 = new Ticket();
+        ticket1.setIdTicket(1L);
+        ticket1.setInitialDate(Timestamp.valueOf(LocalDateTime.now().minusMonths(1)));
+        ticket1.setFinishDate(Timestamp.valueOf(LocalDateTime.now().minusMonths(1).plusHours(5)));
+
+        Ticket ticket2 = new Ticket();
+        ticket2.setIdTicket(2L);
+        ticket2.setInitialDate(Timestamp.valueOf(LocalDateTime.now().minusMonths(3)));
+        ticket2.setFinishDate(Timestamp.valueOf(LocalDateTime.now().minusMonths(3).plusHours(2)));
+
+        Ticket ticket3 = new Ticket();
+        ticket3.setIdTicket(3L);
+        ticket3.setInitialDate(Timestamp.valueOf(LocalDateTime.now().minusMonths(7)));
+        ticket3.setFinishDate(Timestamp.valueOf(LocalDateTime.now().minusMonths(7).plusHours(1)));
+
+        List<Ticket> tickets = Arrays.asList(ticket1, ticket2, ticket3);
+
+        String jsonResult = ticketService.getMinTickedResolvedPerMonth(tickets);
+
+        List<Double> expected = Arrays.asList(0.0, 0.0, 120.0, 0.0, 300.0, 0.0);
+        List<Double> result = new ObjectMapper().readValue(jsonResult, List.class);
+
+        assertEquals(expected, result, "El promedio de minutos no es correcto para los últimos seis meses.");
+    }
+
+    @Test
+    void testGetTickedByEmployeeCreationPerMonth() throws JsonProcessingException {
+        
+        Employee employee = new Employee();
+        employee.setEmployeeId(1L);
+        employee.setEmployeeName("Empleado Prueba");
+
+        Ticket ticket1 = new Ticket();
+        ticket1.setIdTicket(1L);
+        ticket1.setInitialDate(Timestamp.valueOf(LocalDateTime.now().minusMonths(1)));
+
+        Ticket ticket2 = new Ticket();
+        ticket2.setIdTicket(2L);
+        ticket2.setInitialDate(Timestamp.valueOf(LocalDateTime.now().minusMonths(3)));
+
+        Ticket ticket3 = new Ticket();
+        ticket3.setIdTicket(3L);
+        ticket3.setInitialDate(Timestamp.valueOf(LocalDateTime.now().minusMonths(7)));
+
+        List<Ticket> tickets = Arrays.asList(ticket1, ticket2, ticket3);
+
+        when(ticketRepository.findByEmployeeCreation(employee)).thenReturn(tickets);
+
+        String jsonResult = ticketService.getByEmployeeCreationPerMonth(employee);
+
+        List<Integer> expected = Arrays.asList(0, 0, 1, 0, 1, 0);
+        List<Integer> result = new ObjectMapper().readValue(jsonResult, List.class);
+
+        assertEquals(expected, result, "El conteo de tickets creados por empleado no es correcto para los últimos seis meses.");
     }
 }

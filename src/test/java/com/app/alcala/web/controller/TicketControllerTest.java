@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -101,7 +102,7 @@ public class TicketControllerTest {
 
         when(ticketService.findById(anyLong())).thenReturn(ticket);
 
-        List<String> allStatus = Arrays.asList("Backlog", "In Progress", "Resolved", "Closed");
+		List<String> allStatus = new ArrayList<>(Arrays.asList("Backlog", "In Progress", "Closed", "Blocked", "Test", "Ready to UAT", "Ready to PRO", "Resolved"));
 
         mockMvc.perform(get("/tickets/1").sessionAttr("team", team))
                 .andExpect(status().isOk())

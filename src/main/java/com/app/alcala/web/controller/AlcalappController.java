@@ -29,6 +29,7 @@ import com.app.alcala.service.impl.RepositoryUserDetailsService;
 import com.app.alcala.web.model.ProjectTable;
 import com.app.alcala.web.model.TableTeam;
 import com.app.alcala.web.model.WorkLoad;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -52,37 +53,36 @@ public class AlcalappController {
 	@Autowired
 	private RepositoryUserDetailsService userDetailsService;
 
-
 	@GetMapping("/login")
 	public String loginPage(@RequestParam(name = "error", required = false) String error, Model model) {
-	    if (error != null && !error.isEmpty()) {
-	        model.addAttribute("loginError", true);
-	    }
-	    return "login";
+		if (error != null && !error.isEmpty()) {
+			model.addAttribute("loginError", true);
+		}
+		return "login";
 	}
 
 	@GetMapping("/logout")
-    public ResponseEntity<String> logout(HttpServletRequest request, HttpServletResponse response) {
-        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
-        String redirectUrl = "/login";
-        return ResponseEntity.ok().body("{\"redirectUrl\": \"" + redirectUrl + "\"}");
-    }
-	
+	public ResponseEntity<String> logout(HttpServletRequest request, HttpServletResponse response) {
+		new SecurityContextLogoutHandler().logout(request, response,
+				SecurityContextHolder.getContext().getAuthentication());
+		String redirectUrl = "/login";
+		return ResponseEntity.ok().body("{\"redirectUrl\": \"" + redirectUrl + "\"}");
+	}
+
 	@PostMapping("/login")
-    public String login(@RequestParam String username, @RequestParam String password) {
-        try {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            if (userDetails.getPassword().equals(password)) {
-                return "dailywork";
-            } else {
-                return "login";
-            }
-        } catch (UsernameNotFoundException e) {
-            return "login";
-        }
-    }
-	
-	
+	public String login(@RequestParam String username, @RequestParam String password) {
+		try {
+			UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+			if (userDetails.getPassword().equals(password)) {
+				return "dailywork";
+			} else {
+				return "login";
+			}
+		} catch (UsernameNotFoundException e) {
+			return "login";
+		}
+	}
+
 	@GetMapping("/dailywork")
 	public String dailyWorkPage(Model model, HttpServletRequest request) {
 
@@ -90,7 +90,7 @@ public class AlcalappController {
 		Employee employee = employeeService.findByUserEmployee(name);
 		Team team = teamService.findByNameTeam(employee.getNameTeam());
 		List<Team> createTicketTeamsList = teamService.findTeamsToSendTicket(team);
-		
+
 		List<Release> releasesOpen = releaseService.findByReleasesOpen();
 
 		HttpSession session = request.getSession();
@@ -105,7 +105,7 @@ public class AlcalappController {
 		List<String> userPerEmployee = alcalappService.userPerEmployee(workLoad);
 		List<String> loadPerEmployee = alcalappService.loadPerEmployee(workLoad);
 		TableTeam tableTeam = alcalappService.calculateTableTeam(team);
-		
+
 		model.addAttribute("createTicketTeamsList", createTicketTeamsList);
 		model.addAttribute("employee", employee);
 		model.addAttribute("team", team);
@@ -116,13 +116,12 @@ public class AlcalappController {
 		model.addAttribute("loadPerEmployee", loadPerEmployee);
 		model.addAttribute("tableTeam", tableTeam.getListTablePerEmployee());
 		model.addAttribute("page", "TRABAJO DIARIO");
-		
+
 		return "dailywork";
 	}
-	
 
 	@GetMapping("/mywork")
-	public String myWorkPage(Model model, HttpServletRequest request) {
+	public String myWorkPage(Model model, HttpServletRequest request) throws JsonProcessingException {
 
 		HttpSession session = request.getSession();
 		Employee employee = (Employee) session.getAttribute("employee");
@@ -133,6 +132,26 @@ public class AlcalappController {
 		List<Ticket> ticketsReady = ticketService.findTicketsReadyByEmployee(employee);
 		List<Project> projectsFinish = projectService.findProjectsFinishByEmployee(employee);
 		List<Ticket> ticketsFinish = ticketService.findTicketsFinishByEmployee(employee);
+
+		String labelsJson = alcalappService.getLastSixMonths();
+		String tckDataJson = ticketService.getTickedResolvedPerMonth(ticketsFinish);
+		String prjDataJson = projectService.getProjectResolvedPerMonth(projectsFinish);
+		
+		String tckDataLineJson = ticketService.getMinTickedResolvedPerMonth(ticketsFinish);
+		String prjDataLineJson = projectService.getHoursProjectResolvedPerMonth(projectsFinish);;
+
+		String tckDataCreationClosedJson = ticketService.getByEmployeeCreationAndStatusClosedPerMonth(employee);
+		String tckDataCreationResolvedJson = ticketService.getByEmployeeCreationAndStatusResolvedPerMonth(employee);
+		
+		
+		model.addAttribute("labelsJson", labelsJson);
+		model.addAttribute("tckDataJson", tckDataJson);
+		model.addAttribute("prjDataJson", prjDataJson);
+		model.addAttribute("tckDataLineJson", tckDataLineJson);
+		model.addAttribute("prjDataLineJson", prjDataLineJson);
+		
+		model.addAttribute("tckDataCreationClosedJson", tckDataCreationClosedJson);
+		model.addAttribute("tckDataCreationResolvedJson", tckDataCreationResolvedJson);
 		
 		model.addAttribute("projectsNotCompleted", projectsNotCompleted);
 		model.addAttribute("ticketsNotCompleted", ticketsNotCompleted);
@@ -141,17 +160,17 @@ public class AlcalappController {
 		model.addAttribute("projectsFinish", projectsFinish);
 		model.addAttribute("ticketsFinish", ticketsFinish);
 		model.addAttribute("page", "MI TRABAJO");
-		
+
 		return "mywork";
 	}
+
 
 	@GetMapping("/profile")
 	public String profilePage(Model model) {
 
 		model.addAttribute("page", "MI PERFIL");
-		
+
 		return "profile";
 	}
-
 
 }

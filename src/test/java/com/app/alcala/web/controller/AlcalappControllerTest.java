@@ -39,6 +39,7 @@ import com.app.alcala.service.TeamService;
 import com.app.alcala.service.TicketService;
 import com.app.alcala.service.impl.RepositoryUserDetailsService;
 import com.app.alcala.web.model.ProjectTable;
+import com.app.alcala.web.model.TableTeam;
 import com.app.alcala.web.model.WorkLoad;
 
 @WebMvcTest(AlcalappController.class)
@@ -129,12 +130,14 @@ public class AlcalappControllerTest {
         WorkLoad workLoad = new WorkLoad();
         List<String> userPerEmployee = Arrays.asList("User1");
         List<String> loadPerEmployee = Arrays.asList("Load1");
+        TableTeam tableTeam = new TableTeam();
 
         when(alcalappService.findProjectsPerRelease(any(Team.class))).thenReturn(projectsTables);
         when(ticketService.findticketsNotCompletedByTeam(any(Team.class))).thenReturn(ticketsNotCompleted);
         when(alcalappService.calculateWorkLoad(any(Team.class))).thenReturn(workLoad);
         when(alcalappService.userPerEmployee(any(WorkLoad.class))).thenReturn(userPerEmployee);
         when(alcalappService.loadPerEmployee(any(WorkLoad.class))).thenReturn(loadPerEmployee);
+        when(alcalappService.calculateTableTeam(any(Team.class))).thenReturn(tableTeam);
 
         mockMvc.perform(get("/dailywork"))
                 .andExpect(status().isOk())

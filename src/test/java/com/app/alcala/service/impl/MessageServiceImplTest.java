@@ -6,6 +6,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,8 +33,10 @@ public class MessageServiceImplTest {
         String teamName = "Team A";
 
         Message message = new Message();
-        message.setDateRecord(timestamp);
-        message.setUserName(username);
+        LocalDateTime truncatedDateTime = timestamp.toLocalDateTime().withSecond(0).withNano(0);
+	    Timestamp truncatedTimestamp = Timestamp.valueOf(truncatedDateTime);
+		message.setDateRecord(truncatedTimestamp);
+		message.setUserName(username);
         message.setText("El ticket ha sido creado por " + teamName);
 
         when(messageRepository.save(message)).thenReturn(message);
@@ -53,7 +56,9 @@ public class MessageServiceImplTest {
         String teamName = "Team A";
 
         Message message = new Message();
-        message.setDateRecord(timestamp);
+        LocalDateTime truncatedDateTime = timestamp.toLocalDateTime().withSecond(0).withNano(0);
+	    Timestamp truncatedTimestamp = Timestamp.valueOf(truncatedDateTime);
+		message.setDateRecord(truncatedTimestamp);
         message.setUserName(userEmployee);
         message.setText("El ticket ha sido asignado a " + teamName);
 
@@ -74,8 +79,10 @@ public class MessageServiceImplTest {
         String teamName = "Team B";
 
         Message message = new Message();
-        message.setDateRecord(timestamp);
-        message.setUserName(userEmployee);
+        LocalDateTime truncatedDateTime = timestamp.toLocalDateTime().withSecond(0).withNano(0);
+	    Timestamp truncatedTimestamp = Timestamp.valueOf(truncatedDateTime);
+		message.setDateRecord(truncatedTimestamp);
+		message.setUserName(userEmployee);
         message.setText("El ticket ha sido traspasado a " + teamName);
 
         when(messageRepository.save(message)).thenReturn(message);
@@ -94,7 +101,9 @@ public class MessageServiceImplTest {
         String userEmployee = "JohnDoe";
 
         Message message = new Message();
-        message.setDateRecord(timestamp);
+        LocalDateTime truncatedDateTime = timestamp.toLocalDateTime().withSecond(0).withNano(0);
+	    Timestamp truncatedTimestamp = Timestamp.valueOf(truncatedDateTime);
+		message.setDateRecord(truncatedTimestamp);
         message.setUserName(userEmployee);
         message.setText("El ticket ha sido resuelto");
 
@@ -114,8 +123,10 @@ public class MessageServiceImplTest {
         String userEmployee = "JohnDoe";
 
         Message message = new Message();
-        message.setDateRecord(timestamp);
-        message.setUserName(userEmployee);
+        LocalDateTime truncatedDateTime = timestamp.toLocalDateTime().withSecond(0).withNano(0);
+	    Timestamp truncatedTimestamp = Timestamp.valueOf(truncatedDateTime);
+		message.setDateRecord(truncatedTimestamp);
+		message.setUserName(userEmployee);
         message.setText("El ticket ha sido reabierto");
 
         when(messageRepository.save(message)).thenReturn(message);
