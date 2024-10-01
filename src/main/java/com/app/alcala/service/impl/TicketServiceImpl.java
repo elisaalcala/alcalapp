@@ -226,7 +226,7 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
-	public String getHoursTickedResolvedPerMonth(List<Ticket> ticketsFinish) throws JsonProcessingException {
+	public String getMinTickedResolvedPerMonth(List<Ticket> ticketsFinish) throws JsonProcessingException {
 	    Map<String, List<Long>> monthDurationMap = new LinkedHashMap<>();
 	    LocalDate now = LocalDate.now();
 

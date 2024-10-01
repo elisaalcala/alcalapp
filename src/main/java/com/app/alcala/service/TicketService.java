@@ -43,7 +43,7 @@ public interface TicketService {
 
 	String getTickedResolvedPerMonth(List<Ticket> ticketsFinish) throws JsonProcessingException;
 
-	String getHoursTickedResolvedPerMonth(List<Ticket> ticketsFinish) throws JsonProcessingException;
+	String getMinTickedResolvedPerMonth(List<Ticket> ticketsFinish) throws JsonProcessingException;
 	
 	String getByEmployeeCreationPerMonth(Employee employee)throws JsonProcessingException;
 	

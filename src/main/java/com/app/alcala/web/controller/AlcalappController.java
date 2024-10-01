@@ -137,7 +137,7 @@ public class AlcalappController {
 		String tckDataJson = ticketService.getTickedResolvedPerMonth(ticketsFinish);
 		String prjDataJson = projectService.getProjectResolvedPerMonth(projectsFinish);
 		
-		String tckDataLineJson = ticketService.getHoursTickedResolvedPerMonth(ticketsFinish);
+		String tckDataLineJson = ticketService.getMinTickedResolvedPerMonth(ticketsFinish);
 		String prjDataLineJson = projectService.getHoursProjectResolvedPerMonth(projectsFinish);;
 
 		String tckDataCreationClosedJson = ticketService.getByEmployeeCreationAndStatusClosedPerMonth(employee);
