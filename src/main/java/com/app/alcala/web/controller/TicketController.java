@@ -62,7 +62,7 @@ public class TicketController {
 		HttpSession session = request.getSession();
 		Team team = (Team) session.getAttribute("team");
 
-		List<String> allStatus = new ArrayList<>(Arrays.asList("Backlog", "In Progress", "Resolved", "Closed"));
+		List<String> allStatus = new ArrayList<>(Arrays.asList("Backlog", "In Progress", "Closed", "Blocked", "Test", "Ready to UAT", "Ready to PRO", "Resolved"));
 
 		Ticket ticket = ticketService.findById(id);
 

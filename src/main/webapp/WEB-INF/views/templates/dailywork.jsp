@@ -45,7 +45,7 @@
                                   <a class="dropdown-item" href="/releases/${table.idRelease}">Ver Release</a>
                                   <a class="dropdown-item createProjectLink" data-release-id="${table.idRelease}" data-target="#createModalProject" href="#">Añadir Proyecto</a>
                                   <div class="dropdown-divider"></div>
-                                  <a class="dropdown-item deleteProjectLink text-danger" data-release-id="${table.idRelease}" data-target="#deleteModalRelease" href="#">Eliminar Proyecto</a>
+                                  <a class="dropdown-item deleteProjectLink text-danger" data-release-id="${table.idRelease}" data-target="#deleteModalRelease" href="#">Eliminar Release</a>
                               </div>
                         </div>
                   </div>
@@ -136,13 +136,13 @@
                       <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                           <tr>
-                            <th>Nombre</th>
-                            <th>Tickets resueltos</th>
-                            <th>Proyectos resueltos</th>
-                            <th>Tickets por desplegar</th>
-                            <th>Proyectos por desplegar</th>
-                            <th>Tickets sin resolver</th>
-                            <th>Proyectos sin resolver</th>
+                            <th>User</th>
+                            <th>TCK resueltos</th>
+                            <th>PRJ resueltos</th>
+                            <th>TCK por desplegar</th>
+                            <th>PRJ por desplegar</th>
+                            <th>TCK sin resolver</th>
+                            <th>PRJ sin resolver</th>
                           </tr>
                         </thead>
                         <tbody>

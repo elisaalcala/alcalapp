@@ -289,6 +289,10 @@ div.dt-container div.dt-search input:focus {
 .padding-0{
   padding: 0%;
 }
+
+table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date, table.dataTable td.dt-type-numeric, table.dataTable td.dt-type-date {
+    text-align: center;
+}
  /*Pagina Ticket*/
  .ticket-detail-heading{
     font-weight: 900;
