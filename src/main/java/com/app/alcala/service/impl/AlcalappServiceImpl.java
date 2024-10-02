@@ -1,9 +1,12 @@
 package com.app.alcala.service.impl;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +30,8 @@ import com.app.alcala.web.model.TablePerEmployee;
 import com.app.alcala.web.model.TableTeam;
 import com.app.alcala.web.model.WorkLoad;
 import com.app.alcala.web.model.WorkPerEmployee;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.micrometer.common.util.StringUtils;
 
@@ -216,5 +221,22 @@ public class AlcalappServiceImpl implements AlcalappService {
 		tableTeam.setListTablePerEmployee(tablePerEmployee);
 		return tableTeam;
 	}
+	
+	@Override
+	public String getLastSixMonths() throws JsonProcessingException {
+	    List<String> months = new ArrayList<>();
+	    LocalDate currentDate = LocalDate.now();
+	    Locale spanishLocale = new Locale("es");
+
+	    for (int i = 5; i >= 0; i--) {
+	        String month = currentDate.minusMonths(i).getMonth().getDisplayName(TextStyle.FULL, spanishLocale);
+	        month = month.substring(0, 1).toUpperCase() + month.substring(1).toLowerCase();
+	        months.add(month);
+	    }
+	    
+	    ObjectMapper mapper = new ObjectMapper();
+	    return mapper.writeValueAsString(months);
+	}
+
 
 }

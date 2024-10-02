@@ -11,7 +11,11 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css">
     
     <%@ include file="scripts.jsp" %>
+    <%@ include file="scriptsMyWork.jsp" %>
     <%@ include file="style.jsp" %>
+
+
+
   </head>
 <body>
   <div class="container">
@@ -33,23 +37,11 @@
                 <div class="card shadow m-column m-right">
                   <div class=" card-header d-flex align-items-center justify-content-between bg-projects">
                     <h6 class="m-0 font-weight-bold text-uppercase text-white">Proyectos por hacer</h6>
-                        <div class="dropdown">
-                              <a class="dropdown-toggle table text-white" href="#" role="button" id="dropdownMenuLink"
-                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                              </a>
-                              <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                  aria-labelledby="dropdownMenuLink">
-                                  <div class="dropdown-header">Dropdown Header:</div>
-                                  <a class="dropdown-item" href="#">Action</a>
-                                  <a class="dropdown-item" href="#">Another action</a>
-                                  <div class="dropdown-divider"></div>
-                                  <a class="dropdown-item" href="#">Something else here</a>
-                              </div>
-                        </div>
+                    <a href="#" id="toggleBodyPrjToDo" class="text-white">
+                      <i id="toggleIconPrjToDo" class="fas fa-chevron-up fa-fw text-gray-400"></i>
+                    </a>
                   </div>
-                      <!-- Card Body -->
-                      <div class="card-body padding-0">
+                  <div class="card-body padding-0" id="cardBodyPrjToDo">
                           <div class="chart-area">
                               <div class="columna-izquierda">
                                 <table>
@@ -84,23 +76,11 @@
                 <div class="card shadow m-column m-right">
                   <div class=" card-header d-flex align-items-center justify-content-between bg-incidences">
                     <h6 class="m-0 font-weight-bold text-uppercase text-white">Incidencias por hacer</h6>
-                    <div class="dropdown">
-                        <a class="dropdown-toggle table text-white" href="#" role="button" id="dropdownMenuLink"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                            aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
+                    <a href="#" id="toggleBodyTckToDo" class="text-white">
+                      <i id="toggleIconTckToDo" class="fas fa-chevron-up fa-fw text-gray-400"></i>
+                    </a>
                   </div>
-                  <!-- Card Body -->
-                  <div class="card-body padding-0">
+                  <div class="card-body padding-0" id="cardBodyTckToDo">
                     <div class="chart-area">
                       <table>
                         <thead>
@@ -135,23 +115,11 @@
                 <div class="card shadow m-column m-right">
                     <div class=" card-header d-flex align-items-center justify-content-between bg-projects">
                       <h6 class="m-0 font-weight-bold text-uppercase text-white">Proyectos por desplegar</h6>
-                          <div class="dropdown">
-                                <a class="dropdown-toggle table text-white" href="#" role="button" id="dropdownMenuLink"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink">
-                                    <div class="dropdown-header">Dropdown Header:</div>
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                          </div>
+                      <a href="#" id="toggleBodyPrjToDeploy" class="text-white">
+                        <i id="toggleIconPrjToDeploy" class="fas fa-chevron-up fa-fw text-gray-400"></i>
+                      </a>
                     </div>
-                        <!-- Card Body -->
-                        <div class="card-body padding-0">
+                    <div class="card-body padding-0" id="cardBodyPrjToDeploy">
                             <div class="chart-area">
                                 <div class="columna-izquierda">
                                   <table>
@@ -181,178 +149,171 @@
                                   </div>
                             </div>
                         </div>
-                  </div>
+                </div>
               
-              <div class="card shadow m-column m-right">
-                <div class=" card-header d-flex align-items-center justify-content-between bg-incidences">
-                  <h6 class="m-0 font-weight-bold text-uppercase text-white">Incidencias por desplegar</h6>
-                  <div class="dropdown">
-                      <a class="dropdown-toggle table text-white" href="#" role="button" id="dropdownMenuLink"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                          aria-labelledby="dropdownMenuLink">
-                          <div class="dropdown-header">Dropdown Header:</div>
-                          <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
+                <div class="card shadow m-column m-right">
+                  <div class=" card-header d-flex align-items-center justify-content-between bg-incidences">
+                    <h6 class="m-0 font-weight-bold text-uppercase text-white">Incidencias por desplegar</h6>
+                    <a href="#" id="toggleBodyTckToDeploy" class="text-white">
+                      <i id="toggleIconTckToDeploy" class="fas fa-chevron-up fa-fw text-gray-400"></i>
+                    </a>
                   </div>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body padding-0">
-                  <div class="chart-area">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>Nombre</th>
-                          <th>Descripcion</th>
-                          <th>Prioridad</th>
-                          <th>Estado</th>
-                          <th>Fecha creación</th>
-                          <th>Encargado</th>
-                          <th>Equipo</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <c:forEach items="${ticketsReady}" var="ticket">
-                          <tr data-ticket-id="${ticket.idTicket}" class="ticket-row">
-                              <td>${ticket.nameTicket}</td>
-                              <td>${ticket.descriptionTicket}</td>
-                              <td>${ticket.priorityTicket}</td>
-                              <td>${ticket.statusTicket}</td>
-                              <td>${ticket.initialDate}</td>
-                              <td>${ticket.employeeUserAssign}</td>
-                              <td>${ticket.teamNameAssign}</td>
-                           
+                  <div class="card-body padding-0" id="cardBodyTckToDeploy">
+                    <div class="chart-area">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Nombre</th>
+                            <th>Descripcion</th>
+                            <th>Prioridad</th>
+                            <th>Estado</th>
+                            <th>Fecha creación</th>
+                            <th>Encargado</th>
+                            <th>Equipo</th>
                           </tr>
-                        </c:forEach>
-                    </table>
-                  </div>
-                </div> 
-              </div>
-
-              <div class="card shadow m-column m-right">
-                <div class=" card-header d-flex align-items-center justify-content-between bg-finish">
-                  <h6 class="m-0 font-weight-bold text-uppercase text-white">Proyectos acabados</h6>
-                      <div class="dropdown">
-                            <a class="dropdown-toggle table text-white" href="#" role="button" id="dropdownMenuLink"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                aria-labelledby="dropdownMenuLink">
-                                <div class="dropdown-header">Dropdown Header:</div>
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                      </div>
-                </div>
-                    <!-- Card Body -->
-                    <div class="card-body padding-0">
-                        <div class="chart-area">
-                            <div class="columna-izquierda">
-                              <table>
-                                <thead>
-                                  <tr>
-                                    <th>Nombre</th>
-                                    <th>Titulo</th>
-                                    <th>Estado</th>
-                                    <th>Release</th>
-                                    <th>Encargado</th>
-                                    <th>Equipo</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <c:forEach items="${projectsFinish}" var="proyecto">
-                                    <tr data-proyecto-id="${proyecto.idProject}" class="proyecto-row">
-                                        <td>${proyecto.nameProject}</td>
-                                        <td>${proyecto.titleProject}</td>
-                                        <td>${proyecto.statusProject}</td>
-                                        <td>${proyecto.releaseName}</td>
-                                        <td>${proyecto.employeeUserAssign}</td>
-                                        <td>${proyecto.teamNameAssign}</td>
-                                      
-                                    </tr>
-                                  </c:forEach>
-                              </table>
-                              </div>
-                        </div>
+                        </thead>
+                        <tbody>
+                          <c:forEach items="${ticketsReady}" var="ticket">
+                            <tr data-ticket-id="${ticket.idTicket}" class="ticket-row">
+                                <td>${ticket.nameTicket}</td>
+                                <td>${ticket.descriptionTicket}</td>
+                                <td>${ticket.priorityTicket}</td>
+                                <td>${ticket.statusTicket}</td>
+                                <td>${ticket.initialDate}</td>
+                                <td>${ticket.employeeUserAssign}</td>
+                                <td>${ticket.teamNameAssign}</td>
+                            
+                            </tr>
+                          </c:forEach>
+                      </table>
                     </div>
-              </div>
-          
-          <div class="card shadow m-column m-right">
-            <div class=" card-header d-flex align-items-center justify-content-between bg-finish">
-              <h6 class="m-0 font-weight-bold text-uppercase text-white">Incidencias acabadas</h6>
-              <div class="dropdown">
-                  <a class="dropdown-toggle table text-white" href="#" role="button" id="dropdownMenuLink"
-                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                      aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
+                  </div> 
+                </div>
+
+
+                <div class="card shadow m-column m-right">
+
+                  <div class=" card-header d-flex align-items-center justify-content-between bg-finish">
+                    <h6 class="m-0 font-weight-bold text-uppercase text-white">Proyectos acabados</h6>
+
+                    <a href="#" id="toggleBodyPrjFinish" class="text-white">
+                      <i id="toggleIconPrjFinish" class="fas fa-chevron-up fa-fw text-gray-400"></i>
+                    </a>
+
                   </div>
-              </div>
+
+                  <!-- DataTales Example -->
+                    <div class="card shadow" id="cardBodyPrjFinish">
+                      <div class="card-body">
+                        <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                          <thead>
+                            <tr>
+                              <th>Nombre</th>
+                              <th>Titulo</th>
+                              <th>Estado</th>
+                              <th>Release</th>
+                              <th>Encargado</th>
+                              <th>Equipo</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <c:forEach items="${projectsFinish}" var="proyecto">
+                              <tr data-proyecto-id="${proyecto.idProject}" class="proyecto-row">
+                                  <td>${proyecto.nameProject}</td>
+                                  <td>${proyecto.titleProject}</td>
+                                  <td>${proyecto.statusProject}</td>
+                                  <td>${proyecto.releaseName}</td>
+                                  <td>${proyecto.employeeUserAssign}</td>
+                                  <td>${proyecto.teamNameAssign}</td>
+                                
+                              </tr>
+                            </c:forEach>
+                          </tbody>
+                        </table>
+                          
+                      </div>
+                  </div>
+                  
+                </div>
+
+                <div class="card shadow m-column m-right">
+
+                  <div class=" card-header d-flex align-items-center justify-content-between bg-finish">
+                    <h6 class="m-0 font-weight-bold text-uppercase text-white">Incidencias acabadas</h6>
+                    
+                    <a href="#" id="toggleBodyTckFinish" class="text-white">
+                      <i id="toggleIconTckFinish" class="fas fa-chevron-up fa-fw text-gray-400"></i>
+                    </a>
+
+                  </div>
+
+                  <!-- DataTales Example -->
+                    <div class="card shadow" id="cardBodyTckFinish">
+                      <div class="card-body">
+                        <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                          <thead>
+                            <tr>
+                              <th>Nombre</th>
+                              <th>Descripcion</th>
+                              <th>Prioridad</th>
+                              <th>Estado</th>
+                              <th>Fecha creación</th>
+                              <th>Encargado</th>
+                              <th>Equipo</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <c:forEach items="${ticketsFinish}" var="ticket">
+                              <tr data-ticket-id="${ticket.idTicket}" class="ticket-row">
+                                
+                                  <td>${ticket.nameTicket}</td>
+                                  <td>${ticket.descriptionTicket}</td>
+                                  <td>${ticket.priorityTicket}</td>
+                                  <td>${ticket.statusTicket}</td>
+                                  <td>${ticket.initialDate}</td>
+                                  <td>${ticket.employeeUserAssign}</td>
+                                  <td>${ticket.teamNameAssign}</td>
+                                
+                              </tr>
+                            </c:forEach>
+                          </tbody>
+                        </table>
+                          
+                      </div>
+                  </div>
+                  
+                </div>
+          
             </div>
-            <!-- Card Body -->
-            <div class="card-body padding-0">
-              <div class="chart-area">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Nombre</th>
-                      <th>Descripcion</th>
-                      <th>Prioridad</th>
-                      <th>Estado</th>
-                      <th>Fecha creación</th>
-                      <th>Encargado</th>
-                      <th>Equipo</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <c:forEach items="${ticketsFinish}" var="ticket">
-                      <tr data-ticket-id="${ticket.idTicket}" class="ticket-row">
-                        
-                          <td>${ticket.nameTicket}</td>
-                          <td>${ticket.descriptionTicket}</td>
-                          <td>${ticket.priorityTicket}</td>
-                          <td>${ticket.statusTicket}</td>
-                          <td>${ticket.initialDate}</td>
-                          <td>${ticket.employeeUserAssign}</td>
-                          <td>${ticket.teamNameAssign}</td>
-                        
-                      </tr>
-                    </c:forEach>
-                </table>
-              </div>
-            </div> 
-          </div>
-
-
-
-
-            </div>
-
+          
 
             <div class="columnas-derecha">
+              
+
               <div class="card shadow m-column m-left">
 
                 <div class=" card-header d-flex align-items-center justify-content-between bg-charts">
-                  <h6 class="m-0 font-weight-bold text-uppercase text-white">Control de trabajo</h6>
+                  <h6 class="m-0 font-weight-bold text-uppercase text-white">Estadisticas individuales</h6>
+                </div>
+
+                <div>
+                  <canvas id="myChartBar" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
+                </div>
+
+                <div>
+                  <canvas id="myChartLine" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
+                </div>
+
+                <div>
+                  <canvas id="myChartLineTck" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
                 </div>
                 
-                
+                <div></div>
+                  <canvas id="myChartLineTckCreation" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
+                </div>
 
               </div>
+
             </div>
 
         </div>
@@ -360,6 +321,7 @@
       <%@ include file="modalCreate.jsp" %>
       <%@ include file="modalLogout.jsp" %>
       <%@ include file="modalCreateRelease.jsp" %>
+
 
     </main>
   </div>

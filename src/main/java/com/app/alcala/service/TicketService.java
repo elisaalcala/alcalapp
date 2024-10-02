@@ -6,6 +6,7 @@ import com.app.alcala.entities.Employee;
 import com.app.alcala.entities.Message;
 import com.app.alcala.entities.Team;
 import com.app.alcala.entities.Ticket;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface TicketService {
 
@@ -39,5 +40,17 @@ public interface TicketService {
 	Integer findCountTicketsNotCompletedByEmployee(Employee employee);
 
 	Integer findCountTicketsFinishByEmployee(Employee employee);
+
+	String getTickedResolvedPerMonth(List<Ticket> ticketsFinish) throws JsonProcessingException;
+
+	String getMinTickedResolvedPerMonth(List<Ticket> ticketsFinish) throws JsonProcessingException;
+	
+	String getByEmployeeCreationPerMonth(Employee employee)throws JsonProcessingException;
+	
+	String getTickedByEmployeeCreationPerMonth(List<Ticket> ticketsCreation) throws JsonProcessingException;
+	
+	String getByEmployeeCreationAndStatusClosedPerMonth(Employee employee) throws JsonProcessingException;
+	
+	String getByEmployeeCreationAndStatusResolvedPerMonth(Employee employee) throws JsonProcessingException;
 
 }
