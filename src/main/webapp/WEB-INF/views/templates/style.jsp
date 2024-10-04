@@ -616,4 +616,29 @@ ul.weeks, ul.days{
     align-content: stretch;
 }
 
+/* Estilo para las filas de la tabla */
+.task-hover {
+  transition: background-color 0.3s ease;
+}
+
+.task-hover:hover {
+  background-color: #f2f2f2; 
+  cursor: pointer; 
+}
+
+@media (max-width: 1200px) {
+  .columnas {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .width70, .width30 {
+    width: 100%;
+  }
+
+  .columnas-derecha, .columnas-izquierda {
+    margin: 0;
+  }
+}
+
 </style>

@@ -32,6 +32,8 @@
         </div>
 
         <div class="columnas">
+
+          <div class="width70">
             <div class="columnas-izquierda">
 
                 <div class="card shadow m-column m-right">
@@ -51,19 +53,15 @@
                                       <th>Titulo</th>
                                       <th>Estado</th>
                                       <th>Release</th>
-                                      <th>Encargado</th>
-                                      <th>Equipo</th>
                                     </tr>
                                   </thead>
                                   <tbody>
                                     <c:forEach items="${projectsNotCompleted}" var="proyecto">
-                                      <tr data-proyecto-id="${proyecto.idProject}" class="proyecto-row">
+                                      <tr data-proyecto-id="${proyecto.idProject}" class="proyecto-row  task-hover">
                                           <td>${proyecto.nameProject}</td>
                                           <td>${proyecto.titleProject}</td>
                                           <td>${proyecto.statusProject}</td>
                                           <td>${proyecto.releaseName}</td>
-                                          <td>${proyecto.employeeUserAssign}</td>
-                                          <td>${proyecto.teamNameAssign}</td>
                                         
                                       </tr>
                                     </c:forEach>
@@ -90,20 +88,16 @@
                             <th>Prioridad</th>
                             <th>Estado</th>
                             <th>Fecha creación</th>
-                            <th>Encargado</th>
-                            <th>Equipo</th>
                           </tr>
                         </thead>
                         <tbody>
                           <c:forEach items="${ticketsNotCompleted}" var="ticket">
-                            <tr data-ticket-id="${ticket.idTicket}" class="ticket-row">
+                            <tr data-ticket-id="${ticket.idTicket}" class="ticket-row task-hover">
                                 <td>${ticket.nameTicket}</td>
                                 <td>${ticket.descriptionTicket}</td>
                                 <td>${ticket.priorityTicket}</td>
                                 <td>${ticket.statusTicket}</td>
                                 <td>${ticket.initialDate}</td>
-                                <td>${ticket.employeeUserAssign}</td>
-                                <td>${ticket.teamNameAssign}</td>
                               
                             </tr>
                           </c:forEach>
@@ -129,19 +123,15 @@
                                         <th>Titulo</th>
                                         <th>Estado</th>
                                         <th>Release</th>
-                                        <th>Encargado</th>
-                                        <th>Equipo</th>
                                       </tr>
                                     </thead>
                                     <tbody>
                                       <c:forEach items="${projectsReady}" var="proyecto">
-                                        <tr data-proyecto-id="${proyecto.idProject}" class="proyecto-row">
+                                        <tr data-proyecto-id="${proyecto.idProject}" class="proyecto-row task-hover">
                                             <td>${proyecto.nameProject}</td>
                                             <td>${proyecto.titleProject}</td>
                                             <td>${proyecto.statusProject}</td>
                                             <td>${proyecto.releaseName}</td>
-                                            <td>${proyecto.employeeUserAssign}</td>
-                                            <td>${proyecto.teamNameAssign}</td>
                                          
                                         </tr>
                                       </c:forEach>
@@ -168,20 +158,16 @@
                             <th>Prioridad</th>
                             <th>Estado</th>
                             <th>Fecha creación</th>
-                            <th>Encargado</th>
-                            <th>Equipo</th>
                           </tr>
                         </thead>
                         <tbody>
                           <c:forEach items="${ticketsReady}" var="ticket">
-                            <tr data-ticket-id="${ticket.idTicket}" class="ticket-row">
+                            <tr data-ticket-id="${ticket.idTicket}" class="ticket-row task-hover">
                                 <td>${ticket.nameTicket}</td>
                                 <td>${ticket.descriptionTicket}</td>
                                 <td>${ticket.priorityTicket}</td>
                                 <td>${ticket.statusTicket}</td>
                                 <td>${ticket.initialDate}</td>
-                                <td>${ticket.employeeUserAssign}</td>
-                                <td>${ticket.teamNameAssign}</td>
                             
                             </tr>
                           </c:forEach>
@@ -212,19 +198,15 @@
                               <th>Titulo</th>
                               <th>Estado</th>
                               <th>Release</th>
-                              <th>Encargado</th>
-                              <th>Equipo</th>
                             </tr>
                           </thead>
                           <tbody>
                             <c:forEach items="${projectsFinish}" var="proyecto">
-                              <tr data-proyecto-id="${proyecto.idProject}" class="proyecto-row">
+                              <tr data-proyecto-id="${proyecto.idProject}" class="proyecto-row task-hover">
                                   <td>${proyecto.nameProject}</td>
                                   <td>${proyecto.titleProject}</td>
                                   <td>${proyecto.statusProject}</td>
                                   <td>${proyecto.releaseName}</td>
-                                  <td>${proyecto.employeeUserAssign}</td>
-                                  <td>${proyecto.teamNameAssign}</td>
                                 
                               </tr>
                             </c:forEach>
@@ -258,21 +240,17 @@
                               <th>Prioridad</th>
                               <th>Estado</th>
                               <th>Fecha creación</th>
-                              <th>Encargado</th>
-                              <th>Equipo</th>
                             </tr>
                           </thead>
                           <tbody>
                             <c:forEach items="${ticketsFinish}" var="ticket">
-                              <tr data-ticket-id="${ticket.idTicket}" class="ticket-row">
+                              <tr data-ticket-id="${ticket.idTicket}" class="ticket-row task-hover">
                                 
                                   <td>${ticket.nameTicket}</td>
                                   <td>${ticket.descriptionTicket}</td>
                                   <td>${ticket.priorityTicket}</td>
                                   <td>${ticket.statusTicket}</td>
                                   <td>${ticket.initialDate}</td>
-                                  <td>${ticket.employeeUserAssign}</td>
-                                  <td>${ticket.teamNameAssign}</td>
                                 
                               </tr>
                             </c:forEach>
@@ -285,8 +263,8 @@
                 </div>
           
             </div>
-          
-
+          </div>
+          <div class="width30"> 
             <div class="columnas-derecha">
               
 
@@ -315,6 +293,8 @@
               </div>
 
             </div>
+          </div>
+
 
         </div>
       </section>

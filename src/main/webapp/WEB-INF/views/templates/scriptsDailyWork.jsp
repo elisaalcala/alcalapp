@@ -266,42 +266,30 @@
 
         document.querySelectorAll('.createProjectLink').forEach(link => {
             link.addEventListener('click', function(e) {
-                e.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
                 var releaseId = this.getAttribute('data-release-id');
-                var targetModal = this.getAttribute('data-target');
+                
+                // Guardar un marcador para abrir el modal después de la redirección
+                localStorage.setItem('openCreateProjectModal', 'true');
 
-                // Guardar el targetModal en el localStorage para usarlo después de la redirección
-                localStorage.setItem('openModal', targetModal);
-
-                // Redirigir a la página
-                window.location.href = `/releases/`+ releaseId;
+                // Redirigir a la página deseada
+                window.location.href = `/releases/` + releaseId;
             });
         });
 
+
+    
         document.querySelectorAll('.deleteProjectLink').forEach(link => {
             link.addEventListener('click', function(e) {
-                e.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
                 var releaseId = this.getAttribute('data-release-id');
-                var targetModal = this.getAttribute('data-target');
 
-                // Guardar el targetModal en el localStorage para usarlo después de la redirección
-                localStorage.setItem('openModal', targetModal);
+                // Guardar un marcador para abrir el modal después de la redirección
+                localStorage.setItem('openDeleteModalRelease', 'true');
 
                 // Redirigir a la página
                 window.location.href = `/releases/`+ releaseId;
             });
         });
         
-        // Verificar si hay un modal para abrir después de la redirección
-        var openModal = localStorage.getItem('openModal');
-        if (openModal) {
-            // Abrir el modal
-            var myModal = new bootstrap.Modal(document.querySelector(openModal));
-            myModal.show();
-
-            // Limpiar el localStorage
-            localStorage.removeItem('openModal');
-        }
 
     });
     
