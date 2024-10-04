@@ -55,6 +55,12 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectRepository.findByEmployeeAssignAndStatusProjectIn(employee,
 				Arrays.asList("Test", "Ready to UAT", "Ready to PRO"));
 	}
+	
+	@Override
+	public List<Project> findProjectsReadyByTeam(Team team) {
+		return projectRepository.findByTeamAssignAndStatusProjectIn(team,
+				Arrays.asList("Test", "Ready to UAT", "Ready to PRO"));
+	}
 
 	@Override
 	public List<Project> findByRelease(Release release) {
@@ -229,6 +235,12 @@ public class ProjectServiceImpl implements ProjectService {
 	    List<Double> averagesPerMonth = new ArrayList<>(monthAverageMap.values());
 	    ObjectMapper mapper = new ObjectMapper();
 	    return mapper.writeValueAsString(averagesPerMonth);
+	}
+
+	@Override
+	public List<Project> findprojectsCompletedByTeam(Team team) {
+			return projectRepository.findByTeamAssignAndStatusProjectIn(team, Arrays.asList("Finish", "Closed"));
+		
 	}
 
 

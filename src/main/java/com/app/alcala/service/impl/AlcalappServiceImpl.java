@@ -222,6 +222,33 @@ public class AlcalappServiceImpl implements AlcalappService {
 		return tableTeam;
 	}
 	
+	public String getEmployeesTeam(TableTeam tableTeam) throws JsonProcessingException{
+		List<String> employees = new ArrayList<>();
+		for(TablePerEmployee table: tableTeam.getListTablePerEmployee()) {
+			employees.add(table.getUserEmployee());
+		}
+		ObjectMapper mapper = new ObjectMapper();
+	    return mapper.writeValueAsString(employees);
+	}
+	
+	public String getEmployeesTicketsResolved(TableTeam tableTeam) throws JsonProcessingException {
+		List<Integer> tck = new ArrayList<>();
+		for(TablePerEmployee table: tableTeam.getListTablePerEmployee()) {
+			tck.add(table.getFinishTickets());
+		}
+		ObjectMapper mapper = new ObjectMapper();
+	    return mapper.writeValueAsString(tck);
+	}
+	
+	public String getemployeesProjectsResolved(TableTeam tableTeam) throws JsonProcessingException {
+		List<Integer> prj = new ArrayList<>();
+		for(TablePerEmployee table: tableTeam.getListTablePerEmployee()) {
+			prj.add(table.getFinishProjects());
+		}
+		ObjectMapper mapper = new ObjectMapper();
+	    return mapper.writeValueAsString(prj);
+	}
+	
 	@Override
 	public String getLastSixMonths() throws JsonProcessingException {
 	    List<String> months = new ArrayList<>();

@@ -308,7 +308,7 @@
                   <canvas id="myChartLineTck" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
                 </div>
                 
-                <div></div>
+                <div>
                   <canvas id="myChartLineTckCreation" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
                 </div>
 

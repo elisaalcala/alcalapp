@@ -20,6 +20,8 @@ public interface TicketService {
 	List<Ticket> findTicketsNotCompletedByEmployee(Employee employee);
 
 	List<Ticket> findticketsNotCompletedByTeam(Team team);
+	
+	List<Ticket> findticketsBlockedByTeam(Team team);
 
 	List<Ticket> findTicketsReadyByEmployee(Employee employee);
 
@@ -52,5 +54,11 @@ public interface TicketService {
 	String getByEmployeeCreationAndStatusClosedPerMonth(Employee employee) throws JsonProcessingException;
 	
 	String getByEmployeeCreationAndStatusResolvedPerMonth(Employee employee) throws JsonProcessingException;
+
+	List<Ticket> findticketsCompletedByTeam(Team team);
+
+	List<Ticket> findticketsCompletedByTeamPro(Team team);
+
+	List<Ticket> findTicketsReadyByTeam(Team team);
 
 }

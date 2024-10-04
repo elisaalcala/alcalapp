@@ -14,14 +14,15 @@ import com.app.alcala.repositories.ReleaseRepository;
 import com.app.alcala.service.ReleaseService;
 
 @Service
-public class ReleaseServiceImpl implements ReleaseService{
+public class ReleaseServiceImpl implements ReleaseService {
 	@Autowired
 	ReleaseRepository releaseRepository;
-	
+
 	@Override
 	public List<Release> findByReleaseNotCompleted() {
 		return releaseRepository.findByStatusReleaseNot("Completed");
 	}
+
 	@Override
 	public List<Release> findByReleasesOpen() {
 		return releaseRepository.findByStatusReleaseIn(Arrays.asList("Backlog", "In progress"));
@@ -30,12 +31,12 @@ public class ReleaseServiceImpl implements ReleaseService{
 	public Release save(Release savedRelease) {
 		return releaseRepository.save(savedRelease);
 	}
-	
+
 	@Override
 	public List<Release> findAll() {
 		return releaseRepository.findAll();
 	}
-	
+
 	@Override
 	public Release findByIdRelease(long id) {
 		return releaseRepository.findByIdRelease(id).orElseThrow();
@@ -45,18 +46,18 @@ public class ReleaseServiceImpl implements ReleaseService{
 	public Release findByNameRelease(String nameRelease) {
 		return releaseRepository.findByNameRelease(nameRelease).orElseThrow();
 	}
-	
+
 	@Override
 	public Release mapNewRelease(Release savedRelease, Employee employee) {
 		savedRelease.setEmployeeCreation(employee);
 		savedRelease.setEmployeeUserCreation(employee.getUserEmployee());
 		savedRelease.setStatusRelease("Start");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
-        String formattedDate = dateFormat.format(savedRelease.getProDate());
+		String formattedDate = dateFormat.format(savedRelease.getProDate());
 		savedRelease.setNameRelease("R" + formattedDate);
 		return save(savedRelease);
 	}
-	
+
 	@Override
 	public Release editRelease(long id, Release updatedRelease) {
 		Release release = findByIdRelease(id);
@@ -83,6 +84,7 @@ public class ReleaseServiceImpl implements ReleaseService{
 		}
 		return releaseRepository.save(release);
 	}
+
 	@Override
 	public Boolean delete(Release release) {
 		try {
@@ -92,7 +94,7 @@ public class ReleaseServiceImpl implements ReleaseService{
 			return false;
 		}
 	}
-	
-	
 
+	
+ 
 }

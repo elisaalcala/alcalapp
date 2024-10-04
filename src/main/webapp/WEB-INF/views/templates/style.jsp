@@ -269,22 +269,25 @@ div.dt-container div.dt-search input:focus {
     color: #00838f;
 }
 .color-projects{
-  color: #6100b1;
+  color: #6d319f;
 }
 .bg-projects{
-  background-color: #6100b1;
+  background-color: #6d319f;
 }
 .bg-incidences{
-  background-color: #dd3400;
+  background-color: #c24722;
 }
 .bg-charts{
-  background-color: #a243a5;
+  background-color: #bc57bf;
 }
 .bg-finish{
-  background-color: #69c52f;
+  background-color: #68b637;
+}
+.bg-blocked{
+  background-color: #e69635;
 }
 .color-incidences{
-  color: #dd3400;
+  color: #c24722;
 }
 .padding-0{
   padding: 0%;
@@ -585,6 +588,32 @@ ul.weeks, ul.days{
 
 .width100{
   width: 100%;
+}
+
+.width50{
+  width: 50%;
+}
+
+.width60{
+  width: 60%;
+}
+
+.width40{
+  width: 40%;
+}
+.flex-start{
+  align-items:flex-start;
+}
+.table-card{
+  --bs-card-border-color: white;
+}
+
+.carga-style{
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    align-content: stretch;
 }
 
 </style>

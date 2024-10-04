@@ -6,6 +6,7 @@ import com.app.alcala.entities.Employee;
 import com.app.alcala.entities.Project;
 import com.app.alcala.entities.Release;
 import com.app.alcala.entities.Team;
+import com.app.alcala.entities.Ticket;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface ProjectService {
@@ -41,6 +42,10 @@ public interface ProjectService {
 	String getProjectResolvedPerMonth(List<Project> projectsFinish) throws JsonProcessingException;
 
 	String getHoursProjectResolvedPerMonth(List<Project> projectsFinish) throws JsonProcessingException;
+
+	List<Project> findprojectsCompletedByTeam(Team team);
+
+	List<Project> findProjectsReadyByTeam(Team team);
 	
 
 }
