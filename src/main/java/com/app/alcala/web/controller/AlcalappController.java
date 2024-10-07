@@ -1,5 +1,6 @@
 package com.app.alcala.web.controller;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,13 +85,12 @@ public class AlcalappController {
 	}
 
 	@GetMapping("/dailywork")
-	public String dailyWorkPage(Model model, HttpServletRequest request) {
+	public String dailyWorkPage(Model model, HttpServletRequest request) throws JsonProcessingException {
 
 		String name = request.getUserPrincipal().getName();
 		Employee employee = employeeService.findByUserEmployee(name);
 		Team team = teamService.findByNameTeam(employee.getNameTeam());
 		List<Team> createTicketTeamsList = teamService.findTeamsToSendTicket(team);
-
 		List<Release> releasesOpen = releaseService.findByReleasesOpen();
 
 		HttpSession session = request.getSession();
@@ -101,20 +101,44 @@ public class AlcalappController {
 
 		List<ProjectTable> projectsTables = alcalappService.findProjectsPerRelease(team);
 		List<Ticket> ticketsNotCompleted = ticketService.findticketsNotCompletedByTeam(team);
+		List<Ticket> ticketsBlocked = ticketService.findticketsBlockedByTeam(team);
+		List<Ticket> ticketsCompletedByTeam = ticketService.findticketsCompletedByTeam(team);
+		List<Ticket> ticketsCompletedByTeamPro = ticketService.findticketsCompletedByTeamPro(team);
+		List<Project> projectsCompletedByTeam = projectService.findprojectsCompletedByTeam(team);
+
+		List<Ticket> ticketsReadyToDeploy = ticketService.findTicketsReadyByTeam(team);
+		List<Project> projectsReadyToDeploy = projectService.findProjectsReadyByTeam(team);
+		
 		WorkLoad workLoad = alcalappService.calculateWorkLoad(team);
 		List<String> userPerEmployee = alcalappService.userPerEmployee(workLoad);
 		List<String> loadPerEmployee = alcalappService.loadPerEmployee(workLoad);
 		TableTeam tableTeam = alcalappService.calculateTableTeam(team);
-
+		String employeesTeam = alcalappService.getEmployeesTeam(tableTeam);
+		String employeesTicketsResolved = alcalappService.getEmployeesTicketsResolved(tableTeam);
+		String employeesProjectsResolved = alcalappService.getemployeesProjectsResolved(tableTeam);
+		String ticketsCompletedByTeamJson = ticketService.getMinTickedResolvedPerMonth(ticketsCompletedByTeam);
+		String ticketsCompletedByTeamJsonPro = ticketService.getMinTickedResolvedPerMonth(ticketsCompletedByTeamPro);
+		String projectsCompletedByTeamJson = projectService.getHoursProjectResolvedPerMonth(projectsCompletedByTeam);
+		String monthsJson = alcalappService.getLastSixMonths();
+		
 		model.addAttribute("createTicketTeamsList", createTicketTeamsList);
 		model.addAttribute("employee", employee);
 		model.addAttribute("team", team);
 		model.addAttribute("projectsTables", projectsTables);
 		model.addAttribute("ticketsNotCompleted", ticketsNotCompleted);
+		model.addAttribute("ticketsBlocked", ticketsBlocked);
+		model.addAttribute("ticketsReadyToDeploy", ticketsReadyToDeploy);
+		model.addAttribute("projectsReadyToDeploy", projectsReadyToDeploy);
 		model.addAttribute("workLoad", workLoad);
 		model.addAttribute("userPerEmployee", userPerEmployee);
 		model.addAttribute("loadPerEmployee", loadPerEmployee);
-		model.addAttribute("tableTeam", tableTeam.getListTablePerEmployee());
+		model.addAttribute("employeesTeam", employeesTeam);
+		model.addAttribute("employeesTicketsResolved", employeesTicketsResolved);
+		model.addAttribute("employeesProjectsResolved", employeesProjectsResolved);
+		model.addAttribute("ticketsCompletedByTeamJson", ticketsCompletedByTeamJson);
+		model.addAttribute("ticketsCompletedByTeamJsonPro", ticketsCompletedByTeamJsonPro);
+		model.addAttribute("projectsCompletedByTeamJson", projectsCompletedByTeamJson);
+		model.addAttribute("monthsJson", monthsJson);
 		model.addAttribute("page", "TRABAJO DIARIO");
 
 		return "dailywork";
@@ -138,7 +162,7 @@ public class AlcalappController {
 		String prjDataJson = projectService.getProjectResolvedPerMonth(projectsFinish);
 		
 		String tckDataLineJson = ticketService.getMinTickedResolvedPerMonth(ticketsFinish);
-		String prjDataLineJson = projectService.getHoursProjectResolvedPerMonth(projectsFinish);;
+		String prjDataLineJson = projectService.getHoursProjectResolvedPerMonth(projectsFinish);
 
 		String tckDataCreationClosedJson = ticketService.getByEmployeeCreationAndStatusClosedPerMonth(employee);
 		String tckDataCreationResolvedJson = ticketService.getByEmployeeCreationAndStatusResolvedPerMonth(employee);

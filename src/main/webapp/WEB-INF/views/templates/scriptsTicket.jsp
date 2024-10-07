@@ -133,6 +133,19 @@
         });
 
 
+        // Verificar si debemos hacer clic en el botón "Eliminar"
+        if (localStorage.getItem('openAssignMeTicketModal') === 'true') {
+            // Eliminar la bandera del localStorage para evitar clics adicionales en futuras visitas
+            localStorage.removeItem('openAssignMeTicketModal');
+            
+            // Simular el clic en el botón con id `deleteButton`
+            var assignToMeLink = document.getElementById('assignToMeLink');
+            if (assignToMeLink) {
+                assignToMeLink.click();
+            }
+        }
+
+
     });
  
     //Cambiar estado ticket

@@ -25,5 +25,10 @@ public interface TicketRepository extends JpaRepository<Ticket, Long>{
 	List<Ticket> findByEmployeeCreation(Employee employee);
 	
 	List<Ticket> findByEmployeeCreationAndStatusTicketIn(Employee employee, List<String> statusList);
+
+	List<Ticket> findByTeamAssignAndStatusTicketInAndEnvironmentTicket(Team team, List<String> asList, String string);
+
+	List<Ticket> findByTeamAssignAndStatusTicketInAndEnvironmentTicketNot(Team team, List<String> asList,
+			String string);
 	
 }	

@@ -211,15 +211,38 @@ public class AlcalappServiceImpl implements AlcalappService {
 			table.setUserEmployee(employee.getUserEmployee());
 			table.setIdEmployee(employee.getEmployeeId());
 			table.setFinishTickets(ticketService.findCountTicketsFinishByEmployee(employee));
-			table.setNotCompletedTickets(ticketService.findCountTicketsNotCompletedByEmployee(employee));
-			table.setReadyTickets(ticketService.findCountTicketsReadyByEmployee(employee));
 			table.setFinishProjects(projectService.findCountProjectsFinishByEmployee(employee));
-			table.setNotCompletedProjects(projectService.findCountProjectsNotCompletedByEmployee(employee));
-			table.setReadyProjects(projectService.findCountProjectsReadyByEmployee(employee));
 			tablePerEmployee.add(table);
 		}
 		tableTeam.setListTablePerEmployee(tablePerEmployee);
 		return tableTeam;
+	}
+	
+	public String getEmployeesTeam(TableTeam tableTeam) throws JsonProcessingException{
+		List<String> employees = new ArrayList<>();
+		for(TablePerEmployee table: tableTeam.getListTablePerEmployee()) {
+			employees.add(table.getUserEmployee());
+		}
+		ObjectMapper mapper = new ObjectMapper();
+	    return mapper.writeValueAsString(employees);
+	}
+	
+	public String getEmployeesTicketsResolved(TableTeam tableTeam) throws JsonProcessingException {
+		List<Integer> tck = new ArrayList<>();
+		for(TablePerEmployee table: tableTeam.getListTablePerEmployee()) {
+			tck.add(table.getFinishTickets());
+		}
+		ObjectMapper mapper = new ObjectMapper();
+	    return mapper.writeValueAsString(tck);
+	}
+	
+	public String getemployeesProjectsResolved(TableTeam tableTeam) throws JsonProcessingException {
+		List<Integer> prj = new ArrayList<>();
+		for(TablePerEmployee table: tableTeam.getListTablePerEmployee()) {
+			prj.add(table.getFinishProjects());
+		}
+		ObjectMapper mapper = new ObjectMapper();
+	    return mapper.writeValueAsString(prj);
 	}
 	
 	@Override

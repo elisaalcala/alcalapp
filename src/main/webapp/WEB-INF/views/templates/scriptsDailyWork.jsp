@@ -135,48 +135,184 @@
                 }]
             }
         });
+
+        const teamChartLineTck = document.getElementById('teamChartLineTck');
+        const teamChartLinePrj = document.getElementById('teamChartLinePrj');
+        const teamChartBar = document.getElementById('teamChartBar');
+
+        // Obtener los valores del modelo pasados por el controlador
+        const employeesTeam = JSON.parse(`${employeesTeam}`);
+        const employeesTicketsResolved = JSON.parse(`${employeesTicketsResolved}`);
+        const employeesProjectsResolved = JSON.parse(`${employeesProjectsResolved}`);
+        
+        const monthsJson = JSON.parse(`${monthsJson}`);
+        const projectsCompletedByTeamJson = JSON.parse(`${projectsCompletedByTeamJson}`);
+        const ticketsCompletedByTeamJson = JSON.parse(`${ticketsCompletedByTeamJson}`);
+        const ticketsCompletedByTeamJsonPro = JSON.parse(`${ticketsCompletedByTeamJsonPro}`);
+
+        // Definir colores directamente en el script
+        const tckBorderColor = 'rgb(255, 99, 132)';
+        const prjBorderColor = 'rgb(54, 162, 235)';
+        const tckBackgroundColor = 'rgba(255, 99, 132, 0.5)';
+        const prjBackgroundColor = 'rgba(54, 162, 235, 0.5)';
+
+
+
+
+        const ranking = {
+        labels: employeesTeam,
+        datasets: [
+            {
+            label: 'TCK',
+            data: employeesTicketsResolved,
+            borderColor: tckBorderColor,
+            backgroundColor: tckBackgroundColor,
+            },
+            {
+            label: 'PRJ',
+            data: employeesProjectsResolved,
+            borderColor: prjBorderColor,
+            backgroundColor: prjBackgroundColor,
+            }
+        ]
+        };
+
+        new Chart(teamChartBar, {
+        type: 'bar',
+        data: ranking,
+        options: {
+            responsive: true,
+            plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Ranking de tareas finalizadas'
+            }
+            }
+        }
+        });
+
+        const dataLinePrj = {
+        labels: monthsJson,
+        datasets: [
+            {
+            label: 'PRJ',
+            data: projectsCompletedByTeamJson,
+            borderColor: prjBorderColor,
+            backgroundColor: prjBackgroundColor,
+            }
+        ]
+        };
+
+        const dataLineTck = {
+        labels: monthsJson,
+        datasets: [
+            {
+            label: 'No PRO',
+            data: ticketsCompletedByTeamJson,
+            borderColor: prjBorderColor,
+            backgroundColor: prjBackgroundColor,
+            },
+            {
+            label: 'PRO',
+            data: ticketsCompletedByTeamJsonPro,
+            borderColor: tckBorderColor,
+            backgroundColor: tckBackgroundColor,
+            }
+        ]
+        };
+
+        new Chart(teamChartLinePrj, {
+        type: 'line',
+        data: dataLinePrj,
+        options: {
+            responsive: true,
+            plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Media de días en finalizar los PRJ'
+            }
+            }
+        }
+        });
+
+        new Chart(teamChartLineTck, {
+        type: 'line',
+        data: dataLineTck,
+        options: {
+            responsive: true,
+            plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Media de minutos en finalizar los TCK'
+            }
+            }
+        }
+        });
+
+
     });
 
     //Dropdown Dailywork
     document.addEventListener('DOMContentLoaded', (event) => {
+
         document.querySelectorAll('.createProjectLink').forEach(link => {
             link.addEventListener('click', function(e) {
-                e.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
                 var releaseId = this.getAttribute('data-release-id');
-                var targetModal = this.getAttribute('data-target');
+                
+                // Guardar un marcador para abrir el modal después de la redirección
+                localStorage.setItem('openCreateProjectModal', 'true');
 
-                // Guardar el targetModal en el localStorage para usarlo después de la redirección
-                localStorage.setItem('openModal', targetModal);
+                // Redirigir a la página deseada
+                window.location.href = `/releases/` + releaseId;
+            });
+        });
+
+
+    
+        document.querySelectorAll('.deleteProjectLink').forEach(link => {
+            link.addEventListener('click', function(e) {
+                var releaseId = this.getAttribute('data-release-id');
+
+                // Guardar un marcador para abrir el modal después de la redirección
+                localStorage.setItem('openDeleteModalRelease', 'true');
 
                 // Redirigir a la página
                 window.location.href = `/releases/`+ releaseId;
             });
         });
 
-        document.querySelectorAll('.deleteProjectLink').forEach(link => {
+
+        document.querySelectorAll('.assignMeProjectLink').forEach(link => {
             link.addEventListener('click', function(e) {
-                e.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
+                // Guardar un marcador para abrir el modal después de la redirección
                 var releaseId = this.getAttribute('data-release-id');
-                var targetModal = this.getAttribute('data-target');
 
-                // Guardar el targetModal en el localStorage para usarlo después de la redirección
-                localStorage.setItem('openModal', targetModal);
+                localStorage.setItem('openAssignMeProjectModal', 'true');
 
-                // Redirigir a la página
                 window.location.href = `/releases/`+ releaseId;
+
+
+            });
+        });
+
+        document.querySelectorAll('.assignMeTicketLink').forEach(link => {
+            link.addEventListener('click', function(e) {
+
+                localStorage.setItem('openAssignMeTicketModal', 'true');
+
             });
         });
         
-        // Verificar si hay un modal para abrir después de la redirección
-        var openModal = localStorage.getItem('openModal');
-        if (openModal) {
-            // Abrir el modal
-            var myModal = new bootstrap.Modal(document.querySelector(openModal));
-            myModal.show();
 
-            // Limpiar el localStorage
-            localStorage.removeItem('openModal');
-        }
     });
     
     // Función para controlar los paneles de colapso del la barra lateral
@@ -201,3 +337,45 @@
     });
 
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+         // Array de IDs de los elementos a controlar
+         const cardBodyIds = [
+          { toggleLinkId: 'toggleBodyTckBlocked', cardBodyId: 'cardBodyTckBlocked', iconId: 'toggleIconTckBlocked' },
+          { toggleLinkId: 'toggleBodyTckToDo', cardBodyId: 'cardBodyTckToDo', iconId: 'toggleIconTckToDo' },
+          { toggleLinkId: 'toggleBodyCarga', cardBodyId: 'cardBodyCarga', iconId: 'toggleIconCarga' },
+          { toggleLinkId: 'toggleBodyBar', cardBodyId: 'cardBodyBar', iconId: 'toggleIconBar' },
+          { toggleLinkId: 'toggleBodyPrjToDeploy', cardBodyId: 'cardBodyPrjToDeploy', iconId: 'toggleIconPrjToDeploy' },
+          { toggleLinkId: 'toggleBodyTckToDeploy', cardBodyId: 'cardBodyTckToDeploy', iconId: 'toggleIconTckToDeploy' }
+        ];
+      
+        // Añadir el evento de clic para cada tarjeta
+        cardBodyIds.forEach(item => {
+          const toggleLink = document.getElementById(item.toggleLinkId);
+          const cardBody = document.getElementById(item.cardBodyId);
+          const toggleIcon = document.getElementById(item.iconId);
+      
+          // Si el enlace de toggle y el body existen, añadir el evento
+          if (toggleLink && cardBody && toggleIcon) {
+            toggleLink.addEventListener('click', function (event) {
+              event.preventDefault();
+              cardBody.classList.toggle('d-none');
+      
+              // Cambiar la dirección de la flecha según la visibilidad del cardBody
+              if (cardBody.classList.contains('d-none')) {
+                toggleIcon.classList.remove('fa-chevron-up');
+                toggleIcon.classList.add('fa-chevron-down');
+              } else {
+                toggleIcon.classList.remove('fa-chevron-down');
+                toggleIcon.classList.add('fa-chevron-up');
+              }
+            });
+          }
+        });
+
+    });
+  </script>

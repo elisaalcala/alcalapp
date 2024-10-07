@@ -2,6 +2,34 @@
 <script>
     //Calendar
     document.addEventListener('DOMContentLoaded', function () {
+
+        
+        // Verificar si debemos hacer clic en el botón "Añadir Proyecto"
+        if (localStorage.getItem('openCreateProjectModal') === 'true') {
+            // Eliminar la bandera del localStorage para evitar clics adicionales en futuras visitas
+            localStorage.removeItem('openCreateProjectModal');
+            
+            // Simular el clic en el botón con id `createProjectButton`
+            var createButton = document.getElementById('createProjectButton');
+            if (createButton) {
+                createButton.click();
+            }
+        }
+
+        // Verificar si debemos hacer clic en el botón "Eliminar"
+        if (localStorage.getItem('openDeleteModalRelease') === 'true') {
+            // Eliminar la bandera del localStorage para evitar clics adicionales en futuras visitas
+            localStorage.removeItem('openDeleteModalRelease');
+            
+            // Simular el clic en el botón con id `deleteButton`
+            var deleteButton = document.getElementById('deleteButton');
+            if (deleteButton) {
+                deleteButton.click();
+            }
+        }
+
+
+
         const daysTag = document.querySelector(".days"),
         currentDate = document.querySelector(".current-date"),
         prevNextIcon = document.querySelectorAll(".icons span");

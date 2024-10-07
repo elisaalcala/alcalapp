@@ -104,7 +104,12 @@ public class TicketServiceImpl implements TicketService {
 
 	public List<Ticket> findticketsNotCompletedByTeam(Team team) {
 		return ticketRepository.findByTeamAssignAndStatusTicketIn(team,
-				Arrays.asList("Backlog", "In progress", "Blocked"));
+				Arrays.asList("Backlog", "In progress"));
+	}
+	
+	public List<Ticket> findticketsBlockedByTeam(Team team) {
+		return ticketRepository.findByTeamAssignAndStatusTicketIn(team,
+				Arrays.asList("Blocked"));
 	}
 
 	@Override
@@ -122,6 +127,12 @@ public class TicketServiceImpl implements TicketService {
 	@Override
 	public List<Ticket> findTicketsReadyByEmployee(Employee employee) {
 		return ticketRepository.findByEmployeeAssignAndStatusTicketIn(employee,
+				Arrays.asList("Test", "Ready to UAT", "Ready to PRO"));
+	}
+	
+	@Override
+	public List<Ticket> findTicketsReadyByTeam(Team team) {
+		return ticketRepository.findByTeamAssignAndStatusTicketIn(team,
 				Arrays.asList("Test", "Ready to UAT", "Ready to PRO"));
 	}
 	
@@ -310,6 +321,20 @@ public class TicketServiceImpl implements TicketService {
 	public String getByEmployeeCreationAndStatusResolvedPerMonth(Employee employee) throws JsonProcessingException{
 		return getTickedByEmployeeCreationPerMonth(ticketRepository.findByEmployeeCreationAndStatusTicketIn(employee,
 				Arrays.asList("Resolved")));
+	}
+
+	@Override
+	public List<Ticket> findticketsCompletedByTeam(Team team) {
+		return ticketRepository.findByTeamAssignAndStatusTicketInAndEnvironmentTicketNot(team,
+					Arrays.asList("Closed", "Resolved"), "PRO");
+		
+	}
+	
+	@Override
+	public List<Ticket> findticketsCompletedByTeamPro(Team team) {
+		return ticketRepository.findByTeamAssignAndStatusTicketInAndEnvironmentTicket(team,
+					Arrays.asList("Closed", "Resolved"), "PRO");
+		
 	}
 
 }

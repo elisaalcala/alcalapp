@@ -40,6 +40,13 @@ public interface AlcalappService {
 	TableTeam calculateTableTeam(Team team);
 
 	String getLastSixMonths() throws JsonProcessingException;
+	
+	String getEmployeesTeam(TableTeam tableTeam) throws JsonProcessingException;
+	
+	String getEmployeesTicketsResolved(TableTeam tableTeam) throws JsonProcessingException;
+
+	String getemployeesProjectsResolved(TableTeam tableTeam)throws JsonProcessingException;
+
 
 
 }

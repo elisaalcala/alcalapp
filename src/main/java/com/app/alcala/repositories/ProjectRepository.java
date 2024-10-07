@@ -29,4 +29,6 @@ public interface ProjectRepository extends JpaRepository<Project, Long>{
 	long countByEmployeeAssignAndStatusProjectNot(Employee employee, String excludedStatus);
 
 	long countByEmployeeAssignAndStatusProjectIn(Employee employee, List<String> statusList);
+
+	List<Project> findByTeamAssignAndStatusProjectIn(Team team, List<String> asList);
 }

@@ -333,6 +333,19 @@
             });
         });
 
+
+        // Verificar si debemos hacer clic en el botón "Eliminar"
+        if (localStorage.getItem('openAssignMeProjectModal') === 'true') {
+            // Eliminar la bandera del localStorage para evitar clics adicionales en futuras visitas
+            localStorage.removeItem('openAssignMeProjectModal');
+            
+            // Simular el clic en el botón con id `deleteButton`
+            var assignToMeLinkProject = document.getElementById('assignToMeLinkProject');
+            if (assignToMeLinkProject) {
+                assignToMeLinkProject.click();
+            }
+        }
+
     });
 
 </script>
