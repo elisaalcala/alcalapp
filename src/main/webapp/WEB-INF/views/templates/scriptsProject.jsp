@@ -81,7 +81,7 @@
         });
         // Script para el botón "Asignarme a mí"
         document.getElementById('assignToMeButtonProject').addEventListener('click', function() {
-        debugger
+        
             var selectedTeam = `${project.teamNameAssign}`;
             var employeeTeam = `${employee.nameTeam}`; 
             var selectElement = document.querySelector('.assignedEmployee');
@@ -146,7 +146,7 @@
             var cloneProjectReleaseName = document.getElementById('cloneProjectReleaseName').value;
             var cloneProjectEnvironment = document.getElementById('cloneProjectEnvironment').value;
             var cloneProjectTeamNameAssign = document.getElementById('cloneProjectTeamNameAssign').value;
-            debugger
+            
             // Crear un objeto con los datos actualizados del ticket
             var cloneProject = {
                 titleProject: cloneProjectTitle,
@@ -332,6 +332,19 @@
                 console.error('Error:', error);
             });
         });
+
+
+        // Verificar si debemos hacer clic en el botón "Eliminar"
+        if (localStorage.getItem('openAssignMeProjectModal') === 'true') {
+            // Eliminar la bandera del localStorage para evitar clics adicionales en futuras visitas
+            localStorage.removeItem('openAssignMeProjectModal');
+            
+            // Simular el clic en el botón con id `deleteButton`
+            var assignToMeLinkProject = document.getElementById('assignToMeLinkProject');
+            if (assignToMeLinkProject) {
+                assignToMeLinkProject.click();
+            }
+        }
 
     });
 

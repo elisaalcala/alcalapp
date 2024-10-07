@@ -11,6 +11,7 @@ import com.app.alcala.entities.Project;
 import com.app.alcala.entities.Ticket;
 import com.app.alcala.repositories.EmployeeRepository;
 import com.app.alcala.service.EmployeeService;
+import com.app.alcala.web.model.TablePerEmployee;
 import com.app.alcala.web.model.WorkPerEmployee;
 
 @Service
@@ -80,5 +81,6 @@ public class EmployeeServiceImpl implements EmployeeService{
 		employeeRepository.delete(employeeDelete);
 		
 	}
+
 
 }

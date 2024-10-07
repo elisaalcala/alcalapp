@@ -1,9 +1,16 @@
 package com.app.alcala.service.impl;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.TextStyle;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +21,8 @@ import com.app.alcala.entities.Release;
 import com.app.alcala.entities.Team;
 import com.app.alcala.repositories.ProjectRepository;
 import com.app.alcala.service.ProjectService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mysql.cj.util.StringUtils;
 
 @Service
@@ -48,11 +57,17 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 	
 	@Override
+	public List<Project> findProjectsReadyByTeam(Team team) {
+		return projectRepository.findByTeamAssignAndStatusProjectIn(team,
+				Arrays.asList("Test", "Ready to UAT", "Ready to PRO"));
+	}
+
+	@Override
 	public List<Project> findByRelease(Release release) {
-		
+
 		return projectRepository.findByRelease(release);
 	}
-	
+
 	@Override
 	public Project save(Project project) {
 		return projectRepository.save(project);
@@ -108,10 +123,10 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	private boolean isCloseOrFinish(Project project) {
-		return project.getStatusProject().equalsIgnoreCase("Closed");
+		return project.getStatusProject().equalsIgnoreCase("Closed")
+				|| project.getStatusProject().equalsIgnoreCase("Finish");
 	}
 
-	
 	public Project mapNewProject(Project updatedProject, Employee employee, Team teamAssign, Release release) {
 		updatedProject.setEmployeeCreation(employee);
 		updatedProject.setEmployeeUserCreation(employee.getUserEmployee());
@@ -128,11 +143,105 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public List<Project> findProjectsFinishByEmployee(Employee employee) {
-		return projectRepository.findByEmployeeAssignAndStatusProjectIn(employee,
-				Arrays.asList("Finish"));
+		return projectRepository.findByEmployeeAssignAndStatusProjectIn(employee, Arrays.asList("Finish", "Closed"));
 	}
-	
 
+	@Override
+	public Integer findCountProjectsReadyByEmployee(Employee employee) {
+		Integer projectCount = (int) projectRepository.countByEmployeeAssignAndStatusProjectIn(employee,
+				Arrays.asList("Test", "Ready to UAT", "Ready to PRO"));
+		return projectCount;
+	}
+
+	@Override
+	public Integer findCountProjectsNotCompletedByEmployee(Employee employee) {
+		Integer projectCount = (int) projectRepository.countByEmployeeAssignAndStatusProjectIn(employee,
+				Arrays.asList("Backlog", "In progress", "Blocked"));
+		return projectCount;
+	}
+
+	@Override
+	public Integer findCountProjectsFinishByEmployee(Employee employee) {
+		Integer projectCount = (int) projectRepository.countByEmployeeAssignAndStatusProjectIn(employee,
+				Arrays.asList("Closed", "Finish"));
+		return projectCount;
+	}
+
+	@Override
+	public String getProjectResolvedPerMonth(List<Project> projectsFinish) throws JsonProcessingException {
+
+		Map<String, Integer> monthTicketCountMap = new LinkedHashMap<>();
+		LocalDate now = LocalDate.now();
+
+		for (int i = 5; i >= 0; i--) {
+			String monthName = now.minusMonths(i).getMonth().getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+			monthTicketCountMap.put(monthName, 0);
+		}
+
+		for (Project ticket : projectsFinish) {
+			if (ticket.getFinishDate() != null) {
+				LocalDate finishDate = ticket.getFinishDate().toLocalDateTime().toLocalDate();
+
+				if (!finishDate.isBefore(now.minusMonths(5).withDayOfMonth(1))
+						&& !finishDate.isAfter(now.withDayOfMonth(now.lengthOfMonth()))) {
+					String monthName = finishDate.getMonth().getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+
+					monthTicketCountMap.put(monthName, monthTicketCountMap.get(monthName) + 1);
+				}
+			}
+		}
+		List<Integer> ticketsPerMonth = new ArrayList<>(monthTicketCountMap.values());
+
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.writeValueAsString(ticketsPerMonth);
+	}
+
+	@Override
+	public String getHoursProjectResolvedPerMonth(List<Project> projectsFinish) throws JsonProcessingException {
+	    Map<String, List<Long>> monthDurationMap = new LinkedHashMap<>();
+	    LocalDate now = LocalDate.now();
+
+	    for (int i = 5; i >= 0; i--) {
+	        String monthName = now.minusMonths(i).getMonth().getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+	        monthDurationMap.put(monthName, new ArrayList<>());
+	    }
+
+	    for (Project project : projectsFinish) {
+	        if (project.getFinishDate() != null && project.getInitialDate() != null) {
+	            LocalDate finishDate = project.getFinishDate().toLocalDateTime().toLocalDate();
+	            LocalDate initialDate = project.getInitialDate().toLocalDateTime().toLocalDate();
+
+	            if (!finishDate.isBefore(now.minusMonths(5).withDayOfMonth(1)) &&
+	                !finishDate.isAfter(now.withDayOfMonth(now.lengthOfMonth()))) {
+
+	                long daysSpent = ChronoUnit.DAYS.between(initialDate, finishDate);
+	                String monthName = finishDate.getMonth().getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+	                monthDurationMap.get(monthName).add(daysSpent);
+	            }
+	        }
+	    }
+
+	    Map<String, Double> monthAverageMap = new LinkedHashMap<>();
+	    for (Map.Entry<String, List<Long>> entry : monthDurationMap.entrySet()) {
+	        List<Long> durations = entry.getValue();
+	        if (!durations.isEmpty()) {
+	            double averageDays = durations.stream().mapToLong(Long::longValue).average().orElse(0.0);
+	            monthAverageMap.put(entry.getKey(), averageDays);
+	        } else {
+	            monthAverageMap.put(entry.getKey(), 0.0);
+	        }
+	    }
+
+	    List<Double> averagesPerMonth = new ArrayList<>(monthAverageMap.values());
+	    ObjectMapper mapper = new ObjectMapper();
+	    return mapper.writeValueAsString(averagesPerMonth);
+	}
+
+	@Override
+	public List<Project> findprojectsCompletedByTeam(Team team) {
+			return projectRepository.findByTeamAssignAndStatusProjectIn(team, Arrays.asList("Finish", "Closed"));
+		
+	}
 
 
 }

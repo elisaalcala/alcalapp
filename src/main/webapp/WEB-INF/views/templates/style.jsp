@@ -269,25 +269,32 @@ div.dt-container div.dt-search input:focus {
     color: #00838f;
 }
 .color-projects{
-  color: #6100b1;
+  color: #6d319f;
 }
 .bg-projects{
-  background-color: #6100b1;
+  background-color: #6d319f;
 }
 .bg-incidences{
-  background-color: #dd3400;
+  background-color: #c24722;
 }
 .bg-charts{
-  background-color: #a243a5;
+  background-color: #bc57bf;
 }
 .bg-finish{
-  background-color: #69c52f;
+  background-color: #68b637;
+}
+.bg-blocked{
+  background-color: #e69635;
 }
 .color-incidences{
-  color: #dd3400;
+  color: #c24722;
 }
 .padding-0{
   padding: 0%;
+}
+
+table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date, table.dataTable td.dt-type-numeric, table.dataTable td.dt-type-date {
+    text-align: center;
 }
  /*Pagina Ticket*/
  .ticket-detail-heading{
@@ -337,7 +344,7 @@ div.dt-container div.dt-search input:focus {
   color: white;
   display: flex;
   align-items: center;
-  padding: 20px 30px 20px;
+  padding: 10px 20px 10px;
   justify-content: space-between;
 }
 header .icons{
@@ -367,7 +374,7 @@ header .current-date{
   font-weight: 500;
 }
 .calendar{
-  padding: 20px;
+  padding: 15px;
 }
 .calendar ul{
   display: flex;
@@ -389,6 +396,9 @@ header .current-date{
 }
 ul.weeks, .margin-bottom-0 {
     margin-bottom: 0px;
+}
+ul.weeks, ul.days{
+    padding-left: 0px;
 }
 .calendar .days li{
   z-index: 1;
@@ -567,4 +577,68 @@ ul.weeks, .margin-bottom-0 {
 .m-50{
   margin-left: 50px;
 }
+
+.width70{
+  width: 70%;
+}
+
+.width30{
+  width: 30%;
+}
+
+.width100{
+  width: 100%;
+}
+
+.width50{
+  width: 50%;
+}
+
+.width60{
+  width: 60%;
+}
+
+.width40{
+  width: 40%;
+}
+.flex-start{
+  align-items:flex-start;
+}
+.table-card{
+  --bs-card-border-color: white;
+}
+
+.carga-style{
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    align-content: stretch;
+}
+
+/* Estilo para las filas de la tabla */
+.task-hover {
+  transition: background-color 0.3s ease;
+}
+
+.task-hover:hover {
+  background-color: #f2f2f2; 
+  cursor: pointer; 
+}
+
+@media (max-width: 1200px) {
+  .columnas {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .width70, .width30 {
+    width: 100%;
+  }
+
+  .columnas-derecha, .columnas-izquierda {
+    margin: 0;
+  }
+}
+
 </style>

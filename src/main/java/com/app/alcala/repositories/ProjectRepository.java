@@ -24,4 +24,11 @@ public interface ProjectRepository extends JpaRepository<Project, Long>{
 
 	List<Project> findByRelease(Release release);
 
-	Optional<Project> findByIdProject(long id);}
+	Optional<Project> findByIdProject(long id);
+	
+	long countByEmployeeAssignAndStatusProjectNot(Employee employee, String excludedStatus);
+
+	long countByEmployeeAssignAndStatusProjectIn(Employee employee, List<String> statusList);
+
+	List<Project> findByTeamAssignAndStatusProjectIn(Team team, List<String> asList);
+}

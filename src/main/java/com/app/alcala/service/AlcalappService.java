@@ -7,7 +7,9 @@ import com.app.alcala.entities.Project;
 import com.app.alcala.entities.Team;
 import com.app.alcala.entities.Ticket;
 import com.app.alcala.web.model.ProjectTable;
+import com.app.alcala.web.model.TableTeam;
 import com.app.alcala.web.model.WorkLoad;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface AlcalappService {
 
@@ -34,6 +36,17 @@ public interface AlcalappService {
 	List<String> userPerEmployee(WorkLoad workLoad);
 
 	List<String> loadPerEmployee(WorkLoad workLoad);
+
+	TableTeam calculateTableTeam(Team team);
+
+	String getLastSixMonths() throws JsonProcessingException;
+	
+	String getEmployeesTeam(TableTeam tableTeam) throws JsonProcessingException;
+	
+	String getEmployeesTicketsResolved(TableTeam tableTeam) throws JsonProcessingException;
+
+	String getemployeesProjectsResolved(TableTeam tableTeam)throws JsonProcessingException;
+
 
 
 }

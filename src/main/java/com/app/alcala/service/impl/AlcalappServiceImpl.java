@@ -1,9 +1,12 @@
 package com.app.alcala.service.impl;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +26,12 @@ import com.app.alcala.service.ReleaseService;
 import com.app.alcala.service.TeamService;
 import com.app.alcala.service.TicketService;
 import com.app.alcala.web.model.ProjectTable;
+import com.app.alcala.web.model.TablePerEmployee;
+import com.app.alcala.web.model.TableTeam;
 import com.app.alcala.web.model.WorkLoad;
 import com.app.alcala.web.model.WorkPerEmployee;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.micrometer.common.util.StringUtils;
 
@@ -194,5 +201,65 @@ public class AlcalappServiceImpl implements AlcalappService {
 			list.add('"'+ perEmplpoyee.getUserEmployee()+'"');
 		return list;
 	}
+
+	@Override
+	public TableTeam calculateTableTeam(Team team) {
+		TableTeam tableTeam = new TableTeam();
+		List<TablePerEmployee> tablePerEmployee = new ArrayList<>();
+		for(Employee employee: team.getEmployeeMap().values()) {
+			TablePerEmployee table = new TablePerEmployee();
+			table.setUserEmployee(employee.getUserEmployee());
+			table.setIdEmployee(employee.getEmployeeId());
+			table.setFinishTickets(ticketService.findCountTicketsFinishByEmployee(employee));
+			table.setFinishProjects(projectService.findCountProjectsFinishByEmployee(employee));
+			tablePerEmployee.add(table);
+		}
+		tableTeam.setListTablePerEmployee(tablePerEmployee);
+		return tableTeam;
+	}
+	
+	public String getEmployeesTeam(TableTeam tableTeam) throws JsonProcessingException{
+		List<String> employees = new ArrayList<>();
+		for(TablePerEmployee table: tableTeam.getListTablePerEmployee()) {
+			employees.add(table.getUserEmployee());
+		}
+		ObjectMapper mapper = new ObjectMapper();
+	    return mapper.writeValueAsString(employees);
+	}
+	
+	public String getEmployeesTicketsResolved(TableTeam tableTeam) throws JsonProcessingException {
+		List<Integer> tck = new ArrayList<>();
+		for(TablePerEmployee table: tableTeam.getListTablePerEmployee()) {
+			tck.add(table.getFinishTickets());
+		}
+		ObjectMapper mapper = new ObjectMapper();
+	    return mapper.writeValueAsString(tck);
+	}
+	
+	public String getemployeesProjectsResolved(TableTeam tableTeam) throws JsonProcessingException {
+		List<Integer> prj = new ArrayList<>();
+		for(TablePerEmployee table: tableTeam.getListTablePerEmployee()) {
+			prj.add(table.getFinishProjects());
+		}
+		ObjectMapper mapper = new ObjectMapper();
+	    return mapper.writeValueAsString(prj);
+	}
+	
+	@Override
+	public String getLastSixMonths() throws JsonProcessingException {
+	    List<String> months = new ArrayList<>();
+	    LocalDate currentDate = LocalDate.now();
+	    Locale spanishLocale = new Locale("es");
+
+	    for (int i = 5; i >= 0; i--) {
+	        String month = currentDate.minusMonths(i).getMonth().getDisplayName(TextStyle.FULL, spanishLocale);
+	        month = month.substring(0, 1).toUpperCase() + month.substring(1).toLowerCase();
+	        months.add(month);
+	    }
+	    
+	    ObjectMapper mapper = new ObjectMapper();
+	    return mapper.writeValueAsString(months);
+	}
+
 
 }
