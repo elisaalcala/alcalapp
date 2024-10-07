@@ -63,7 +63,19 @@
                               <td>${ticket.priorityTicket}</td>
                               <td>${ticket.statusTicket}</td>
                               <td>${ticket.initialDate}</td>
-                              <td>${ticket.employeeUserAssign}</td>
+                              <c:choose>
+                                <c:when test="${empty proyecto.employeeUserAssign}">
+                                  <td>
+                                    <a href="#" class="color-cyan assignMeTicketLink">
+                                      <i class="fa-solid fa-pencil "></i>
+                                      Asignarme a mi
+                                    </a>
+                                  </td>  
+                                </c:when>
+                                <c:otherwise>
+                                  <td>${proyecto.employeeUserAssign}</td>
+                                </c:otherwise>
+                              </c:choose>
                             
                           </tr>
                         </c:forEach>
@@ -154,7 +166,20 @@
                                         <td>${proyecto.nameProject}</td>
                                         <td>${proyecto.titleProject}</td>
                                         <td>${proyecto.statusProject}</td>
-                                        <td>${proyecto.employeeUserAssign}</td>
+                                        <c:choose>
+                                          <c:when test="${empty proyecto.employeeUserAssign}">
+                                            <td>
+                                              <a href="#" class="color-cyan assignMeProjectLink">
+                                                <i class="fa-solid fa-pencil "></i>
+                                                Asignarme a mi
+                                              </a>
+                                            </td>  
+                                          </c:when>
+                                          <c:otherwise>
+                                            <td>${proyecto.employeeUserAssign}</td>
+                                          </c:otherwise>
+                                        </c:choose>
+                                        
                                       
                                     </tr>
                                   </c:forEach>

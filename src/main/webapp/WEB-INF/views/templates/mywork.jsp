@@ -271,23 +271,47 @@
               <div class="card shadow m-column m-left">
 
                 <div class=" card-header d-flex align-items-center justify-content-between bg-charts">
-                  <h6 class="m-0 font-weight-bold text-uppercase text-white">Estadisticas individuales</h6>
+                  <h6 class="m-0 font-weight-bold text-uppercase text-white">Estadisticas individuales - proporciones</h6>
+
+                  <a href="#" id="toggleBodyProp" class="text-white">
+                    <i id="toggleIconProp" class="fas fa-chevron-up fa-fw text-gray-400"></i>
+                  </a>
+
                 </div>
 
-                <div>
-                  <canvas id="myChartBar" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
+                <div id="cardBodyProp">
+                  <div>
+                    <canvas id="myChartBar" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
+                  </div>
+                  
+                  <div>
+                    <canvas id="myChartLineTckCreation" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
+                  </div>
                 </div>
 
-                <div>
-                  <canvas id="myChartLine" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
+              </div>
+
+              <div class="card shadow m-column m-left">
+
+                <div class=" card-header d-flex align-items-center justify-content-between bg-charts">
+                  <h6 class="m-0 font-weight-bold text-uppercase text-white">Estadisticas individuales - tiempos</h6>
+
+                  <a href="#" id="toggleBodyTime" class="text-white">
+                    <i id="toggleIconTime" class="fas fa-chevron-up fa-fw text-gray-400"></i>
+                  </a>
+
                 </div>
 
-                <div>
-                  <canvas id="myChartLineTck" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
-                </div>
-                
-                <div>
-                  <canvas id="myChartLineTckCreation" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
+                <div id="cardBodyTime">
+
+                  <div>
+                    <canvas id="myChartLine" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
+                  </div>
+
+                  <div>
+                    <canvas id="myChartLineTck" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
+                  </div>
+
                 </div>
 
               </div>

@@ -171,7 +171,9 @@
           { toggleLinkId: 'toggleBodyPrjToDeploy', cardBodyId: 'cardBodyPrjToDeploy', iconId: 'toggleIconPrjToDeploy' },
           { toggleLinkId: 'toggleBodyTckToDeploy', cardBodyId: 'cardBodyTckToDeploy', iconId: 'toggleIconTckToDeploy' },
           { toggleLinkId: 'toggleBodyPrjFinish', cardBodyId: 'cardBodyPrjFinish', iconId: 'toggleIconPrjFinish' },
-          { toggleLinkId: 'toggleBodyTckFinish', cardBodyId: 'cardBodyTckFinish', iconId: 'toggleIconTckFinish' }
+          { toggleLinkId: 'toggleBodyTckFinish', cardBodyId: 'cardBodyTckFinish', iconId: 'toggleIconTckFinish' },
+          { toggleLinkId: 'toggleBodyProp', cardBodyId: 'cardBodyProp', iconId: 'toggleIconProp' },
+          { toggleLinkId: 'toggleBodyTime', cardBodyId: 'cardBodyTime', iconId: 'toggleIconTime' }
         ];
       
         // Añadir el evento de clic para cada tarjeta

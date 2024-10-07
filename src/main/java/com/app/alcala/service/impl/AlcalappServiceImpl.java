@@ -211,11 +211,7 @@ public class AlcalappServiceImpl implements AlcalappService {
 			table.setUserEmployee(employee.getUserEmployee());
 			table.setIdEmployee(employee.getEmployeeId());
 			table.setFinishTickets(ticketService.findCountTicketsFinishByEmployee(employee));
-			table.setNotCompletedTickets(ticketService.findCountTicketsNotCompletedByEmployee(employee));
-			table.setReadyTickets(ticketService.findCountTicketsReadyByEmployee(employee));
 			table.setFinishProjects(projectService.findCountProjectsFinishByEmployee(employee));
-			table.setNotCompletedProjects(projectService.findCountProjectsNotCompletedByEmployee(employee));
-			table.setReadyProjects(projectService.findCountProjectsReadyByEmployee(employee));
 			tablePerEmployee.add(table);
 		}
 		tableTeam.setListTablePerEmployee(tablePerEmployee);

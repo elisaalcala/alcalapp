@@ -289,6 +289,28 @@
                 window.location.href = `/releases/`+ releaseId;
             });
         });
+
+
+        document.querySelectorAll('.assignMeProjectLink').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Guardar un marcador para abrir el modal después de la redirección
+                var releaseId = this.getAttribute('data-release-id');
+
+                localStorage.setItem('openAssignMeProjectModal', 'true');
+
+                window.location.href = `/releases/`+ releaseId;
+
+
+            });
+        });
+
+        document.querySelectorAll('.assignMeTicketLink').forEach(link => {
+            link.addEventListener('click', function(e) {
+
+                localStorage.setItem('openAssignMeTicketModal', 'true');
+
+            });
+        });
         
 
     });

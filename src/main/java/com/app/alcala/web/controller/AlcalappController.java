@@ -132,7 +132,6 @@ public class AlcalappController {
 		model.addAttribute("workLoad", workLoad);
 		model.addAttribute("userPerEmployee", userPerEmployee);
 		model.addAttribute("loadPerEmployee", loadPerEmployee);
-		model.addAttribute("tableTeam", tableTeam.getListTablePerEmployee());
 		model.addAttribute("employeesTeam", employeesTeam);
 		model.addAttribute("employeesTicketsResolved", employeesTicketsResolved);
 		model.addAttribute("employeesProjectsResolved", employeesProjectsResolved);
