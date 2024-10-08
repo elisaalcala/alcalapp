@@ -1,77 +1,75 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<nav class="navbar navbar-expand navbar-light bg-white topbar static-top shadow">
+<nav class="navbar navbar-expand bg-gradient-navbar topbar static-top shadow ">
     
-
+    
+    <a class="navbar-brand d-flex align-items-center justify-content-center nav-link" href="/dailywork">
+        <div class="sidebar-brand-icon">
+          <i class="fas fa-solid fa-rocket"></i>
+          <span class=" mx-2">Alcalapp</span>
+        </div>
+    </a>
 
     <div class="margin-left-15" id="breadcrumb-container"></div>
 
     <ul class="navbar-nav ml-auto">
 
+        <!-- Nav Item - Questions -->
+        <li class="nav-item dropdown no-arrow mx-1 p-0">
+            <a class="nav-link dropdown-toggle link-text dropdown-toggle-noncontent" href="#" id="questionDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-question"></i>
+            </a>
+            <!-- Dropdown - Questions -->
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in p-0"
+                aria-labelledby="questionDropdown">
+                <h6 class="dropdown-header text-center  color-primary">
+                    Asistencia
+                </h6>
+                <div class="dropdown-divider m-0"></div>
+                <div class="px-3 py-2 text-center" style="font-size: 0.875rem;">
+                    ¿Tienes dudas o necesitas asistencia? Consulta nuestra guía <br> en 
+                    <strong class="color-primary">www.alcalapp_guide.com</strong> <br> O escríbenos a <br>
+                    <strong class="color-primary">alcalapp_services@alcalapp.com</strong>
+                </div>
+            </div>
+
+        </li>
+
       <!-- Nav Item - Messages -->
-      <li class="nav-item dropdown no-arrow mx-1">
-          <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+      <li class="nav-item dropdown no-arrow mx-1 p-0">
+          <a class="nav-link dropdown-toggle link-text dropdown-toggle-noncontent" href="#" id="messagesDropdown" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-envelope fa-fw"></i>
-              <!-- Counter - Messages -->
-              <span class="badge badge-danger badge-counter">7</span>
+              <i class="fa fa-calendar fa-fw"></i>
           </a>
           <!-- Dropdown - Messages -->
-          <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-              aria-labelledby="messagesDropdown">
-              <h6 class="dropdown-header">
-                  Message Center
-              </h6>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                      <img class="rounded-circle" src=""
-                          alt="...">
-                      <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div class="font-weight-bold">
-                      <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                          problem I've been having.</div>
-                      <div class="small text-gray-500">Emily Fowler · 58m</div>
-                  </div>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                      <img class="rounded-circle" src=""
-                          alt="...">
-                      <div class="status-indicator"></div>
-                  </div>
-                  <div>
-                      <div class="text-truncate">I have the photos that you ordered last month, how
-                          would you like them sent to you?</div>
-                      <div class="small text-gray-500">Jae Chun · 1d</div>
-                  </div>
-              </a>
-              <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+          <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in p-0" aria-labelledby="messagesDropdown">
+              <div id="calendar"></div>
           </div>
       </li>
 
-      <div class="topbar-divider d-none d-sm-block"></div>
+      <li class="topbar-divider"></li>
 
       <!-- Nav Item - User Information -->
       <li class="nav-item dropdown no-arrow">
-          <a class="nav-link dropdown-toggle" href="#"  id="userDropdown" role="button"
+          <a class="nav-link dropdown-toggle link-text" href="#"  id="userDropdown" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small">${employee.userEmployee}</span>
-              <i class="fas fa-circle-user"></i>
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small ">${employee.userEmployee}</span>
+              <i class="fas fa-circle-user "></i>
           </a>
           <!-- Dropdown - User Information -->
-          <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+          <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in "
               aria-labelledby="userDropdown">
-              <a class="dropdown-item" href="/profile">
+              <a class="dropdown-item nav-colorlink" href="/profile">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Mi perfil
               </a>
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item nav-colorlink" href="#">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Configuración
               </a>
               <div class="dropdown-divider"></div>
-              <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#logoutModal">
+              <button class="dropdown-item nav-colorlink text-danger" data-bs-toggle="modal" data-bs-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Cerrar Sesión
               </button>
@@ -79,4 +77,5 @@
       </li>
 
     </ul>
+
   </nav>

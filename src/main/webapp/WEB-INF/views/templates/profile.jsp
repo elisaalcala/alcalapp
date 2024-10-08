@@ -16,12 +16,13 @@
   </head>
 <body>
   <div class="container">
-    <!-- Sidebar -->
-    <%@ include file="sidebar.jsp" %>
+    <!-- Topbar  -->
+    <%@ include file="navbar.jsp" %>
     
-    <main>
-      <!-- Topbar  -->
-      <%@ include file="navbar.jsp" %>
+    <main  class="d-flex">
+      
+      <!-- Sidebar -->
+      <%@ include file="sidebar.jsp" %>
 
       <section class="container-fluid">
         <div class="titulo">
@@ -97,9 +98,10 @@
         </div>
       
 
+        <!-- Footer  -->
+        <%@ include file="footer.jsp" %>
+        
       </section>
-
-      <%@ include file="footer.jsp" %>
 
       <!-- Modal para crear el ticket -->
       <%@ include file="modalCreate.jsp" %>
