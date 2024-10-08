@@ -73,7 +73,7 @@ public class SideBarTest {
 	@Test
 	public void setUp() {
 
-
+ 
 		userRepository.save(new User("testSideBar", passwordEncoder.encode("test"), "USER"));
 		Employee employeeTest = new Employee();
 		employeeTest.setUserEmployee("testSideBar");
