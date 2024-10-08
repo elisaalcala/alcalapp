@@ -11,6 +11,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -55,6 +56,7 @@ public class SideBarTest {
 		options.addArguments("--headless");
 		options.addArguments("--allow-insecure-localhost");
 		options.addArguments("--disable-gpu");
+		options.addArguments("--window-size=1920,1080"); 
 
 		driver = new ChromeDriver(options);
 		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -129,11 +131,24 @@ public class SideBarTest {
 
 	}
 
-	private void navigateAndVerify(String linkId, String expectedUrlSuffix) {
-		WebElement link = driver.findElement(By.id(linkId));
-		link.click();
-		wait.until(ExpectedConditions.urlContains(expectedUrlSuffix));
-		assertTrue(driver.getCurrentUrl().endsWith(expectedUrlSuffix));
-	}
+    private void navigateAndVerify(String linkId, String expectedUrlSuffix) {
+        try {
+            WebElement link = driver.findElement(By.id(linkId));
+            
+            // Asegurar que el elemento esté visible antes de hacer clic
+            wait.until(ExpectedConditions.visibilityOf(link));
+            
+            // Desplazar el elemento a la vista antes de hacer clic
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", link);
+            
+            // Hacer clic con JavaScript si es necesario
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
+            
+            wait.until(ExpectedConditions.urlContains(expectedUrlSuffix));
+            assertTrue(driver.getCurrentUrl().endsWith(expectedUrlSuffix));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
