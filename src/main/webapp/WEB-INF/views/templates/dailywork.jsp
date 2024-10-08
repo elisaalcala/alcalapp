@@ -12,18 +12,20 @@
     
     <%@ include file="scripts.jsp" %>
     <%@ include file="style.jsp" %>
-    
+
     
   </head>
 <body>
   <div class="container" id="dailywork">
-    <!-- Sidebar -->
-    <%@ include file="sidebar.jsp" %>
-    
-    <main>
-      <!-- Topbar  -->
-      <%@ include file="navbar.jsp" %>
 
+    <!-- Topbar  -->
+    <%@ include file="navbar.jsp" %>
+    
+    <main  class="d-flex">
+      
+      <!-- Sidebar -->
+      <%@ include file="sidebar.jsp" %>
+    
       <section class="container-fluid">
         <div class="titulo">
           <h2>Trabajo diario - ${team.nameTeam}</h2>
@@ -66,7 +68,7 @@
                               <c:choose>
                                 <c:when test="${empty proyecto.employeeUserAssign}">
                                   <td>
-                                    <a href="#" class="color-cyan assignMeTicketLink">
+                                    <a href="#" class="nav-colorlink assignMeTicketLink">
                                       <i class="fa-solid fa-pencil "></i>
                                       Asignarme a mi
                                     </a>
@@ -83,6 +85,74 @@
                   </div>
                 </div> 
               </div>
+
+             
+
+              <c:forEach items="${projectsTables}" var="table">
+
+                <div class="card shadow m-column m-right">
+                  <div class=" card-header d-flex align-items-center justify-content-between bg-projects">
+                    <h6 class="m-0 font-weight-bold text-uppercase text-white">Proyectos release ${table.releaseName}</h6>
+                      <div class="dropdown">
+                            <a class="dropdown-toggle table text-white" href="#" role="button" id="dropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item nav-colorlink" href="/releases/${table.idRelease}">Ver Release</a>
+                                <a class="dropdown-item createProjectLink nav-colorlink" data-release-id="${table.idRelease}" data-target="#createModalProject" >Añadir Proyecto</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item deleteProjectLink nav-colorlink text-danger" data-release-id="${table.idRelease}" data-target="#deleteModalRelease" href="#">Eliminar Release</a>
+                            </div>
+                      </div>
+                  </div>
+    
+                    <!-- Card Body -->
+                    <div class="card-body padding-0">
+                        <div class="chart-area">
+                            <div class="columna-izquierda">
+                              <table>
+                                <thead>
+                                  <tr>
+                                    <th>Nombre</th>
+                                    <th>Titulo</th>
+                                    <th>Estado</th>
+                                    <th>Encargado</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <c:forEach items="${table.projects}" var="proyecto">
+                                    <tr data-proyecto-id="${proyecto.idProject}" class="proyecto-row  task-hover">
+                                      
+                                        <td>${proyecto.nameProject}</td>
+                                        <td>${proyecto.titleProject}</td>
+                                        <td>${proyecto.statusProject}</td>
+                                        <c:choose>
+                                          <c:when test="${empty proyecto.employeeUserAssign}">
+                                            <td>
+                                              <a href="#" class="nav-colorlink assignMeProjectLink">
+                                                <i class="fa-solid fa-pencil "></i>
+                                                Asignarme a mi
+                                              </a>
+                                            </td>  
+                                          </c:when>
+                                          <c:otherwise>
+                                            <td>${proyecto.employeeUserAssign}</td>
+                                          </c:otherwise>
+                                        </c:choose>
+                                        
+                                      
+                                    </tr>
+                                  </c:forEach>
+                              </table>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+
+              </c:forEach>
+
 
               <div class="card shadow m-column m-right">
                 <div class=" card-header d-flex align-items-center justify-content-between bg-blocked">
@@ -123,73 +193,6 @@
                 </div> 
               </div>
 
-
-
-
-              <c:forEach items="${projectsTables}" var="table">
-
-                <div class="card shadow m-column m-right">
-                  <div class=" card-header d-flex align-items-center justify-content-between bg-projects">
-                    <h6 class="m-0 font-weight-bold text-uppercase text-white">Proyectos release ${table.releaseName}</h6>
-                      <div class="dropdown">
-                            <a class="dropdown-toggle table text-white" href="#" role="button" id="dropdownMenuLink"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="/releases/${table.idRelease}">Ver Release</a>
-                                <a class="dropdown-item createProjectLink" data-release-id="${table.idRelease}" data-target="#createModalProject" >Añadir Proyecto</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item deleteProjectLink text-danger" data-release-id="${table.idRelease}" data-target="#deleteModalRelease" href="#">Eliminar Release</a>
-                            </div>
-                      </div>
-                  </div>
-    
-                    <!-- Card Body -->
-                    <div class="card-body padding-0">
-                        <div class="chart-area">
-                            <div class="columna-izquierda">
-                              <table>
-                                <thead>
-                                  <tr>
-                                    <th>Nombre</th>
-                                    <th>Titulo</th>
-                                    <th>Estado</th>
-                                    <th>Encargado</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <c:forEach items="${table.projects}" var="proyecto">
-                                    <tr data-proyecto-id="${proyecto.idProject}" class="proyecto-row  task-hover">
-                                      
-                                        <td>${proyecto.nameProject}</td>
-                                        <td>${proyecto.titleProject}</td>
-                                        <td>${proyecto.statusProject}</td>
-                                        <c:choose>
-                                          <c:when test="${empty proyecto.employeeUserAssign}">
-                                            <td>
-                                              <a href="#" class="color-cyan assignMeProjectLink">
-                                                <i class="fa-solid fa-pencil "></i>
-                                                Asignarme a mi
-                                              </a>
-                                            </td>  
-                                          </c:when>
-                                          <c:otherwise>
-                                            <td>${proyecto.employeeUserAssign}</td>
-                                          </c:otherwise>
-                                        </c:choose>
-                                        
-                                      
-                                    </tr>
-                                  </c:forEach>
-                              </table>
-                              </div>
-                        </div>
-                    </div>
-                </div>
-
-              </c:forEach>
 
 
               <div class="card shadow m-column m-right">
@@ -292,7 +295,7 @@
                     <c:forEach items="${workLoad.listWorkPerEmployee}" var="workPerEmployee">
                       <div class="carga">
                         <a class="carga nav-link dropdown-toggle collapsed" href="#" data-toggle="collapse" data-target="#collapseCargaTrabajo">
-                          <span class="carga carga-text carga-tittle">
+                          <span class="carga carga-tittle">
                             ${workPerEmployee.userEmployee}
                           </span> 
                         </a>
@@ -300,14 +303,14 @@
                             <ul class="list-group">
                                 <c:forEach items="${workPerEmployee.projectInProgress}" var="projectInProgress">
                                     <li class="list-group-item">
-                                        <a class="link-text" href="/projects/${projectInProgress.idProject}">
+                                        <a class="nav-colorlink" href="/projects/${projectInProgress.idProject}">
                                             ${projectInProgress.nameProject} - ${projectInProgress.titleProject}
                                         </a>
                                     </li>
                                 </c:forEach>
                                 <c:forEach items="${workPerEmployee.ticketInProgress}" var="ticketsInProgress">
                                     <li class="list-group-item">
-                                        <a class="link-text" href="/tickets/${ticketsInProgress.idTicket}">
+                                        <a class="nav-colorlink" href="/tickets/${ticketsInProgress.idTicket}">
                                             ${ticketsInProgress.nameTicket} - ${ticketsInProgress.titleTicket}
                                         </a>
                                     </li>

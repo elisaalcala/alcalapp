@@ -19,12 +19,13 @@
   </head>
 <body>
   <div class="container">
-    <!-- Sidebar -->
-    <%@ include file="sidebar.jsp" %>
-    
-    <main>
-      <!-- Topbar  -->
-      <%@ include file="navbar.jsp" %>
+    <!-- Topbar  -->
+    <%@ include file="navbar.jsp" %>
+
+    <main  class="d-flex">
+      
+      <!-- Sidebar -->
+      <%@ include file="sidebar.jsp" %>
 
       <section class="container-fluid">
         <div class="titulo">
@@ -321,7 +322,10 @@
 
 
         </div>
+        <!-- Footer  -->
+        <%@ include file="footer.jsp" %>
       </section>
+      
       <%@ include file="modalCreate.jsp" %>
       <%@ include file="modalLogout.jsp" %>
       <%@ include file="modalCreateRelease.jsp" %>

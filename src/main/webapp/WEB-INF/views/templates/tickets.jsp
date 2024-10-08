@@ -17,12 +17,13 @@
   <body>
 <body>
   <div class="container">
-    <!-- Sidebar -->
-    <%@ include file="sidebar.jsp" %>
+    <!-- Topbar  -->
+    <%@ include file="navbar.jsp" %>
     
-    <main>
-      <!-- Topbar  -->
-      <%@ include file="navbar.jsp" %>
+    <main  class="d-flex">
+      
+      <!-- Sidebar -->
+      <%@ include file="sidebar.jsp" %>
 
       <section class="container-fluid">
         <div class="titulo">
@@ -60,6 +61,8 @@
             </div>
         </div>
 
+        <!-- Footer  -->
+        <%@ include file="footer.jsp" %>
       </section>
       <%@ include file="modalCreate.jsp" %>
       <%@ include file="modalLogout.jsp" %>

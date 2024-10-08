@@ -1,15 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<ul class="navbar-nav bg-gradient-primary sidebar" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-sidebar sidebar shadow" id="accordionSidebar">
 
-    <a class="sidebar-brand d-flex align-items-center justify-content-center nav-link sidebar-brand-color" href="/dailywork">
-        <div class="sidebar-brand-icon">
-          <i class="fas fa-solid fa-rocket"></i>
-          <span class="sidebar-brand-text mx-3">Alcalapp</span>
-        </div>
-    </a>
 
-    <hr class="sidebar-divider mt-0">
+    <hr class="sidebar-divider">
 
     <div class="sidebar-heading nav-color">
       Trabajo diario
@@ -29,28 +23,7 @@
     <hr class="sidebar-divider">
 
     <div class="sidebar-heading nav-color">
-        Control general
-    </div>
-
-    <li class="nav-item">
-      <a class="nav-link collapsed nav-colorlink" href="#" data-toggle="collapse" data-target="#collapseEstadisticas">
-        <i class="fas fa-fw fa-chart-line"></i>
-        <span>Estadisticas</span>
-      </a>
-      <div id="collapseEstadisticas" class="collapse">
-        <div class="bg-white py-2 rounded">
-            <h6 class="collapse-header">Tablas:</h6>
-            <a class="collapse-item" href="utilities-color.html">Globales</a>
-            <a class="collapse-item" href="utilities-border.html">Equipos</a>
-            <a class="collapse-item" href="utilities-animation.html">Personales</a>
-        </div>
-      </div>
-    </li>
-
-    <hr class="sidebar-divider">
-
-    <div class="sidebar-heading nav-color">
-      Información
+      Control general
     </div>
 
     <li class="nav-item">
@@ -94,7 +67,11 @@
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      <a class="rounded-circle border-0 nav-colorlink" id="sidebarToggle" style="font-size: 1.7rem;">
+          <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+      </a>
     </div>
+
+
 
   </ul>
