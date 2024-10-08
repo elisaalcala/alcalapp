@@ -8,6 +8,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
 <script src="${pageContext.request.contextPath}/js/timeline.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
 
 <script>
 
@@ -510,5 +512,43 @@
             });
         });
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        flatpickr("#calendar", {
+            enableTime: false, 
+            dateFormat: "Y-m-d", 
+            showButtonPanel: true,
+            inline: true,
+            locale: "es",
+        });
+    });
+
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('accordionSidebar');
+
+        // Recuperar el estado del sidebar desde localStorage
+        const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+        if (isCollapsed) {
+            sidebar.classList.add('collapsed');
+            sidebarToggle.innerHTML = '<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>';
+        }
+
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('collapsed');
+            
+            // Cambiar el icono del toggle
+            sidebarToggle.innerHTML = sidebar.classList.contains('collapsed')
+                ? '<i class="fa fa-chevron-circle-right" aria-hidden="true"></i>'
+                : '<i class="fa fa-chevron-circle-left" aria-hidden="true"></i>';
+            
+            // Guardar el estado en localStorage
+            localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
+        });
+    });
+
+
+
 
 </script>
