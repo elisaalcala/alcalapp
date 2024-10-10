@@ -1,11 +1,13 @@
 package com.app.alcala.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.app.alcala.entities.Employee;
 import com.app.alcala.entities.Project;
 import com.app.alcala.entities.Team;
 import com.app.alcala.entities.Ticket;
+import com.app.alcala.web.model.EmployeePerTeam;
 import com.app.alcala.web.model.ProjectTable;
 import com.app.alcala.web.model.TableTeam;
 import com.app.alcala.web.model.WorkLoad;
@@ -46,6 +48,8 @@ public interface AlcalappService {
 	String getEmployeesTicketsResolved(TableTeam tableTeam) throws JsonProcessingException;
 
 	String getemployeesProjectsResolved(TableTeam tableTeam)throws JsonProcessingException;
+
+	List<EmployeePerTeam> getEmployeesPerTeam(Collection<Employee> values, Employee employeesession);
 
 
 

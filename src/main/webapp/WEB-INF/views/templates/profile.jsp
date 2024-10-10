@@ -12,106 +12,186 @@
     <link href="${pageContext.request.contextPath}/css/timeline.min.css" rel="stylesheet">
     
     <%@ include file="scripts.jsp" %>
+    <%@ include file="scriptsProfile.jsp" %>
+
     <%@ include file="style.jsp" %>
   </head>
-<body>
-  <div class="container">
-    <!-- Topbar  -->
-    <%@ include file="navbar.jsp" %>
-    
-    <main  class="d-flex">
-      
-      <!-- Sidebar -->
-      <%@ include file="sidebar.jsp" %>
+  <body>
+    <div class="container">
+      <!-- Topbar -->
+      <%@ include file="navbar.jsp" %>
+  
+      <main class="d-flex">
+        <!-- Sidebar -->
+        <%@ include file="sidebar.jsp" %>
+  
+        <section class="container-fluid">
+          <!-- Encabezado del perfil -->
+          <div class="titulo mb-4">
+            <h2>Mi perfil</h2>
+          </div>
+          <div class="columnas">
 
-      <section class="container-fluid">
-        <div class="titulo">
-          <h2>
-            Mi perfil
-          </h2>
-        </div>
+            <div class="width50 ">
 
-        <div class="titulo subtitulo">
-          <h2 class="subtitulo-size">
-            <i class="fas fa-circle-user"></i>
-            ${employee.userEmployee} - ${employee.userEmployee}@alcalapp.com
-          </h2>
-        </div>
+              <div class="d-flex ">
 
-        <div class="columnas col-margin-top-left m-50">
+                  <div class="profile-container ml-5 d-flex align-items-center flex-column width30">
+                    <!-- Imagen de perfil o ícono de reemplazo -->
+                    <div class="profile-image-container">
+                      <img src="https://via.placeholder.com/300?text=Foto+de+Perfil" onerror="this.src='https://via.placeholder.com/300?text=Foto+de+Perfil';" alt="Foto de perfil" class="profile-image-large">
+                    </div>
+  
+                    <!-- Contenedor de nombre de usuario con tooltip y estilo de flexbox -->
+                    <div id="copy-username-button" class="profile-info d-flex justify-content-center align-items-center mt-3 nav-link nav-colorlink" style="cursor: pointer;" data-toggle="tooltip" data-placement="top" onclick="copyUsername()" data-bs-original-title="Copiar">
+                      <!-- Nombre de usuario con opción de copiar -->
+                      <h4 id="user-username" class="d-inline-block m-0">${employee.userEmployee}</h4>
+                      <!-- Icono de copiar -->
+                      <i class="fa fa-clipboard ml-1"></i>
+                    </div>
+  
+                    <!-- Contenedor de correo electrónico con tooltip y estilo de flexbox -->
+                    <div id="copy-email-button" class="profile-info d-flex justify-content-center align-items-center mt-2 nav-link nav-colorlink" style="cursor: pointer;" data-toggle="tooltip" data-placement="top" onclick="copyEmail()" data-bs-original-title="Copiar">
+                      <!-- Correo con opción de copiar -->
+                      <h4 id="user-email" class="d-inline-block m-0">${employee.userEmployee}@alcalapp.com</h4>
+                      <!-- Icono de copiar -->
+                      <i class="fa fa-clipboard ml-1"></i>
+                    </div>
+  
+                    
+                  </div>
+                  
+                  <!-- Información profesional y personal en columnas -->
+                  <div class="ml-5 width70" >
+                    <!-- Información profesional -->
+                    <div class="row m-0" style="display: flex;">
+                      <div class="card shadow mb-4 p-0">
+                        <div class="card-header d-flex align-items-center justify-content-between bg-charts">
+                          <h6 class="m-0 font-weight-bold text-uppercase text-white">Información Profesional</h6>
+                        </div>
+                        <div class="card-body">
+                          <p><strong>ID Empleado:</strong> ${employee.employeeId}</p>
+                          <p><strong>Fecha de alta:</strong> ${employee.hireDate}</p>
+                          <p><strong>Puesto:</strong> ${employee.employeePosition}</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Información personal -->
+                    <div class="row m-0">
+                      <div class="card shadow mb-4 p-0">
+                        <div class="card-header d-flex align-items-center justify-content-between bg-charts">
+                          <h6 class="m-0 font-weight-bold text-uppercase text-white">Información personal</h6>
+                        </div>
+                        <div class="card-body">
+                          <p><strong>Nombre y Apellidos:</strong> ${employee.employeeName} ${employee.employeeLastName}</p>
+                          <p><strong>DNI:</strong> ${employee.employeeDni}</p>
+                          <p><strong>Fecha Nacimiento:</strong> ${employee.birthDate}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-          <div class="columnas-izquierda clearfix flex-wrap-nowrap flex-40">
-            <div class="row">
-
-              <div class="col">
+                <!-- Contenedor de perfil con imagen a la izquierda y nombre e información a la derecha -->
                 
-                <div class="ticket-detail-heading color-cyan">
-
-                    Información profesional
-                </div>
-                <div class="row">
-                  <dt class="col">ID Empleado:</dt>
-                  <dd class="col" id="ticketPriority">${employee.employeeId}</dd>
-                </div>
-                <div class="row">
-                    <dt class="col">Fecha de alta:</dt>
-                    <dd class="col" id="ticketEnvironment">${employee.hireDate}</dd>
-                </div>
-                <div class="row">
-                    <dt class="col">Equipo perteneciente:</dt>
-                    <dd class="col" id="ticketStatus">${employee.nameTeam}</dd>
-                </div>
-                <div class="row">
-                    <dt class="col">Puesto:</dt>
-                    <dd class="col" id="ticketStatus">${employee.employeePosition}</dd>
-                </div>
-
+              
               </div>
 
-                <div class="col">
-                    <div class="ticket-info">
-                        <div class="ticket-detail-heading color-cyan">
+              <!-- Área de actividades recientes o proyectos -->
+              <div class="row pl-3 pr-2">
+                <div class="card shadow m-column p-0 ">
+
+                  <div class=" card-header d-flex align-items-center justify-content-between bg-finish">
+                    <h6 class="m-0 font-weight-bold text-uppercase text-white">Ultimas Tareas</h6>
+                    
+                    <a href="#" id="toggleBodyTck" class="text-white">
+                      <i id="toggleIconTck" class="fas fa-chevron-up fa-fw text-gray-400"></i>
+                    </a>
+
+                  </div>
+
+                  <!-- DataTales Example -->
+                  <div class="card shadow" id="cardBodyTck">
+                    <div class="card-body">
+                      <table class="table table-bordered table-striped" id="recomendations" width="100%" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <th>Nombre</th>
+                            <th>Descripcion</th>
+                            <th>Prioridad</th>
+                            <th>Estado</th>
+                            <th>Fecha de modificación</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <c:forEach items="${recomendations}" var="ticket">
+                            <tr data-ticket-id="${ticket.idTicket}" class="ticket-row task-hover">
+                              
+                                <td>${ticket.nameTicket}</td>
+                                <td>${ticket.descriptionTicket}</td>
+                                <td>${ticket.priorityTicket}</td>
+                                <td>${ticket.statusTicket}</td>
+                                <td>${ticket.modifyDate}</td>
+                              
+                            </tr>
+                          </c:forEach>
+                        </tbody>
+                      </table>
                         
-                        Información personal
-                        </div>
-                        <div class="row">
-                            <dt class="col">Nombre y Apellidos:</dt>
-                            <dd class="col" id="ticketEnvironment">${employee.employeeName}  ${employee.employeeLastName}</dd>
-                        </div>
-                        <div class="row">
-                            <dt class="col">DNI:</dt>
-                            <dd class="col" id="ticketStatus">${employee.employeeDni}</dd>
-                        </div>
-                        <div class="row">
-                            <dt class="col">Fecha Nacimiento:</dt>
-                            <dd class="col" id="ticketStatus">${employee.birthDate}</dd>
-                        </div>
                     </div>
                 </div>
+                  
+                </div>
+              </div>
 
             </div>
-          </div>
             
-          <div class="columnas-derecha flex-wrap-nowrap margin-30">
-            
+            <div class="width50">
+              <div class="row ml-4">
+
+                <div class="card shadow m-right p-0 ">
+
+                  <div class=" card-header d-flex align-items-center justify-content-between bg-projects">
+                    <h6 class="m-0 font-weight-bold text-uppercase text-white">Equipo - ${team.nameTeam}</h6>
+                  </div>
+
+                  <!-- DataTales Example -->
+                  <div class="card shadow" id="">
+                    <div class="card-body">
+                      <span>${team.descriptionTeam}</span>
+                        <br>
+                        <br>
+                      <span>Componenetes del equipo:</span>
+
+                      <c:forEach items="${employeesPerTeam}" var="employeesPerTeam">
+                        <span> ${employeesPerTeam.userEmployee} - ${employeesPerTeam.employeePosition}</span>
+                      </c:forEach>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
-        </div>
-      
+          <!-- Footer -->
+          <footer class="sticky-footer bg-white">
+            <div class="copyright text-center my-auto">
+              <span>Copyright © Alcalapp 2024</span>
+            </div>
+          </footer>
+          <!-- End of Footer -->
+        </section>
 
-        <!-- Footer  -->
-        <%@ include file="footer.jsp" %>
-        
-      </section>
-
-      <!-- Modal para crear el ticket -->
-      <%@ include file="modalCreate.jsp" %>
-      <%@ include file="modalLogout.jsp" %>
-      <%@ include file="modalCreateRelease.jsp" %>
-
-    </main>
-  </div>
-
-</body>
+        <!-- Modal para crear el ticket -->
+        <%@ include file="modalCreate.jsp" %>
+        <%@ include file="modalLogout.jsp" %>
+        <%@ include file="modalCreateRelease.jsp" %>
+  
+      </main>
+    </div>
+  </body>
+  
 </html>
 
 

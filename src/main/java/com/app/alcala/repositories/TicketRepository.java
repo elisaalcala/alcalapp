@@ -28,7 +28,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long>{
 
 	List<Ticket> findByTeamAssignAndStatusTicketInAndEnvironmentTicket(Team team, List<String> asList, String string);
 
-	List<Ticket> findByTeamAssignAndStatusTicketInAndEnvironmentTicketNot(Team team, List<String> asList,
-			String string);
+	List<Ticket> findByTeamAssignAndStatusTicketInAndEnvironmentTicketNot(Team team, List<String> asList, String string);
 	
+	List<Ticket> findByEmployeeAssignOrderByModifyDateDesc(Employee employee);
 }	
