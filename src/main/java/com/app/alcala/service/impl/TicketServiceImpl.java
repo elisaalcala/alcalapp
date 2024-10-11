@@ -336,5 +336,12 @@ public class TicketServiceImpl implements TicketService {
 					Arrays.asList("Closed", "Resolved"), "PRO");
 		
 	}
+	
+	@Override
+	public List<Ticket> findByEmployeeAssignOrderByModifyDateDesc(Employee employee) {
+		return ticketRepository.findByEmployeeAssignOrderByModifyDateDesc(employee);
+		
+	}
+	
 
 }
