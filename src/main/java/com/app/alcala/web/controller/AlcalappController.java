@@ -1,6 +1,5 @@
 package com.app.alcala.web.controller;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +26,7 @@ import com.app.alcala.service.ReleaseService;
 import com.app.alcala.service.TeamService;
 import com.app.alcala.service.TicketService;
 import com.app.alcala.service.impl.RepositoryUserDetailsService;
+import com.app.alcala.web.model.EmployeePerTeam;
 import com.app.alcala.web.model.ProjectTable;
 import com.app.alcala.web.model.TableTeam;
 import com.app.alcala.web.model.WorkLoad;
@@ -190,9 +190,19 @@ public class AlcalappController {
 
 
 	@GetMapping("/profile")
-	public String profilePage(Model model) {
-
+	public String profilePage(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Team team = (Team) session.getAttribute("team");
+		Employee employee = (Employee) session.getAttribute("employee");
+		
+		List<EmployeePerTeam>  employeesPerTeam = alcalappService.getEmployeesPerTeam(team.getEmployeeMap().values(), employee);
+		List<Ticket>  recomendations = ticketService.findByEmployeeAssignOrderByModifyDateDesc(employee);
+		
+		
 		model.addAttribute("page", "MI PERFIL");
+		model.addAttribute("employeesPerTeam", employeesPerTeam);
+		model.addAttribute("recomendations", recomendations);
+		
 
 		return "profile";
 	}

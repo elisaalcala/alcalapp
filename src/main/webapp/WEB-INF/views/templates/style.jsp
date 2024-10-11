@@ -80,7 +80,14 @@
   .nav-colorlink:active,
   .nav-colorlink:focus {
       color: #BF9B6F;
-      text-decoration: none;
+      text-decoration: none; 
+  }
+
+  .link-text:active,
+  .link-text:focus,
+  .nav-colorlink:active,
+  .nav-colorlink:focus {
+    background-color: transparent !important;
   }
 
   .sidebar-heading{
@@ -639,6 +646,10 @@ ul.weeks, ul.days{
     width: 100%;
   }
 
+  .width50, .width50 {
+    width: 100%;
+  }
+
   .columnas-derecha, .columnas-izquierda {
     margin: 0;
   }
@@ -708,6 +719,44 @@ ul.weeks, ul.days{
     height: 2.4rem;
     margin-right: 0.3rem;
 }
+
+
+/* Mi perfil */
+
+
+.profile-image-large {
+  width: 100%; /* Imagen ajustada al tamaño del contenedor */
+  height: 100%;
+  border-radius: 50%; /* Imagen circular */
+  border: 5px solid #196273; /* Borde alrededor de la imagen */
+}
+
+.profile-info {
+  margin-top: 20px; /* Separación entre la imagen y el correo */
+}
+
+.profile-info h4, .profile-info i {
+  cursor: pointer; /* Cursor de mano en ambos elementos */
+  transition: color 0.05s ease-in-out;
+}
+
+/* Clase para adaptar el tamaño del texto */
+.profile-info h4 {
+  font-size: clamp(12px, 3vw, 20px); /* Tamaño adaptable: mínimo 16px, máximo 24px */
+  margin: 0; /* Elimina el margen para evitar desalineación */
+  line-height: 1.2; /* Controla la altura de la línea para mantener la alineación */
+}
+
+/* Estilo del contenedor para el texto y el icono */
+.profile-info {
+  display: flex; /* Define el contenedor como un flexbox */
+  justify-content: center; /* Centra el contenido horizontalmente */
+  align-items: center; /* Centra el contenido verticalmente */
+  gap: 8px; /* Añade un espacio fijo entre el texto y el icono */
+}
+
+
+
 </style>
 
 <!-- Include flatpickr CSS -->

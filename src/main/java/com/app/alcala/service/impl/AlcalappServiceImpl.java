@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
@@ -25,6 +26,7 @@ import com.app.alcala.service.ProjectService;
 import com.app.alcala.service.ReleaseService;
 import com.app.alcala.service.TeamService;
 import com.app.alcala.service.TicketService;
+import com.app.alcala.web.model.EmployeePerTeam;
 import com.app.alcala.web.model.ProjectTable;
 import com.app.alcala.web.model.TablePerEmployee;
 import com.app.alcala.web.model.TableTeam;
@@ -260,6 +262,23 @@ public class AlcalappServiceImpl implements AlcalappService {
 	    ObjectMapper mapper = new ObjectMapper();
 	    return mapper.writeValueAsString(months);
 	}
+
+	@Override
+	public List<EmployeePerTeam> getEmployeesPerTeam(Collection<Employee> values, Employee employeesession) {
+		List<EmployeePerTeam> employeesPerTeam = new ArrayList<>();
+		for(Employee employee: values) {
+			if(!employee.equals(employeesession)) {
+				EmployeePerTeam employeePerTeam = new EmployeePerTeam();
+				employeePerTeam.setUserEmployee(employee.getUserEmployee());
+				employeePerTeam.setEmployeePosition(employee.getEmployeePosition());
+				employeesPerTeam.add(employeePerTeam);
+			}
+		}
+		
+		return employeesPerTeam;
+	}
+	
+	
 
 
 }

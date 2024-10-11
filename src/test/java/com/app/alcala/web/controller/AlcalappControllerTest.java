@@ -1,6 +1,7 @@
 package com.app.alcala.web.controller;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyCollection;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -11,7 +12,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +41,7 @@ import com.app.alcala.service.ReleaseService;
 import com.app.alcala.service.TeamService;
 import com.app.alcala.service.TicketService;
 import com.app.alcala.service.impl.RepositoryUserDetailsService;
+import com.app.alcala.web.model.EmployeePerTeam;
 import com.app.alcala.web.model.ProjectTable;
 import com.app.alcala.web.model.TableTeam;
 import com.app.alcala.web.model.WorkLoad;
@@ -189,9 +193,25 @@ public class AlcalappControllerTest {
     @Test
     @WithMockUser(username = "johndoe", roles = "USER")
     public void testProfilePage() throws Exception {
-        mockMvc.perform(get("/profile"))
+        Employee employee = new Employee();
+        Team team = new Team();
+        Map<Long, Employee> employeeMap = new HashMap<Long, Employee>();
+        team.setEmployeeMap(employeeMap);
+        
+        List<EmployeePerTeam> employeesPerTeam = Arrays.asList(new EmployeePerTeam());
+        List<Ticket> recommendations = Arrays.asList(new Ticket());
+
+        when(alcalappService.getEmployeesPerTeam(anyCollection(), any(Employee.class))).thenReturn(employeesPerTeam);
+        when(ticketService.findByEmployeeAssignOrderByModifyDateDesc(any(Employee.class))).thenReturn(recommendations);
+
+        mockMvc.perform(get("/profile")
+                .sessionAttr("employee", employee)
+                .sessionAttr("team", team))
                 .andExpect(status().isOk())
                 .andExpect(view().name("profile"))
-                .andExpect(model().attribute("page", "MI PERFIL"));
+                .andExpect(model().attribute("page", "MI PERFIL"))
+                .andExpect(model().attribute("employeesPerTeam", employeesPerTeam))
+                .andExpect(model().attribute("recomendations", recommendations));
     }
+
 }

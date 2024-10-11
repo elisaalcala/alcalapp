@@ -61,4 +61,6 @@ public interface TicketService {
 
 	List<Ticket> findTicketsReadyByTeam(Team team);
 
+	List<Ticket> findByEmployeeAssignOrderByModifyDateDesc(Employee employee);
+
 }
