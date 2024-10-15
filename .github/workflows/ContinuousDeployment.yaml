@@ -64,14 +64,6 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           
-      - name: 'Deploy MySQL container'
-        run: |
-          az container create \
-            --resource-group ${{ secrets.AZURE_GROUP }} \
-            --name mysql-container \
-            --image elisaalcala/mydb:latest \
-            --environment-variables MYSQL_ROOT_PASSWORD=3301 MYSQL_DATABASE=alcalapp_db \
-            --ports 3306
             
       - name: 'Run az commands to deploy container'
         run: |
