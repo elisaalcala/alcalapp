@@ -10,10 +10,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css">
     <link href="${pageContext.request.contextPath}/css/timeline.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     
     <%@ include file="scripts.jsp" %>
-    <%@ include file="scriptsTicket.jsp" %>
-    <%@ include file="style.jsp" %>
+    <script src="/js/ticket.js"></script>
+    
   </head>
 <body>
   <div class="container">
@@ -26,6 +28,15 @@
       <%@ include file="sidebar.jsp" %>
 
       <section class="container-fluid">
+
+        <input type="hidden" id="ticketId" value="${ticket.idTicket}" />
+        <input type="hidden" id="employeeUserHidden" value="${employee.userEmployee}" />
+        <input type="hidden" id="employeeNameAssignToMe" value="${employee.employeeName}" />
+        <input type="hidden" id="employeeLastNameAssignToMe" value="${employee.employeeLastName}" />
+        <input type="hidden" id="initialDateHidden" value="${ticket.initialDate}" />
+        <input type="hidden" id="modifyDateHidden" value="${ticket.modifyDate}" />
+        <input type="hidden" id="finishDateHidden" value="${ticket.finishDate}" />
+
         <div class="titulo">
           <h2>${ticket.nameTicket} - ${ticket.titleTicket}</h2>
         </div>
