@@ -21,6 +21,7 @@ import com.app.alcala.entities.Release;
 import com.app.alcala.entities.Team;
 import com.app.alcala.repositories.ProjectRepository;
 import com.app.alcala.service.ProjectService;
+import com.app.alcala.utils.Constants;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mysql.cj.util.StringUtils;
@@ -41,8 +42,7 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	public List<Project> findProjectsNotCompletedByEmployee(Employee employee) {
-		return projectRepository.findByEmployeeAssignAndStatusProjectIn(employee,
-				Arrays.asList("Backlog", "In progress", "Blocked"));
+		return projectRepository.findByEmployeeAssignAndStatusProjectIn(employee, Constants.STATUS_NOT_COMPLETED);
 	}
 
 	@Override
@@ -52,14 +52,12 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public List<Project> findProjectsReadyByEmployee(Employee employee) {
-		return projectRepository.findByEmployeeAssignAndStatusProjectIn(employee,
-				Arrays.asList("Test", "Ready to UAT", "Ready to PRO"));
+		return projectRepository.findByEmployeeAssignAndStatusProjectIn(employee, Constants.STATUS_READY);
 	}
-	
+
 	@Override
 	public List<Project> findProjectsReadyByTeam(Team team) {
-		return projectRepository.findByTeamAssignAndStatusProjectIn(team,
-				Arrays.asList("Test", "Ready to UAT", "Ready to PRO"));
+		return projectRepository.findByTeamAssignAndStatusProjectIn(team, Constants.STATUS_READY);
 	}
 
 	@Override
@@ -123,8 +121,8 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	private boolean isCloseOrFinish(Project project) {
-		return project.getStatusProject().equalsIgnoreCase("Closed")
-				|| project.getStatusProject().equalsIgnoreCase("Finish");
+		return project.getStatusProject().equalsIgnoreCase(Constants.STATUS_CLOSED)
+				|| project.getStatusProject().equalsIgnoreCase(Constants.STATUS_FINISH);
 	}
 
 	public Project mapNewProject(Project updatedProject, Employee employee, Team teamAssign, Release release) {
@@ -134,36 +132,36 @@ public class ProjectServiceImpl implements ProjectService {
 		updatedProject.setInitialDate(Timestamp.valueOf(currentDate));
 		updatedProject.setModifyDate(Timestamp.valueOf(currentDate));
 		updatedProject.setTeamAssign(teamAssign);
-		updatedProject.setStatusProject("Backlog");
+		updatedProject.setStatusProject(Constants.STATUS_BACKLOG);
 		updatedProject.setRelease(release);
 		save(updatedProject);
-		updatedProject.setNameProject("PRJ " + updatedProject.getIdProject());
+		updatedProject.setNameProject(Constants.NAME_PRJ + updatedProject.getIdProject());
 		return updatedProject;
 	}
 
 	@Override
 	public List<Project> findProjectsFinishByEmployee(Employee employee) {
-		return projectRepository.findByEmployeeAssignAndStatusProjectIn(employee, Arrays.asList("Finish", "Closed"));
+		return projectRepository.findByEmployeeAssignAndStatusProjectIn(employee, Constants.STATUS_COMPLETED);
 	}
 
 	@Override
 	public Integer findCountProjectsReadyByEmployee(Employee employee) {
 		Integer projectCount = (int) projectRepository.countByEmployeeAssignAndStatusProjectIn(employee,
-				Arrays.asList("Test", "Ready to UAT", "Ready to PRO"));
+				Constants.STATUS_READY);
 		return projectCount;
 	}
 
 	@Override
 	public Integer findCountProjectsNotCompletedByEmployee(Employee employee) {
 		Integer projectCount = (int) projectRepository.countByEmployeeAssignAndStatusProjectIn(employee,
-				Arrays.asList("Backlog", "In progress", "Blocked"));
+				Constants.STATUS_NOT_COMPLETED);
 		return projectCount;
 	}
 
 	@Override
 	public Integer findCountProjectsFinishByEmployee(Employee employee) {
 		Integer projectCount = (int) projectRepository.countByEmployeeAssignAndStatusProjectIn(employee,
-				Arrays.asList("Closed", "Finish"));
+				Constants.STATUS_COMPLETED);
 		return projectCount;
 	}
 
@@ -174,7 +172,8 @@ public class ProjectServiceImpl implements ProjectService {
 		LocalDate now = LocalDate.now();
 
 		for (int i = 5; i >= 0; i--) {
-			String monthName = now.minusMonths(i).getMonth().getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+			String monthName = now.minusMonths(i).getMonth().getDisplayName(TextStyle.FULL,
+					new Locale(Constants.LANGUAGE_ES, Constants.LANGUAGE_ES_UPPER));
 			monthTicketCountMap.put(monthName, 0);
 		}
 
@@ -184,7 +183,8 @@ public class ProjectServiceImpl implements ProjectService {
 
 				if (!finishDate.isBefore(now.minusMonths(5).withDayOfMonth(1))
 						&& !finishDate.isAfter(now.withDayOfMonth(now.lengthOfMonth()))) {
-					String monthName = finishDate.getMonth().getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+					String monthName = finishDate.getMonth().getDisplayName(TextStyle.FULL,
+							new Locale(Constants.LANGUAGE_ES, Constants.LANGUAGE_ES_UPPER));
 
 					monthTicketCountMap.put(monthName, monthTicketCountMap.get(monthName) + 1);
 				}
@@ -198,50 +198,51 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public String getHoursProjectResolvedPerMonth(List<Project> projectsFinish) throws JsonProcessingException {
-	    Map<String, List<Long>> monthDurationMap = new LinkedHashMap<>();
-	    LocalDate now = LocalDate.now();
+		Map<String, List<Long>> monthDurationMap = new LinkedHashMap<>();
+		LocalDate now = LocalDate.now();
 
-	    for (int i = 5; i >= 0; i--) {
-	        String monthName = now.minusMonths(i).getMonth().getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
-	        monthDurationMap.put(monthName, new ArrayList<>());
-	    }
+		for (int i = 5; i >= 0; i--) {
+			String monthName = now.minusMonths(i).getMonth().getDisplayName(TextStyle.FULL,
+					new Locale(Constants.LANGUAGE_ES, Constants.LANGUAGE_ES_UPPER));
+			monthDurationMap.put(monthName, new ArrayList<>());
+		}
 
-	    for (Project project : projectsFinish) {
-	        if (project.getFinishDate() != null && project.getInitialDate() != null) {
-	            LocalDate finishDate = project.getFinishDate().toLocalDateTime().toLocalDate();
-	            LocalDate initialDate = project.getInitialDate().toLocalDateTime().toLocalDate();
+		for (Project project : projectsFinish) {
+			if (project.getFinishDate() != null && project.getInitialDate() != null) {
+				LocalDate finishDate = project.getFinishDate().toLocalDateTime().toLocalDate();
+				LocalDate initialDate = project.getInitialDate().toLocalDateTime().toLocalDate();
 
-	            if (!finishDate.isBefore(now.minusMonths(5).withDayOfMonth(1)) &&
-	                !finishDate.isAfter(now.withDayOfMonth(now.lengthOfMonth()))) {
+				if (!finishDate.isBefore(now.minusMonths(5).withDayOfMonth(1))
+						&& !finishDate.isAfter(now.withDayOfMonth(now.lengthOfMonth()))) {
 
-	                long daysSpent = ChronoUnit.DAYS.between(initialDate, finishDate);
-	                String monthName = finishDate.getMonth().getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
-	                monthDurationMap.get(monthName).add(daysSpent);
-	            }
-	        }
-	    }
+					long daysSpent = ChronoUnit.DAYS.between(initialDate, finishDate);
+					String monthName = finishDate.getMonth().getDisplayName(TextStyle.FULL,
+							new Locale(Constants.LANGUAGE_ES, Constants.LANGUAGE_ES_UPPER));
+					monthDurationMap.get(monthName).add(daysSpent);
+				}
+			}
+		}
 
-	    Map<String, Double> monthAverageMap = new LinkedHashMap<>();
-	    for (Map.Entry<String, List<Long>> entry : monthDurationMap.entrySet()) {
-	        List<Long> durations = entry.getValue();
-	        if (!durations.isEmpty()) {
-	            double averageDays = durations.stream().mapToLong(Long::longValue).average().orElse(0.0);
-	            monthAverageMap.put(entry.getKey(), averageDays);
-	        } else {
-	            monthAverageMap.put(entry.getKey(), 0.0);
-	        }
-	    }
+		Map<String, Double> monthAverageMap = new LinkedHashMap<>();
+		for (Map.Entry<String, List<Long>> entry : monthDurationMap.entrySet()) {
+			List<Long> durations = entry.getValue();
+			if (!durations.isEmpty()) {
+				double averageDays = durations.stream().mapToLong(Long::longValue).average().orElse(0.0);
+				monthAverageMap.put(entry.getKey(), averageDays);
+			} else {
+				monthAverageMap.put(entry.getKey(), 0.0);
+			}
+		}
 
-	    List<Double> averagesPerMonth = new ArrayList<>(monthAverageMap.values());
-	    ObjectMapper mapper = new ObjectMapper();
-	    return mapper.writeValueAsString(averagesPerMonth);
+		List<Double> averagesPerMonth = new ArrayList<>(monthAverageMap.values());
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.writeValueAsString(averagesPerMonth);
 	}
 
 	@Override
 	public List<Project> findprojectsCompletedByTeam(Team team) {
-			return projectRepository.findByTeamAssignAndStatusProjectIn(team, Arrays.asList("Finish", "Closed"));
-		
-	}
+		return projectRepository.findByTeamAssignAndStatusProjectIn(team, Constants.STATUS_COMPLETED);
 
+	}
 
 }

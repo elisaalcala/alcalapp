@@ -43,15 +43,15 @@ public class Team implements Serializable {
     @Column(name = "description_team", columnDefinition = "LONGTEXT")
     private String descriptionTeam;
 
-    @OneToMany(targetEntity = Employee.class, fetch = FetchType.EAGER, mappedBy = "team")
+    @OneToMany(targetEntity = Employee.class, fetch = FetchType.LAZY, mappedBy = "team")
     @MapKey(name = "employeeId")
     private Map<Long, Employee> employeeMap;
     
-    @OneToMany(targetEntity = Project.class, fetch = FetchType.EAGER, mappedBy = "teamAssign")
+    @OneToMany(targetEntity = Project.class, fetch = FetchType.LAZY, mappedBy = "teamAssign")
     @MapKey(name = "idProject")
     private Map<Long, Project> projectMapTeam;
 
-    @OneToMany(targetEntity = Ticket.class, fetch = FetchType.EAGER, mappedBy = "teamAssign")
+    @OneToMany(targetEntity = Ticket.class, fetch = FetchType.LAZY, mappedBy = "teamAssign")
     @MapKey(name = "idTicket")
     private Map<Long, Ticket> ticketMapTeam;
 }

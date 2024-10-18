@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     
     <%@ include file="scripts.jsp" %>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="${pageContext.request.contextPath}/js/mywork.js"></script>
+    <script src="/js/mywork.js"></script>
 
 
 

@@ -26,6 +26,7 @@ import com.app.alcala.service.ProjectService;
 import com.app.alcala.service.ReleaseService;
 import com.app.alcala.service.TeamService;
 import com.app.alcala.service.TicketService;
+import com.app.alcala.utils.Constants;
 import com.app.alcala.web.model.EmployeePerTeam;
 import com.app.alcala.web.model.ProjectTable;
 import com.app.alcala.web.model.TablePerEmployee;
@@ -87,7 +88,7 @@ public class AlcalappServiceImpl implements AlcalappService {
 	public Ticket assignTicket(long id, String user) {
 		String result = user.substring(1, user.length() - 1);
 		Ticket ticket = ticketService.findById(id);
-		if (result.equalsIgnoreCase("Sin asignar")) {
+		if (result.equalsIgnoreCase(Constants.STATUS_SIN_ASIGNAR)){
 			if (!ObjectUtils.isEmpty(ticket.getEmployeeAssign())) {
 				Employee employeeQuit = ticket.getEmployeeAssign();
 				employeeQuit.getTicketMapEmployee().remove(ticket.getIdTicket());
@@ -251,7 +252,7 @@ public class AlcalappServiceImpl implements AlcalappService {
 	public String getLastSixMonths() throws JsonProcessingException {
 	    List<String> months = new ArrayList<>();
 	    LocalDate currentDate = LocalDate.now();
-	    Locale spanishLocale = new Locale("es");
+	    Locale spanishLocale = new Locale(Constants.LANGUAGE_ES);
 
 	    for (int i = 5; i >= 0; i--) {
 	        String month = currentDate.minusMonths(i).getMonth().getDisplayName(TextStyle.FULL, spanishLocale);

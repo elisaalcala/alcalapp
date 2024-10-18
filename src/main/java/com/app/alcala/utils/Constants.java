@@ -1,49 +1,45 @@
 package com.app.alcala.utils;
 
-/**
- * Class containing microservice constants.
- */
+import java.util.Arrays;
+import java.util.List;
+
 public class Constants {
+
 	public static final String DATEFORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-	  // Características
-    public static final String CHARACTERISTIC_NAME_CHANNEL = "Channel";
-    public static final String CHARACTERISTIC_NAME_LOGIN = "Login";
-    public static final String CHARACTERISTIC_NAME_CAMPAIGN_EXTERNAL_ID = "CampaignExternalId";
-    public static final String CHARACTERISTIC_NAME_DELIVERY_DATE = "DeliveryDate";
-    public static final String CHARACTERISTIC_NAME_COLLECTION_DATE = "CollectionDate";
+	public static final String DATEFORMAT_YYYY_MM = "yyyy-MM";
+	
+	public static final String LANGUAGE_ES = "es";
+	public static final String LANGUAGE_ES_UPPER = "ES";
+	public static final String NAME_PRJ = "PRJ ";
+	public static final String NAME_R = "R";
+	public static final String NAME_TCK = "TCK ";
 
-    // Roles
-    public static final String ROLE_MOBILE_BILLING_SYSTEM_CUSTOMER_ID = "MobileBillingSystemCustomerId";
-    public static final String ROLE_MOBILE_BILLING_SYSTEM_ACCOUNT_ID = "MobileBillingSystemAccountId";
-    public static final String ROLE_SFID = "SFID";
-    public static final String ROLE_BUSINESS_NAME = "BusinessName";
-    public static final String ROLE_BILLING_CUSTOMER = "BillingCustomer";
+	// STATUS
+	public static final String STATUS_SIN_ASIGNAR = "Sin asignar";
+	public static final String STATUS_IN_PROGRESS = "In progress";
+	public static final String STATUS_CLOSED = "Closed";
+	public static final String STATUS_FINISH = "Finish";
+	public static final String STATUS_BACKLOG = "Backlog";
+	public static final String STATUS_COMPLETED_RELEASE = "Completed";
+	public static final String STATUS_START = "Start";
+	public static final String STATUS_BLOCKED = "Blocked";
+	public static final String STATUS_RESOLVED = "Resolved";
 
-    // Tipos de medios
-    public static final String MEDIUM_TYPE_PHONE = "Phone";
-    public static final String MEDIUM_TYPE_EMAIL = "Email";
-    public static final String MEDIUM_TYPE_ADDRESS = "Address";
+	public static final List<String> STATUS_NOT_COMPLETED = Arrays.asList("Backlog", "In progress", "Blocked");
+	public static final List<String> STATUS_COMPLETED = Arrays.asList("Finish", "Closed");
+	public static final List<String> STATUS_COMPLETED_TICKET = Arrays.asList("Closed", "Resolved");
+	public static final List<String> STATUS_READY = Arrays.asList("Test", "Ready to UAT", "Ready to PRO");
 
-
-    public static final String STATUS_CHANGE_TYPE_DELIVERY = "DeliveryCharge";
-    
-    // Tipos de precio
-    public static final String PRICE_PRICE_TYPE_RECURRENT = "Recurrent";
-    public static final String PRICE_PRICE_TYPE_INITIAL_CHARGE = "InitialCharge";
-    public static final String PRICE_RECURRING_CHARGE_PERIOD_MONTHS = "Months";
-    public static final String PRICE_NAME_SHIPPING_ORDER_ITEM_PRICE = "shippingOrderItemPrice";
-    public static final String PRICE_DESCRIPTION_DELIVERY_CHARGE = "DeliveryCharge";
-    public static final String PRICE_DESCRIPTION_PAYMENT_METHOD_CHARGE = "PaymentMethodCharge";
-
-    // Tipos de envío
-    public static final String ITEM_TYPE_DELIVERY = "Delivery";
-    public static final String ITEM_TYPE_COLLECTION = "Collection";
-    public static final String ITEM_NAME_SERVICE_ID = "ServiceId";
-    public static final String ITEM_NAME_RELATED_DELIVERED_SHIPMENT_ITEM_ID = "RelatedDeliveredShipmentItemId";
-    public static final String ITEM_NAME_COLLECTION_REASON = "CollectionReason";
-    public static final String ITEM_NAME_FAILURE_NAME = "FailureName";
-    public static final String ITEM_NAME_FAILURE_NOTES = "FailureNotes";
-    
-   
-
+	// MESSAGE
+	public static final String CREATED_BY = "Creado por ";
+	public static final String ASSIGNED_TO = "Asignado a ";
+	public static final String MOVE_TO = "Traspasado a ";
+	public static final String RESOLVED = "Resuelto";
+	public static final String REOPEN = "Reabierto";
+	
+	//ENVIREMENT
+	public static final String PRO = "PRO";
+	
+	//EXCEPTION
+	public static final String EXCEPTION_USER_NOT_FOUND = "User not found";
 }

@@ -62,7 +62,7 @@ public class Ticket implements Serializable{
     @Column(name = "status_ticket")
     private String statusTicket;
     
-    @OneToMany(targetEntity = Message.class, fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = Message.class, fetch = FetchType.LAZY)
     @Column(name = "message_ticket")
     private List<Message> messageTicket;
     

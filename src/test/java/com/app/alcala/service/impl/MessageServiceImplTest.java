@@ -37,7 +37,7 @@ public class MessageServiceImplTest {
 	    Timestamp truncatedTimestamp = Timestamp.valueOf(truncatedDateTime);
 		message.setDateRecord(truncatedTimestamp);
 		message.setUserName(username);
-        message.setText("El ticket ha sido creado por " + teamName);
+        message.setText("Creado por " + teamName);
 
         when(messageRepository.save(message)).thenReturn(message);
 
@@ -60,7 +60,7 @@ public class MessageServiceImplTest {
 	    Timestamp truncatedTimestamp = Timestamp.valueOf(truncatedDateTime);
 		message.setDateRecord(truncatedTimestamp);
         message.setUserName(userEmployee);
-        message.setText("El ticket ha sido asignado a " + teamName);
+        message.setText("Asignado a " + teamName);
 
         when(messageRepository.save(message)).thenReturn(message);
 
@@ -83,7 +83,7 @@ public class MessageServiceImplTest {
 	    Timestamp truncatedTimestamp = Timestamp.valueOf(truncatedDateTime);
 		message.setDateRecord(truncatedTimestamp);
 		message.setUserName(userEmployee);
-        message.setText("El ticket ha sido traspasado a " + teamName);
+        message.setText("Traspasado a " + teamName);
 
         when(messageRepository.save(message)).thenReturn(message);
 
@@ -105,7 +105,7 @@ public class MessageServiceImplTest {
 	    Timestamp truncatedTimestamp = Timestamp.valueOf(truncatedDateTime);
 		message.setDateRecord(truncatedTimestamp);
         message.setUserName(userEmployee);
-        message.setText("El ticket ha sido resuelto");
+        message.setText("Resuelto");
 
         when(messageRepository.save(message)).thenReturn(message);
 
@@ -127,7 +127,7 @@ public class MessageServiceImplTest {
 	    Timestamp truncatedTimestamp = Timestamp.valueOf(truncatedDateTime);
 		message.setDateRecord(truncatedTimestamp);
 		message.setUserName(userEmployee);
-        message.setText("El ticket ha sido reabierto");
+        message.setText("Reabierto");
 
         when(messageRepository.save(message)).thenReturn(message);
 

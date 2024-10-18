@@ -59,11 +59,11 @@ public class Employee implements Serializable {
     @ManyToOne(targetEntity = Team.class)
     private Team team;
 
-    @OneToMany(targetEntity = Project.class, fetch = FetchType.EAGER, mappedBy = "employeeAssign")
+    @OneToMany(targetEntity = Project.class, fetch = FetchType.LAZY, mappedBy = "employeeAssign")
     @MapKey(name = "idProject")
     private Map<Long, Project> projectMapEmployee;
     
-    @OneToMany(targetEntity = Ticket.class, fetch = FetchType.EAGER, mappedBy = "employeeAssign")
+    @OneToMany(targetEntity = Ticket.class, fetch = FetchType.LAZY, mappedBy = "employeeAssign")
     @MapKey(name = "idTicket")
     private Map<Long, Ticket> ticketMapEmployee;
 
