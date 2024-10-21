@@ -43,7 +43,7 @@ public class Team implements Serializable {
     @Column(name = "description_team", columnDefinition = "LONGTEXT")
     private String descriptionTeam;
 
-    @OneToMany(targetEntity = Employee.class, fetch = FetchType.LAZY, mappedBy = "team")
+    @OneToMany(targetEntity = Employee.class, fetch = FetchType.EAGER, mappedBy = "team")
     @MapKey(name = "employeeId")
     private Map<Long, Employee> employeeMap;
     
@@ -51,7 +51,7 @@ public class Team implements Serializable {
     @MapKey(name = "idProject")
     private Map<Long, Project> projectMapTeam;
 
-    @OneToMany(targetEntity = Ticket.class, fetch = FetchType.LAZY, mappedBy = "teamAssign")
+    @OneToMany(targetEntity = Ticket.class, fetch = FetchType.EAGER, mappedBy = "teamAssign")
     @MapKey(name = "idTicket")
     private Map<Long, Ticket> ticketMapTeam;
 }

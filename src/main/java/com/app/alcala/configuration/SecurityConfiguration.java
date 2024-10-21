@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -44,7 +43,7 @@ public class SecurityConfiguration {
 			.authorizeHttpRequests(authorize -> authorize
 					// PUBLIC PAGES
 					.requestMatchers("/login", "/WEB-INF/views/templates/login.jsp").permitAll()
-					.requestMatchers("/css/**", "/js/**", "/favicon.ico").permitAll()
+					.requestMatchers("/css/**", "/js/**").permitAll()
 					.requestMatchers("/**","/WEB-INF/views/templates/**").authenticated()
 					.requestMatchers("/admin").hasAnyRole("ADMIN")
 			)

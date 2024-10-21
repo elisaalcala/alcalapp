@@ -4,7 +4,7 @@
         document.getElementById('saveChangesButton').addEventListener('click', function() {
 
             
-            var idTicket = document.getElementById('idTicket').value;
+            var idTicket = document.getElementById('ticketId').value;
             var url = `/tickets/`+idTicket+`/edit`;
             
             var editTicketTitle = document.getElementById('editTicketTitle').value;
@@ -55,7 +55,7 @@
         document.getElementById('saveAssignButton').addEventListener('click', function() {
             
             var employeeAssign = document.querySelector('.assignedEmployee').value;
-            var idTicket = document.getElementById('idTicket').value;
+            var idTicket = document.getElementById('ticketId').value;
             var url = `/tickets/`+idTicket+`/assign`;
             
             fetch(url, {
@@ -157,7 +157,7 @@
             button.addEventListener('click', function(event) {
                 var status = event.target.textContent.trim();
 
-                var idTicket = document.getElementById('idTicket').value;
+                var idTicket = document.getElementById('ticketId').value;
                 var url = `/tickets/`+idTicket+`/edit`;
 
                 var updatedTicket = {
@@ -192,7 +192,7 @@
     document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('saveMoveButton').addEventListener('click', function() {
             // Obtener los valores editados del formulario
-            var idTicket = document.getElementById('idTicket').value;
+            var idTicket = document.getElementById('ticketId').value;
             var url = `/tickets/`+idTicket+`/move`;
             var editedTeamNameAssign = document.querySelector('.assignedTeam').value;
             
@@ -275,7 +275,7 @@
     //Delete Ticket
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('deleteTicketButton').addEventListener('click', function() {
-            var idTicket = document.getElementById('idTicket').value;
+            var idTicket = document.getElementById('ticketId').value;
             var url = `/tickets/`+idTicket+`/delete`;
             
             // Realizar la solicitud DELETE para eliminar el ticket
@@ -363,7 +363,7 @@
         document.getElementById('assignToMeLink').addEventListener('click', function() {
             
             var employeeAssignToMe = document.getElementById('employeeUserHidden').value;
-            var idTicket = document.getElementById('idTicket').value;
+            var idTicket = document.getElementById('ticketId').value;
             var url = `/tickets/`+idTicket+`/assign`;
             
             fetch(url, {
