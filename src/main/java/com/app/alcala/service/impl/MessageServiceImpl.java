@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.app.alcala.entities.Message;
 import com.app.alcala.repositories.MessageRepository;
 import com.app.alcala.service.MessageService;
+import com.app.alcala.utils.Constants;
 
 @Service
 public class MessageServiceImpl implements MessageService{
@@ -22,7 +23,7 @@ public class MessageServiceImpl implements MessageService{
 	    Timestamp truncatedTimestamp = Timestamp.valueOf(truncatedDateTime);
 		message.setDateRecord(truncatedTimestamp);
 		message.setUserName(username);
-		message.setText("El ticket ha sido creado por "+ teamName);
+		message.setText(Constants.CREATED_BY + teamName);
 		return messageRepository.save(message);
 	}
 	
@@ -33,7 +34,7 @@ public class MessageServiceImpl implements MessageService{
 	    Timestamp truncatedTimestamp = Timestamp.valueOf(truncatedDateTime);
 		message.setDateRecord(truncatedTimestamp);
 		message.setUserName(userEmployee);
-		message.setText("El ticket ha sido asignado a " + teamName);
+		message.setText(Constants.ASSIGNED_TO + teamName);
 		return messageRepository.save(message);
 	}
 	
@@ -44,7 +45,7 @@ public class MessageServiceImpl implements MessageService{
 	    Timestamp truncatedTimestamp = Timestamp.valueOf(truncatedDateTime);
 		message.setDateRecord(truncatedTimestamp);
 		message.setUserName(userEmployee);
-		message.setText("El ticket ha sido traspasado a " + teamName);
+		message.setText( Constants.MOVE_TO + teamName);
 		return messageRepository.save(message);
 	}
 	
@@ -56,7 +57,7 @@ public class MessageServiceImpl implements MessageService{
 	    Timestamp truncatedTimestamp = Timestamp.valueOf(truncatedDateTime);
 		message.setDateRecord(truncatedTimestamp);
 		message.setUserName(userEmployee);
-		message.setText("El ticket ha sido resuelto");
+		message.setText(Constants.RESOLVED);
 		return messageRepository.save(message);
 	}
 	
@@ -67,7 +68,7 @@ public class MessageServiceImpl implements MessageService{
 	    Timestamp truncatedTimestamp = Timestamp.valueOf(truncatedDateTime);
 		message.setDateRecord(truncatedTimestamp);
 		message.setUserName(userEmployee);
-		message.setText("El ticket ha sido reabierto");
+		message.setText(Constants.REOPEN);
 		return messageRepository.save(message);
 	}
 	

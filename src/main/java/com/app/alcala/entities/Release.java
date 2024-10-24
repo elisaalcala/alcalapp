@@ -63,7 +63,7 @@ public class Release implements Serializable{
     @Column(name = "employee_user_creation")
     private String employeeUserCreation;
 
-    @OneToMany(targetEntity = Project.class, fetch = FetchType.EAGER, mappedBy = "release")
+    @OneToMany(targetEntity = Project.class, fetch = FetchType.LAZY, mappedBy = "release")
     @MapKey(name = "idProject")
     private Map<Long, Project> projectMap;
     

@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<script>
-    
+
     //Edit Project
     document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('saveChangesButtonProject').addEventListener('click', function() {
             // Obtener los valores editados del formulario
-            var url = `/projects/${project.idProject}/edit`;
+            var projectId = document.getElementById('projectId').value;
+            var url = `/projects/`+ projectId + `/edit`;
             
             var editProjectTitle = document.getElementById('editProjectTitle').value;
             var editProjectDescription = document.getElementById('editProjectDescription').value;
@@ -52,10 +51,12 @@
 
     //Asignar Project Modal
     document.addEventListener('DOMContentLoaded', (event) => {
+
         document.getElementById('saveAssignButtonProject').addEventListener('click', function() {
             
             var employeeAssign = document.querySelector('.assignedEmployee').value;
-            var url = `/projects/${project.idProject}/assign`;
+            var projectId = document.getElementById('projectId').value;
+            var url = `/projects/`+ projectId + `/assign`;
             
             fetch(url, {
                 method: 'PUT',
@@ -79,15 +80,17 @@
                 console.error('Error:', error);
             });
         });
+
         // Script para el botón "Asignarme a mí"
         document.getElementById('assignToMeButtonProject').addEventListener('click', function() {
         
-            var selectedTeam = `${project.teamNameAssign}`;
-            var employeeTeam = `${employee.nameTeam}`; 
             var selectElement = document.querySelector('.assignedEmployee');
+            
+            var employeeName = document.getElementById('employeeNameAssignToMe').value;
+            var employeeLastName = document.getElementById('employeeLastNameAssignToMe').value;
 
             for (var i = 0; i < selectElement.options.length; i++) {
-                if (selectElement.options[i].textContent === `${employee.employeeName} ${employee.employeeLastName}`) {
+                if (selectElement.options[i].textContent === employeeName + ` ` + employeeLastName) {
                     selectElement.options[i].selected = true;
                     break;
                 }
@@ -117,6 +120,7 @@
                 selectElement.appendChild(newOption);
             }
         });
+
         // Evento para ocultar la alerta cuando se pulse cualquier otra parte del documento
         document.addEventListener('click', function(event) {
             var clickedElement = event.target;
@@ -211,9 +215,9 @@
             }
         }
         // Formatear las fechas
-        var formattedInitialDate = formatDateTime(`${project.initialDate}`);
-        var formattedModifyDate = formatDateTime(`${project.modifyDate}`);
-        var formattedFinishDate = formatFinishDate(`${project.finishDate}`);
+        var formattedInitialDate = formatDateTime(document.getElementById('initialDateHidden').value);
+        var formattedModifyDate = formatDateTime(document.getElementById('modifyDateHidden').value);
+        var formattedFinishDate = formatFinishDate(document.getElementById('finishDateHidden').value);
 
         // Actualizar el contenido HTML con las fechas formateadas
         document.getElementById("initialDate").textContent = formattedInitialDate;
@@ -229,8 +233,8 @@
         changeStatusButtonsProject.forEach(function(button) {
             button.addEventListener('click', function(event) {
                 var status = event.target.textContent.trim();
-
-                var url = `/projects/${project.idProject}/edit`;
+                var projectId = document.getElementById('projectId').value;
+                var url = `/projects/`+ projectId + `/edit`;
 
                 var updatedProject = {
                     statusProject: status
@@ -262,7 +266,8 @@
     //Delete Project
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('deleteTicketButtonProject').addEventListener('click', function() {
-            var url = `/projects/${project.idProject}/delete`;
+            var projectId = document.getElementById('projectId').value;
+            var url = `/projects/`+ projectId + `/delete`;
             
             // Realizar la solicitud DELETE para eliminar el ticket
             fetch(url, {
@@ -270,7 +275,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(`${project.idProject}`)
+                body: JSON.stringify(projectId)
             })
             .then(response => {
                 if (!response.ok) {
@@ -308,9 +313,9 @@
     //Asignar Project Link
     document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('assignToMeLinkProject').addEventListener('click', function() {
-            
-            var employeeAssignToMe = `${employee.userEmployee}`;
-            var url = `/projects/${project.idProject}/assign`;
+            var employeeAssignToMe = document.getElementById('userEmployee').value;
+            var projectId = document.getElementById('projectId').value;
+            var url = `/projects/`+ projectId + `/assign`;
             
             fetch(url, {
                 method: 'PUT',
@@ -347,5 +352,3 @@
         }
 
     });
-
-</script>

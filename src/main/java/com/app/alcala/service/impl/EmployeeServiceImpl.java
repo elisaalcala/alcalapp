@@ -11,6 +11,7 @@ import com.app.alcala.entities.Project;
 import com.app.alcala.entities.Ticket;
 import com.app.alcala.repositories.EmployeeRepository;
 import com.app.alcala.service.EmployeeService;
+import com.app.alcala.utils.Constants;
 import com.app.alcala.web.model.TablePerEmployee;
 import com.app.alcala.web.model.WorkPerEmployee;
 
@@ -56,7 +57,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		
 		List<Project> projects = new ArrayList<>();
 		for(Project project: employee.getProjectMapEmployee().values()) {
-			if(project.getStatusProject().equalsIgnoreCase("In progress")) {
+			if(project.getStatusProject().equalsIgnoreCase(Constants.STATUS_IN_PROGRESS)) {
 				projects.add(project);
 				load++;
 			}
@@ -64,7 +65,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		
 		List<Ticket> tickets = new ArrayList<>();
 		for(Ticket ticket: employee.getTicketMapEmployee().values()) {
-			if(ticket.getStatusTicket().equalsIgnoreCase("In Progress")) {
+			if(ticket.getStatusTicket().equalsIgnoreCase(Constants.STATUS_IN_PROGRESS)) {
 				tickets.add(ticket);
 				load++;
 			}

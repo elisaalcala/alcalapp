@@ -12,6 +12,8 @@
 
     <div class="margin-left-15" id="breadcrumb-container"></div>
 
+    <input type="hidden" id="currentPage" value="${page}" />
+
     <ul class="navbar-nav ml-auto">
 
         <!-- Nav Item - Questions -->

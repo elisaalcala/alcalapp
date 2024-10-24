@@ -12,6 +12,7 @@ import com.app.alcala.entities.Employee;
 import com.app.alcala.entities.Release;
 import com.app.alcala.repositories.ReleaseRepository;
 import com.app.alcala.service.ReleaseService;
+import com.app.alcala.utils.Constants;
 
 @Service
 public class ReleaseServiceImpl implements ReleaseService {
@@ -20,12 +21,12 @@ public class ReleaseServiceImpl implements ReleaseService {
 
 	@Override
 	public List<Release> findByReleaseNotCompleted() {
-		return releaseRepository.findByStatusReleaseNot("Completed");
+		return releaseRepository.findByStatusReleaseNot(Constants.STATUS_COMPLETED_RELEASE);
 	}
 
 	@Override
 	public List<Release> findByReleasesOpen() {
-		return releaseRepository.findByStatusReleaseIn(Arrays.asList("Backlog", "In progress"));
+		return releaseRepository.findByStatusReleaseIn(Arrays.asList(Constants.STATUS_BACKLOG, Constants.STATUS_IN_PROGRESS));
 	}
 
 	public Release save(Release savedRelease) {
@@ -51,10 +52,10 @@ public class ReleaseServiceImpl implements ReleaseService {
 	public Release mapNewRelease(Release savedRelease, Employee employee) {
 		savedRelease.setEmployeeCreation(employee);
 		savedRelease.setEmployeeUserCreation(employee.getUserEmployee());
-		savedRelease.setStatusRelease("Start");
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
+		savedRelease.setStatusRelease(Constants.STATUS_START);
+		SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.DATEFORMAT_YYYY_MM);
 		String formattedDate = dateFormat.format(savedRelease.getProDate());
-		savedRelease.setNameRelease("R" + formattedDate);
+		savedRelease.setNameRelease(Constants.NAME_R + formattedDate);
 		return save(savedRelease);
 	}
 

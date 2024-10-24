@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<script>
- 
     //Edit Ticket
     document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('saveChangesButton').addEventListener('click', function() {
-            // Obtener los valores editados del formulario
-            var url = `/tickets/${ticket.idTicket}/edit`;
+
+            
+            var idTicket = document.getElementById('ticketId').value;
+            var url = `/tickets/`+idTicket+`/edit`;
             
             var editTicketTitle = document.getElementById('editTicketTitle').value;
             var editTicketDescription = document.getElementById('editTicketDescription').value;
@@ -56,7 +55,8 @@
         document.getElementById('saveAssignButton').addEventListener('click', function() {
             
             var employeeAssign = document.querySelector('.assignedEmployee').value;
-            var url = `/tickets/${ticket.idTicket}/assign`;
+            var idTicket = document.getElementById('ticketId').value;
+            var url = `/tickets/`+idTicket+`/assign`;
             
             fetch(url, {
                 method: 'PUT',
@@ -83,12 +83,13 @@
         // Script para el botón "Asignarme a mí"
         document.getElementById('assignToMeButton').addEventListener('click', function() {
         
-            var selectedTeam = `${ticket.teamNameAssign}`;
-            var employeeTeam = `${employee.nameTeam}`; 
             var selectElement = document.querySelector('.assignedEmployee');
+            
+            var employeeName = document.getElementById('employeeNameAssignToMe').value;
+            var employeeLastName = document.getElementById('employeeLastNameAssignToMe').value;
         
             for (var i = 0; i < selectElement.options.length; i++) {
-                if (selectElement.options[i].textContent === `${employee.employeeName} ${employee.employeeLastName}`) {
+                if (selectElement.options[i].textContent === employeeName + ` ` + employeeLastName) {
                     selectElement.options[i].selected = true;
                     break;
                 }
@@ -156,7 +157,8 @@
             button.addEventListener('click', function(event) {
                 var status = event.target.textContent.trim();
 
-                var url = `/tickets/${ticket.idTicket}/edit`;
+                var idTicket = document.getElementById('ticketId').value;
+                var url = `/tickets/`+idTicket+`/edit`;
 
                 var updatedTicket = {
                     statusTicket: status
@@ -190,7 +192,8 @@
     document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('saveMoveButton').addEventListener('click', function() {
             // Obtener los valores editados del formulario
-            var url = `/tickets/${ticket.idTicket}/move`;
+            var idTicket = document.getElementById('ticketId').value;
+            var url = `/tickets/`+idTicket+`/move`;
             var editedTeamNameAssign = document.querySelector('.assignedTeam').value;
             
             // Realizar la solicitud PUT para actualizar el ticket
@@ -272,7 +275,8 @@
     //Delete Ticket
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('deleteTicketButton').addEventListener('click', function() {
-            var url = `/tickets/${ticket.idTicket}/delete`;
+            var idTicket = document.getElementById('ticketId').value;
+            var url = `/tickets/`+idTicket+`/delete`;
             
             // Realizar la solicitud DELETE para eliminar el ticket
             fetch(url, {
@@ -280,7 +284,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(`${ticket.idTicket}`)
+                body: JSON.stringify(idTicket)
             })
             .then(response => {
                 if (!response.ok) {
@@ -339,10 +343,14 @@
             }
         }
 
+        var initialDateHidden = document.getElementById('initialDateHidden').value;
+        var modifyDateHidden = document.getElementById('modifyDateHidden').value;
+        var finishDateHidden = document.getElementById('finishDateHidden').value;
+
         // Formatear las fechas
-        var formattedInitialDate = formatDateTime(`${ticket.initialDate}`);
-        var formattedModifyDate = formatDateTime(`${ticket.modifyDate}`);
-        var formattedFinishDate = formatFinishDate(`${ticket.finishDate}`);
+        var formattedInitialDate = formatDateTime(initialDateHidden);
+        var formattedModifyDate = formatDateTime(modifyDateHidden);
+        var formattedFinishDate = formatFinishDate(finishDateHidden);
 
         // Actualizar el contenido HTML con las fechas formateadas
         document.getElementById("initialDate").textContent = formattedInitialDate;
@@ -354,8 +362,9 @@
     document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('assignToMeLink').addEventListener('click', function() {
             
-            var employeeAssignToMe = `${employee.userEmployee}`;
-            var url = `/tickets/${ticket.idTicket}/assign`;
+            var employeeAssignToMe = document.getElementById('employeeUserHidden').value;
+            var idTicket = document.getElementById('ticketId').value;
+            var url = `/tickets/`+idTicket+`/assign`;
             
             fetch(url, {
                 method: 'PUT',
@@ -387,5 +396,3 @@
         verticalTrigger: '150px'
         });
     })
-
-</script>

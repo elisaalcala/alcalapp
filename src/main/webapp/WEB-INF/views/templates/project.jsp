@@ -9,9 +9,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    
     <%@ include file="scripts.jsp" %>
-    <%@ include file="scriptsProject.jsp" %>
-    <%@ include file="style.jsp" %>
+    <script src="/js/project.js"></script>
+
   </head>
 <body>
   <div class="container">
@@ -24,6 +27,13 @@
       <%@ include file="sidebar.jsp" %>
 
       <section class="container-fluid">
+
+        <!-- Input oculto -->
+        <input type="hidden" id="projectId" value="${project.idProject}" />
+        <input type="hidden" id="employeeNameAssignToMe" value="${employee.employeeName}" />
+        <input type="hidden" id="employeeLastNameAssignToMe" value="${employee.employeeLastName}" />
+        <input type="hidden" id="userEmployee" value="${employee.userEmployee}" />
+
         <div class="titulo">
           <h2>${project.nameProject} - ${project.titleProject}</h2>
         </div>
@@ -142,12 +152,24 @@
               </div>
               <div class="col">
                 <div class="ticket-info">
+
+                  <!-- Input oculto para la fecha inicial -->
+                  <input type="hidden" id="initialDateHidden" value="${project.initialDate}" />
+
+                  <!-- Input oculto para la fecha de modificación -->
+                  <input type="hidden" id="modifyDateHidden" value="${project.modifyDate}" />
+
+                  <!-- Input oculto para la fecha de finalización -->
+                  <input type="hidden" id="finishDateHidden" value="${project.finishDate}" />
+
+
                   <div class="ticket-detail-heading color-cyan">
                     Fechas
                   </div>
                   <div class="row">
                       <dt class="col">Creación:</dt>
                       <dd class="col" id="initialDate"></dd>
+
                   </div>
                   <div class="row">
                     <dt class="col">Última modificación:</dt>

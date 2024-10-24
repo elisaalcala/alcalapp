@@ -9,9 +9,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="/css/style.css">
     <%@ include file="scripts.jsp" %>
-    <%@ include file="scriptsRelease.jsp" %>
-    <%@ include file="style.jsp" %>
+    <script src="/js/release.js"></script>
+    
   </head>
 <body>
   <div class="container">
@@ -24,6 +26,17 @@
       <%@ include file="sidebar.jsp" %>
 
       <section class="container-fluid">
+
+        <input type="hidden" id="releaseId" value="${release.idRelease}" />
+        <input type="hidden" id="nameReleaseHidden" value="${release.nameRelease}" />
+        <input type="hidden" id="initialDateHidden" value="${release.initialDate}" />
+        <input type="hidden" id="requirementsDateHidden" value="${release.requirementsDate}" />
+        <input type="hidden" id="prjAssignmentDateHidden" value="${release.prjAssignmentDate}" />
+        <input type="hidden" id="developDateHidden" value="${release.developDate}" />
+        <input type="hidden" id="tstDateHidden" value="${release.tstDate}" />
+        <input type="hidden" id="uatDateHidden" value="${release.uatDate}" />
+        <input type="hidden" id="proDateHidden" value="${release.proDate}" />
+
         <div class="titulo">
           <h2>${release.nameRelease}</h2>
         </div>

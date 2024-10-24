@@ -1,7 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<style>
 
-/* Restablecer estilos */
 
 /* Color Theme Swatches in Hex */
 .dark { color: #103240; }
@@ -755,9 +752,3 @@ ul.weeks, ul.days{
   gap: 8px; /* Añade un espacio fijo entre el texto y el icono */
 }
 
-
-
-</style>
-
-<!-- Include flatpickr CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
