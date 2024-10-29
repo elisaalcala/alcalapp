@@ -8,12 +8,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +29,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.app.alcala.entities.Employee;
 import com.app.alcala.entities.Message;
@@ -29,15 +37,22 @@ import com.app.alcala.entities.Project;
 import com.app.alcala.entities.Release;
 import com.app.alcala.entities.Team;
 import com.app.alcala.entities.Ticket;
+import com.app.alcala.entities.User;
+import com.app.alcala.repositories.UserRepository;
 import com.app.alcala.service.EmployeeService;
 import com.app.alcala.service.MessageService;
 import com.app.alcala.service.ProjectService;
 import com.app.alcala.service.ReleaseService;
 import com.app.alcala.service.TeamService;
 import com.app.alcala.service.TicketService;
+import com.app.alcala.web.model.EmployeePerTeam;
 import com.app.alcala.web.model.ProjectTable;
+import com.app.alcala.web.model.TablePerEmployee;
+import com.app.alcala.web.model.TableTeam;
 import com.app.alcala.web.model.WorkLoad;
 import com.app.alcala.web.model.WorkPerEmployee;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 @ExtendWith(MockitoExtension.class)
 class AlcalappServiceImplTest {
 
@@ -61,12 +76,53 @@ class AlcalappServiceImplTest {
 
     @Mock
     private MessageService messageService;
+    
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
+    @Mock
+    private UserRepository userRepository;
+    
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
+    @Test
+    public void testCreateUserAndEmployee() {
+        // Datos de prueba
+        User user = new User();
+        user.setEncodedPassword("plainPassword");
 
+        Employee employeeNew = new Employee();
+        employeeNew.setNameTeam("Development");
+
+        Team team = new Team();
+        Employee createdEmployee = new Employee();
+
+        // Configuración de los mocks
+        when(passwordEncoder.encode("plainPassword")).thenReturn("encodedPassword");
+        when(userRepository.save(user)).thenReturn(user);
+        when(teamService.findByNameTeam("Development")).thenReturn(team);
+        when(employeeService.createNewEmployee(employeeNew, team)).thenReturn(createdEmployee);
+
+        // Llamada al método
+        Employee result = alcalappService.createUserAndEmployee(user, employeeNew);
+
+        // Verificaciones
+        assertEquals(createdEmployee, result, "El empleado creado debe coincidir con el retornado por el servicio");
+
+        // Verificar que la contraseña fue encriptada y el usuario guardado
+        verify(passwordEncoder, times(1)).encode("plainPassword");
+        assertEquals("encodedPassword", user.getEncodedPassword(), "La contraseña debe estar encriptada");
+        verify(userRepository, times(1)).save(user);
+
+        // Verificar que el equipo fue buscado por su nombre
+        verify(teamService, times(1)).findByNameTeam("Development");
+
+        // Verificar que el nuevo empleado fue creado con el equipo encontrado
+        verify(employeeService, times(1)).createNewEmployee(employeeNew, team);
+    }
     @Test
     void testFindProjectsPerRelease() {
         Team team = new Team();
@@ -362,5 +418,135 @@ class AlcalappServiceImplTest {
         assertEquals(2, result.size());
         assertEquals("\"User1\"", result.get(0));
         assertEquals("\"User2\"", result.get(1));
+    }
+    
+    @Test
+    public void testCalculateTableTeam() {
+        // Configurar datos de prueba
+        Team team = new Team();
+        Employee employee1 = new Employee();
+        employee1.setEmployeeId(1L);
+        employee1.setUserEmployee("user1");
+        
+        Employee employee2 = new Employee();
+        employee2.setEmployeeId(2L);
+        employee2.setUserEmployee("user2");
+
+        Map<Long, Employee> employeeMap = new HashMap<>();
+        employeeMap.put(1L, employee1);
+        employeeMap.put(2L, employee2);
+        team.setEmployeeMap(employeeMap);
+
+        when(ticketService.findCountTicketsFinishByEmployee(employee1)).thenReturn(5);
+        when(projectService.findCountProjectsFinishByEmployee(employee1)).thenReturn(2);
+        when(ticketService.findCountTicketsFinishByEmployee(employee2)).thenReturn(3);
+        when(projectService.findCountProjectsFinishByEmployee(employee2)).thenReturn(4);
+
+        // Llamada al método
+        TableTeam result = alcalappService.calculateTableTeam(team);
+
+        // Verificación de resultados
+        assertEquals(2, result.getListTablePerEmployee().size(), "Debe haber 2 empleados en la tabla del equipo");
+
+        TablePerEmployee table1 = result.getListTablePerEmployee().get(0);
+        assertEquals(1L, table1.getIdEmployee());
+        assertEquals("user1", table1.getUserEmployee());
+        assertEquals(5, table1.getFinishTickets());
+        assertEquals(2, table1.getFinishProjects());
+
+        TablePerEmployee table2 = result.getListTablePerEmployee().get(1);
+        assertEquals(2L, table2.getIdEmployee());
+        assertEquals("user2", table2.getUserEmployee());
+        assertEquals(3, table2.getFinishTickets());
+        assertEquals(4, table2.getFinishProjects());
+    }
+    
+    @Test
+    public void testGetEmployeesTeam() throws JsonProcessingException {
+        TableTeam tableTeam = new TableTeam();
+        TablePerEmployee table1 = new TablePerEmployee();
+        table1.setUserEmployee("user1");
+        TablePerEmployee table2 = new TablePerEmployee();
+        table2.setUserEmployee("user2");
+
+        tableTeam.setListTablePerEmployee(Arrays.asList(table1, table2));
+
+        String result = alcalappService.getEmployeesTeam(tableTeam);
+        
+        assertEquals("[\"user1\",\"user2\"]", result);
+    }
+    
+    @Test
+    public void testGetEmployeesTicketsResolved() throws JsonProcessingException {
+        TableTeam tableTeam = new TableTeam();
+        TablePerEmployee table1 = new TablePerEmployee();
+        table1.setFinishTickets(5);
+        TablePerEmployee table2 = new TablePerEmployee();
+        table2.setFinishTickets(3);
+
+        tableTeam.setListTablePerEmployee(Arrays.asList(table1, table2));
+
+        String result = alcalappService.getEmployeesTicketsResolved(tableTeam);
+        
+        assertEquals("[5,3]", result);
+    }
+    
+    @Test
+    public void testGetEmployeesProjectsResolved() throws JsonProcessingException {
+        TableTeam tableTeam = new TableTeam();
+        TablePerEmployee table1 = new TablePerEmployee();
+        table1.setFinishProjects(4);
+        TablePerEmployee table2 = new TablePerEmployee();
+        table2.setFinishProjects(2);
+
+        tableTeam.setListTablePerEmployee(Arrays.asList(table1, table2));
+
+        String result = alcalappService.getemployeesProjectsResolved(tableTeam);
+        
+        assertEquals("[4,2]", result);
+    }
+    
+    @Test
+    public void testGetLastSixMonths() throws JsonProcessingException {
+        String result = alcalappService.getLastSixMonths();
+        
+        // Generar los nombres de los últimos 6 meses en español para la verificación
+        List<String> expectedMonths = new ArrayList<>();
+        LocalDate currentDate = LocalDate.now();
+        Locale spanishLocale = new Locale("es");
+        for (int i = 5; i >= 0; i--) {
+            String month = currentDate.minusMonths(i).getMonth().getDisplayName(TextStyle.FULL, spanishLocale);
+            month = month.substring(0, 1).toUpperCase() + month.substring(1).toLowerCase();
+            expectedMonths.add(month);
+        }
+        
+        ObjectMapper mapper = new ObjectMapper();
+        String expectedJson = mapper.writeValueAsString(expectedMonths);
+        
+        assertEquals(expectedJson, result);
+    }
+    
+    @Test
+    public void testGetEmployeesPerTeam() {
+        Employee employee1 = new Employee();
+        employee1.setUserEmployee("user1");
+        employee1.setEmployeePosition("Developer");
+
+        Employee employee2 = new Employee();
+        employee2.setUserEmployee("user2");
+        employee2.setEmployeePosition("Manager");
+
+        Employee employeeSession = new Employee();
+        employeeSession.setUserEmployee("userSession");
+
+        List<Employee> employees = Arrays.asList(employee1, employee2, employeeSession);
+
+        List<EmployeePerTeam> result = alcalappService.getEmployeesPerTeam(employees, employeeSession);
+
+        assertEquals(2, result.size(), "Debe haber 2 empleados excluyendo la sesión actual");
+        assertEquals("user1", result.get(0).getUserEmployee());
+        assertEquals("Developer", result.get(0).getEmployeePosition());
+        assertEquals("user2", result.get(1).getUserEmployee());
+        assertEquals("Manager", result.get(1).getEmployeePosition());
     }
 }
