@@ -30,6 +30,8 @@ public class Constants {
 	public static final List<String> STATUS_COMPLETED_TICKET = Arrays.asList("Closed", "Resolved");
 	public static final List<String> STATUS_READY = Arrays.asList("Test", "Ready to UAT", "Ready to PRO");
 
+	public static final List<String> ALL_STATUS_RELEASES = Arrays.asList("Backlog", "In Progress", "Resolved", "Closed");
+
 	// MESSAGE
 	public static final String CREATED_BY = "Creado por ";
 	public static final String ASSIGNED_TO = "Asignado a ";
@@ -42,4 +44,7 @@ public class Constants {
 	
 	//EXCEPTION
 	public static final String EXCEPTION_USER_NOT_FOUND = "User not found";
+	
+	//ROLES
+	public static final List<String> ROLES = Arrays.asList("USER", "ADMIN");
 }

@@ -1,7 +1,7 @@
 package com.app.alcala.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Map;
 
 import jakarta.persistence.Column;
@@ -45,10 +45,10 @@ public class Employee implements Serializable {
     private String employeePosition;
 
     @Column(name = "birth_date")
-    private Date birthDate;
+    private Timestamp birthDate;
 
     @Column(name = "hire_date")
-    private Date hireDate;
+    private Timestamp hireDate;
     
     @Column(name = "user_employee")
     private String userEmployee;

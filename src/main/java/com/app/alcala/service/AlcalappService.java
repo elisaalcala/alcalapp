@@ -7,6 +7,7 @@ import com.app.alcala.entities.Employee;
 import com.app.alcala.entities.Project;
 import com.app.alcala.entities.Team;
 import com.app.alcala.entities.Ticket;
+import com.app.alcala.entities.User;
 import com.app.alcala.web.model.EmployeePerTeam;
 import com.app.alcala.web.model.ProjectTable;
 import com.app.alcala.web.model.TableTeam;
@@ -50,6 +51,8 @@ public interface AlcalappService {
 	String getemployeesProjectsResolved(TableTeam tableTeam)throws JsonProcessingException;
 
 	List<EmployeePerTeam> getEmployeesPerTeam(Collection<Employee> values, Employee employeesession);
+
+	Employee createUserAndEmployee(User userNew, Employee employeeNew);
 
 
 

@@ -1,7 +1,6 @@
 package com.app.alcala.web.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +20,7 @@ import com.app.alcala.entities.Release;
 import com.app.alcala.entities.Team;
 import com.app.alcala.service.AlcalappService;
 import com.app.alcala.service.ReleaseService;
+import com.app.alcala.utils.Constants;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -61,7 +61,7 @@ public class ReleaseController {
 		HttpSession session = request.getSession();
 		Team team = (Team) session.getAttribute("team");
 
-		List<String> allStatus = new ArrayList<>(Arrays.asList("Backlog", "In Progress", "Resolved", "Closed"));
+		List<String> allStatus = new ArrayList<>(Constants.ALL_STATUS_RELEASES);
 
 		Release release = releaseService.findByIdRelease(id);
 

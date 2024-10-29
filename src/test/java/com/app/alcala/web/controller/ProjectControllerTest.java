@@ -34,7 +34,7 @@ import com.app.alcala.entities.Project;
 import com.app.alcala.entities.Team;
 import com.app.alcala.service.AlcalappService;
 import com.app.alcala.service.ProjectService;
-import com.app.alcala.service.impl.RepositoryUserDetailsService;
+import com.app.alcala.service.impl.UserDetailsServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(ProjectController.class)
@@ -52,7 +52,7 @@ public class ProjectControllerTest {
     private AlcalappService alcalappService;
     
     @MockBean
-    private RepositoryUserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     private ObjectMapper objectMapper;

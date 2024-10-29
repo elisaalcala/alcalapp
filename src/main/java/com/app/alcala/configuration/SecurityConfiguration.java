@@ -10,14 +10,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.app.alcala.service.impl.RepositoryUserDetailsService;
+import com.app.alcala.service.impl.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
 	@Autowired
-    public RepositoryUserDetailsService userDetailService;
+    public UserDetailsServiceImpl userDetailService;
 
     @Bean
     PasswordEncoder passwordEncoder() {

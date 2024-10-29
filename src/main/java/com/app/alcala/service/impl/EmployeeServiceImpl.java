@@ -1,6 +1,9 @@
 package com.app.alcala.service.impl;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.app.alcala.entities.Employee;
 import com.app.alcala.entities.Project;
+import com.app.alcala.entities.Team;
 import com.app.alcala.entities.Ticket;
 import com.app.alcala.repositories.EmployeeRepository;
 import com.app.alcala.service.EmployeeService;
 import com.app.alcala.utils.Constants;
-import com.app.alcala.web.model.TablePerEmployee;
 import com.app.alcala.web.model.WorkPerEmployee;
 
 @Service
@@ -81,6 +84,19 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public void delete(Employee employeeDelete) {
 		employeeRepository.delete(employeeDelete);
 		
+	}
+
+	@Override
+	public Employee createNewEmployee(Employee employeeNew, Team team) {
+
+		LocalDateTime currentDate = LocalDateTime.now().withSecond(0).withNano(0);
+		employeeNew.setHireDate(Timestamp.valueOf(currentDate));
+		LocalDateTime date = employeeNew.getBirthDate().toLocalDateTime().withSecond(0).withNano(0);
+		employeeNew.setBirthDate(Timestamp.valueOf(date));
+		employeeNew.setProjectMapEmployee(new HashMap<>());
+		employeeNew.setTicketMapEmployee(new HashMap<>());
+		employeeNew.setTeam(team);
+		return save(employeeNew);
 	}
 
 

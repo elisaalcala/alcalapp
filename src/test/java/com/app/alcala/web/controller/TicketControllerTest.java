@@ -36,7 +36,7 @@ import com.app.alcala.entities.Team;
 import com.app.alcala.entities.Ticket;
 import com.app.alcala.service.AlcalappService;
 import com.app.alcala.service.TicketService;
-import com.app.alcala.service.impl.RepositoryUserDetailsService;
+import com.app.alcala.service.impl.UserDetailsServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(TicketController.class)
@@ -54,7 +54,7 @@ public class TicketControllerTest {
     private AlcalappService alcalappService;
 
     @MockBean
-    private RepositoryUserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
     
     @Autowired
     private ObjectMapper objectMapper;

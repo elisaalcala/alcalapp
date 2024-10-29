@@ -16,7 +16,7 @@ import com.app.alcala.repositories.UserRepository;
 import com.app.alcala.utils.Constants;
 
 @Service
-public class RepositoryUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepository;

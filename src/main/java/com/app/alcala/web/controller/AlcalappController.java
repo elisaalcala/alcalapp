@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.app.alcala.entities.Employee;
@@ -25,10 +26,12 @@ import com.app.alcala.service.ProjectService;
 import com.app.alcala.service.ReleaseService;
 import com.app.alcala.service.TeamService;
 import com.app.alcala.service.TicketService;
-import com.app.alcala.service.impl.RepositoryUserDetailsService;
+import com.app.alcala.service.impl.UserDetailsServiceImpl;
+import com.app.alcala.utils.Constants;
 import com.app.alcala.web.model.EmployeePerTeam;
 import com.app.alcala.web.model.ProjectTable;
 import com.app.alcala.web.model.TableTeam;
+import com.app.alcala.web.model.UserAndEmployeeDTO;
 import com.app.alcala.web.model.WorkLoad;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -52,7 +55,7 @@ public class AlcalappController {
 	@Autowired
 	private AlcalappService alcalappService;
 	@Autowired
-	private RepositoryUserDetailsService userDetailsService;
+	private UserDetailsServiceImpl userDetailsService;
 
 	@GetMapping("/login")
 	public String loginPage(@RequestParam(name = "error", required = false) String error, Model model) {
@@ -98,6 +101,7 @@ public class AlcalappController {
 		session.setAttribute("team", team);
 		session.setAttribute("createTicketTeamsList", createTicketTeamsList);
 		session.setAttribute("releasesOpen", releasesOpen);
+		session.setAttribute("rolesList", Constants.ROLES);
 
 		List<ProjectTable> projectsTables = alcalappService.findProjectsPerRelease(team);
 		List<Ticket> ticketsNotCompleted = ticketService.findticketsNotCompletedByTeam(team);
@@ -206,5 +210,14 @@ public class AlcalappController {
 
 		return "profile";
 	}
+	
+	@PostMapping("/createUser")
+	public ResponseEntity<String> createTicket(@RequestBody UserAndEmployeeDTO userAndEmployee) {
+
+		alcalappService.createUserAndEmployee(userAndEmployee.getUser(), userAndEmployee.getEmployee());
+
+		return ResponseEntity.ok("Usuario y empleado creados con éxito");
+	}
+	
 
 }
