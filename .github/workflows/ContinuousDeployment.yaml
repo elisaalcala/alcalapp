@@ -53,7 +53,7 @@ jobs:
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/alcalapp:${{ steps.project.outputs.tag }}
         
     outputs:
-      tag: ${{ steps.tag_output.outputs.tag }}
+      tag: ${{ steps.project.outputs.tag }}
 
   deploy:
     runs-on: ubuntu-latest
