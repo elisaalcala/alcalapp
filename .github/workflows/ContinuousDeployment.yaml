@@ -51,6 +51,9 @@ jobs:
 
       - name: Push image to DockerHub
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/alcalapp:${{ steps.project.outputs.tag }}
+        
+    outputs:
+      tag: ${{ steps.tag_output.outputs.tag }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -70,7 +73,7 @@ jobs:
           az container create \
             --resource-group ${{ secrets.AZURE_GROUP }} \
             --name alcalapp \
-            --image ${{ secrets.DOCKERHUB_USERNAME }}/alcalapp:${{ steps.project.outputs.tag }} \
+            --image ${{ secrets.DOCKERHUB_USERNAME }}/alcalapp:${{ needs.publish.outputs.tag }} \
             --dns-name-label elisaalcala-alcalapp \
             --registry-login-server index.docker.io \
             --registry-username ${{ secrets.DOCKERHUB_USERNAME }} \
