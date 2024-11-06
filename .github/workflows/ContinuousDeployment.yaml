@@ -70,9 +70,9 @@ jobs:
           az container create \
             --resource-group ${{ secrets.AZURE_GROUP }} \
             --name alcalapp \
-            --image ${{ secrets.DOCKERHUB_USERNAME }}/alcalapp:1.0.1 \
+            --image ${{ secrets.DOCKERHUB_USERNAME }}/alcalapp:${{ steps.project.outputs.tag }} \
             --dns-name-label elisaalcala-alcalapp \
             --registry-login-server index.docker.io \
             --registry-username ${{ secrets.DOCKERHUB_USERNAME }} \
             --registry-password ${{ secrets.DOCKERHUB_READ_TOKEN }} \
-            --ports 8080
+            --ports 8443
