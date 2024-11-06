@@ -83,9 +83,13 @@ jobs:
         run: |
           git config --global user.name "elisaalcala"
           git config --global user.email "elisaalcgue@gmail.com"
-          git add pom.xml
-          git commit -m "Release version ${RELEASE_VERSION} [skip ci]"
-          git push origin master
+          if [[ $(git diff --stat pom.xml) != '' ]]; then
+            git add pom.xml
+            git commit -m "Release version ${RELEASE_VERSION} [skip ci]"
+            git push origin master
+          else
+            echo "No changes to commit."
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
