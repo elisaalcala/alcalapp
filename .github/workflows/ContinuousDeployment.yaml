@@ -81,5 +81,5 @@ jobs:
             --ports 8443 \
             --environment-variables \
               DB_URL="jdbc:mysql://db-alcalapp.mysql.database.azure.com:3306/alcalapp_db?serverTimezone=UTC&useSSL=true" \
-              DB_USERNAME="elisaalcala" \
-              DB_PASSWORD="${{ secrets.DB_PRO_PASSWORD }}"
+              DB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }} \
+              DB_PASSWORD=${{ secrets.DB_PRO_PASSWORD }}
