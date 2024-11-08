@@ -78,4 +78,8 @@ jobs:
             --registry-login-server index.docker.io \
             --registry-username ${{ secrets.DOCKERHUB_USERNAME }} \
             --registry-password ${{ secrets.DOCKERHUB_READ_TOKEN }} \
-            --ports 8443
+            --ports 8443 \
+            --environment-variables \
+              DB_URL="jdbc:mysql://db-alcalapp.mysql.database.azure.com:3306/alcalapp_db?serverTimezone=UTC&useSSL=true" \
+              DB_USERNAME="elisaalcala" \
+              DB_PASSWORD="${{ secrets.DB_PRO_PASSWORD }}"
