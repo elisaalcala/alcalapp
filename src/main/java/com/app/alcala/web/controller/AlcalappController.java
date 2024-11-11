@@ -202,17 +202,15 @@ public class AlcalappController {
 		List<EmployeePerTeam>  employeesPerTeam = alcalappService.getEmployeesPerTeam(team.getEmployeeMap().values(), employee);
 		List<Ticket>  recomendations = ticketService.findByEmployeeAssignOrderByModifyDateDesc(employee);
 		
-		
 		model.addAttribute("page", "MI PERFIL");
 		model.addAttribute("employeesPerTeam", employeesPerTeam);
 		model.addAttribute("recomendations", recomendations);
-		
 
 		return "profile";
 	}
 	
 	@PostMapping("/createUser")
-	public ResponseEntity<String> createTicket(@RequestBody UserAndEmployeeDTO userAndEmployee) {
+	public ResponseEntity<String> createUser(@RequestBody UserAndEmployeeDTO userAndEmployee) {
 
 		alcalappService.createUserAndEmployee(userAndEmployee.getUser(), userAndEmployee.getEmployee());
 

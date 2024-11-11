@@ -2,7 +2,6 @@ package com.app.alcala.web.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyCollection;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -45,9 +44,7 @@ import com.app.alcala.service.impl.UserDetailsServiceImpl;
 import com.app.alcala.web.model.EmployeePerTeam;
 import com.app.alcala.web.model.ProjectTable;
 import com.app.alcala.web.model.TableTeam;
-import com.app.alcala.web.model.UserAndEmployeeDTO;
 import com.app.alcala.web.model.WorkLoad;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(AlcalappController.class)
 @Import(SecurityConfiguration.class)

@@ -405,7 +405,7 @@ class AlcalappServiceImplTest {
 
     @Test
     void testUserPerEmployee() {
-        WorkLoad workload = new WorkLoad();
+    	WorkLoad workload = new WorkLoad();
         List<WorkPerEmployee> workPerEmployeeList = new ArrayList<>();
         workPerEmployeeList.add(new WorkPerEmployee("User1", null, 10, null, null));
         workPerEmployeeList.add(new WorkPerEmployee("User2", null, 20, null, null));
@@ -478,7 +478,7 @@ class AlcalappServiceImplTest {
     
     @Test
     public void testGetEmployeesTicketsResolved() throws JsonProcessingException {
-        TableTeam tableTeam = new TableTeam();
+    	TableTeam tableTeam = new TableTeam();
         TablePerEmployee table1 = new TablePerEmployee();
         table1.setFinishTickets(5);
         TablePerEmployee table2 = new TablePerEmployee();
@@ -493,8 +493,8 @@ class AlcalappServiceImplTest {
     
     @Test
     public void testGetEmployeesProjectsResolved() throws JsonProcessingException {
-        TableTeam tableTeam = new TableTeam();
-        TablePerEmployee table1 = new TablePerEmployee();
+    	TableTeam tableTeam = new TableTeam();
+    	TablePerEmployee table1 = new TablePerEmployee();
         table1.setFinishProjects(4);
         TablePerEmployee table2 = new TablePerEmployee();
         table2.setFinishProjects(2);

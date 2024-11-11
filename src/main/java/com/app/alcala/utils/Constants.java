@@ -4,12 +4,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Constants {
-
+	//DATE FORMAT
 	public static final String DATEFORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 	public static final String DATEFORMAT_YYYY_MM = "yyyy-MM";
 	
+	//LENGUAGES
 	public static final String LANGUAGE_ES = "es";
 	public static final String LANGUAGE_ES_UPPER = "ES";
+	
+	//NAMES
 	public static final String NAME_PRJ = "PRJ ";
 	public static final String NAME_R = "R";
 	public static final String NAME_TCK = "TCK ";

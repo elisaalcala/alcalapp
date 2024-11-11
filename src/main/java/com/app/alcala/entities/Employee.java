@@ -67,5 +67,4 @@ public class Employee implements Serializable {
     @MapKey(name = "idTicket")
     private Map<Long, Ticket> ticketMapEmployee;
 
-
 }
