@@ -28,39 +28,40 @@
       <%@ include file="sidebar.jsp" %>
 
       <section class="container-fluid">
-        <div class="titulo">
-          <h2>Proyectos</h2>
-        </div>
-        <!-- DataTales Example -->
-        <div class="card shadow mb-4">
-            <div class="card-body">
-                    <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                          <tr>
-                            <th>Nombre</th>
-                            <th>Titulo</th>
-                            <th>Estado</th>
-                            <th>Release</th>
-                            <th>Encargado</th>
-                            <th>Equipo</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <c:forEach items="${projects}" var="proyecto">
-                            <tr data-proyecto-id="${proyecto.idProject}" class="proyecto-row pointer-row">
-                              <td>${proyecto.nameProject}</td>
-                              <td>${proyecto.titleProject}</td>
-                              <td>${proyecto.statusProject}</td>
-                              <td>${proyecto.releaseName}</td>
-                              <td>${proyecto.employeeUserAssign}</td>
-                              <td>${proyecto.teamNameAssign}</td>
+        <div>
+          <div class="titulo">
+            <h2>Proyectos</h2>
+          </div>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+              <div class="card-body">
+                      <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                          <thead>
+                            <tr>
+                              <th>Nombre</th>
+                              <th>Titulo</th>
+                              <th>Estado</th>
+                              <th>Release</th>
+                              <th>Encargado</th>
+                              <th>Equipo</th>
                             </tr>
-                          </c:forEach>
-                      </table>
-                
-            </div>
-        </div>
-        
+                          </thead>
+                          <tbody>
+                            <c:forEach items="${projects}" var="proyecto">
+                              <tr data-proyecto-id="${proyecto.idProject}" class="proyecto-row pointer-row">
+                                <td>${proyecto.nameProject}</td>
+                                <td>${proyecto.titleProject}</td>
+                                <td>${proyecto.statusProject}</td>
+                                <td>${proyecto.releaseName}</td>
+                                <td>${proyecto.employeeUserAssign}</td>
+                                <td>${proyecto.teamNameAssign}</td>
+                              </tr>
+                            </c:forEach>
+                        </table>
+                  
+              </div>
+          </div>
+        </div>  
         <!-- Footer  -->
         <%@ include file="footer.jsp" %>
       </section>

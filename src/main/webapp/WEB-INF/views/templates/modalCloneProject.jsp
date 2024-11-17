@@ -69,7 +69,7 @@
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary" id="cloneProjectButton">Enviar</button>
+              <button type="button" class="btn bg-cyan-800" id="cloneProjectButton">Enviar</button>
           </div>
       </div>
   </div>

@@ -28,7 +28,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="saveMoveButton">Traspasar</button>
+                    <button type="button" class="btn bg-cyan-800" id="saveMoveButton">Traspasar</button>
                 </div>
             </div>
         </div>

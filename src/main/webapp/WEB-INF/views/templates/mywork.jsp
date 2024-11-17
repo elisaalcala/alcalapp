@@ -87,7 +87,7 @@
                         <thead>
                           <tr>
                             <th>Nombre</th>
-                            <th>Descripcion</th>
+                            <th>Titulo</th>
                             <th>Prioridad</th>
                             <th>Estado</th>
                             <th>Fecha creación</th>
@@ -97,7 +97,7 @@
                           <c:forEach items="${ticketsNotCompleted}" var="ticket">
                             <tr data-ticket-id="${ticket.idTicket}" class="ticket-row task-hover">
                                 <td>${ticket.nameTicket}</td>
-                                <td>${ticket.descriptionTicket}</td>
+                                <td>${ticket.titleTicket}</td>
                                 <td>${ticket.priorityTicket}</td>
                                 <td>${ticket.statusTicket}</td>
                                 <td>${ticket.initialDate}</td>
@@ -157,7 +157,7 @@
                         <thead>
                           <tr>
                             <th>Nombre</th>
-                            <th>Descripcion</th>
+                            <th>Titulo</th>
                             <th>Prioridad</th>
                             <th>Estado</th>
                             <th>Fecha creación</th>
@@ -167,7 +167,7 @@
                           <c:forEach items="${ticketsReady}" var="ticket">
                             <tr data-ticket-id="${ticket.idTicket}" class="ticket-row task-hover">
                                 <td>${ticket.nameTicket}</td>
-                                <td>${ticket.descriptionTicket}</td>
+                                <td>${ticket.titleTicket}</td>
                                 <td>${ticket.priorityTicket}</td>
                                 <td>${ticket.statusTicket}</td>
                                 <td>${ticket.initialDate}</td>
@@ -239,7 +239,7 @@
                           <thead>
                             <tr>
                               <th>Nombre</th>
-                              <th>Descripcion</th>
+                              <th>Titulo</th>
                               <th>Prioridad</th>
                               <th>Estado</th>
                               <th>Fecha creación</th>
@@ -250,7 +250,7 @@
                               <tr data-ticket-id="${ticket.idTicket}" class="ticket-row task-hover">
                                 
                                   <td>${ticket.nameTicket}</td>
-                                  <td>${ticket.descriptionTicket}</td>
+                                  <td>${ticket.titleTicket}</td>
                                   <td>${ticket.priorityTicket}</td>
                                   <td>${ticket.statusTicket}</td>
                                   <td>${ticket.initialDate}</td>

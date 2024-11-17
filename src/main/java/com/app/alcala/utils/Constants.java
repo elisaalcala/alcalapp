@@ -33,7 +33,7 @@ public class Constants {
 	public static final List<String> STATUS_COMPLETED_TICKET = Arrays.asList("Closed", "Resolved");
 	public static final List<String> STATUS_READY = Arrays.asList("Test", "Ready to UAT", "Ready to PRO");
 
-	public static final List<String> ALL_STATUS_RELEASES = Arrays.asList("Backlog", "In Progress", "Resolved", "Closed");
+	public static final List<String> ALL_STATUS_RELEASES = Arrays.asList("Backlog", "In Progress", "Closed");
 
 	// MESSAGE
 	public static final String CREATED_BY = "Creado por ";
