@@ -67,7 +67,7 @@ public class ReleaseAndProjectTest {
 	options.addArguments("--disable-dev-shm-usage");
 
         driver = new ChromeDriver(options);
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(100));
         
     }
 

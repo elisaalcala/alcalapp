@@ -1,7 +1,6 @@
 package com.app.alcala.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Map;
 
@@ -18,6 +17,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Entity
@@ -62,7 +62,8 @@ public class Release implements Serializable{
     
     @Column(name = "employee_user_creation")
     private String employeeUserCreation;
-
+    
+    @ToString.Exclude
     @OneToMany(targetEntity = Project.class, fetch = FetchType.EAGER, mappedBy = "release")
     @MapKey(name = "idProject")
     private Map<Long, Project> projectMap;
