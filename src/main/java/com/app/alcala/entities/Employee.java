@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -17,6 +19,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Entity
@@ -56,14 +59,17 @@ public class Employee implements Serializable {
     @Column(name = "name_team")
     private String nameTeam;
     
+    @JsonIgnore
     @ManyToOne(targetEntity = Team.class)
     private Team team;
 
-    @OneToMany(targetEntity = Project.class, fetch = FetchType.LAZY, mappedBy = "employeeAssign")
+    @ToString.Exclude
+    @OneToMany(targetEntity = Project.class, fetch = FetchType.EAGER, mappedBy = "employeeAssign")
     @MapKey(name = "idProject")
     private Map<Long, Project> projectMapEmployee;
-    
-    @OneToMany(targetEntity = Ticket.class, fetch = FetchType.LAZY, mappedBy = "employeeAssign")
+
+    @ToString.Exclude
+    @OneToMany(targetEntity = Ticket.class, fetch = FetchType.EAGER, mappedBy = "employeeAssign")
     @MapKey(name = "idTicket")
     private Map<Long, Ticket> ticketMapEmployee;
 

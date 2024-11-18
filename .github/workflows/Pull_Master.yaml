@@ -1,9 +1,9 @@
 name: Master Release
 
 on:
-  push:
+  pull_request:
     branches:
-      - master  # Activa el workflow en cada push a la rama master
+      - master  # Activa el workflow en cada pull request a la rama master
 
 jobs:
   release:
@@ -62,36 +62,9 @@ jobs:
           echo "Code total: $TOTAL%"
           echo "Code coverage percentage: $COVERAGE_PERCENT%"
       
-          if [ "$COVERAGE_PERCENT" -lt 60 ]; then
+          if [ "$COVERAGE_PERCENT" -lt 80 ]; then
             echo "Code coverage is below 80% ($COVERAGE_PERCENT%). Failing the build."
             exit 1
           fi
 
-      - name: Get Current Version
-        id: get_version
-        run: |
-          CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-          echo "CURRENT_VERSION=${CURRENT_VERSION}" >> $GITHUB_ENV
-
-      - name: Remove SNAPSHOT from Version
-        run: |
-          RELEASE_VERSION=$(echo ${{ env.CURRENT_VERSION }} | sed 's/-SNAPSHOT//')
-          mvn versions:set -DnewVersion=$RELEASE_VERSION
-          echo "RELEASE_VERSION=${RELEASE_VERSION}" >> $GITHUB_ENV
-
-      - name: Commit and push release version
-        run: |
-          git config --global user.name "elisaalcala"
-          git config --global user.email "elisaalcgue@gmail.com"
-          git add pom.xml
-          git commit -m "Release version ${RELEASE_VERSION} [skip ci]"
-          git push origin master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create new tag for release
-        run: |
-          git tag -a "v${RELEASE_VERSION}" -m "Release version ${RELEASE_VERSION}"
-          git push origin "v${RELEASE_VERSION}"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      

@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.filter.ForwardedHeaderFilter;
 
 import com.app.alcala.service.impl.RepositoryUserDetailsService;
 
@@ -42,10 +43,8 @@ public class SecurityConfiguration {
 		http
 			.authorizeHttpRequests(authorize -> authorize
 					// PUBLIC PAGES
-					.requestMatchers("/login", "/WEB-INF/views/templates/login.jsp").permitAll()
-					.requestMatchers("/css/**", "/js/**").permitAll()
-					.requestMatchers("/**","/WEB-INF/views/templates/**").authenticated()
-					.requestMatchers("/admin").hasAnyRole("ADMIN")
+					.requestMatchers("/login", "/WEB-INF/jsp/login.jsp", "/error","/favicon.ico").permitAll()
+					.requestMatchers("/**","/WEB-INF/jsp/**").authenticated()
 			)
 			.formLogin(formLogin -> formLogin
 					.loginPage("/login")
@@ -61,6 +60,5 @@ public class SecurityConfiguration {
 
 		return http.build();
 	}
-    
 
 }
