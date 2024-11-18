@@ -1,9 +1,6 @@
 package com.app.alcala.configuration;
 
-import org.apache.catalina.connector.Connector;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -46,9 +43,8 @@ public class SecurityConfiguration {
 		http
 			.authorizeHttpRequests(authorize -> authorize
 					// PUBLIC PAGES
-					.requestMatchers("/login", "/WEB-INF/views/templates/login.jsp", "/error","/favicon.ico").permitAll()
-					.requestMatchers("/**","/WEB-INF/views/templates/**").authenticated()
-					.requestMatchers("/admin").hasAnyRole("ADMIN")
+					.requestMatchers("/login", "/WEB-INF/jsp/login.jsp", "/error","/favicon.ico").permitAll()
+					.requestMatchers("/**","/WEB-INF/jsp/**").authenticated()
 			)
 			.formLogin(formLogin -> formLogin
 					.loginPage("/login")
