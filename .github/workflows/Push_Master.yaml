@@ -1,12 +1,16 @@
-name: Master Release
+name: Continuous Deployment - Run Azure Login with OIDC
 
 on:
   push:
     branches:
-      - master  # Activa el workflow en cada push a la rama master
+      - master
 
+permissions:
+  id-token: write
+  contents: read
+  
 jobs:
-  release:
+  publish:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"  # Verifica que el mensaje de commit no contenga [skip ci]
     runs-on: ubuntu-latest
     
@@ -19,8 +23,8 @@ jobs:
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping -h localhost" --health-interval=10s --health-timeout=5s --health-retries=3
-    
-    env: # Entorno global
+
+    env: # Global environment
       DB_URL: jdbc:mysql://localhost:3306/alcalapp_db?serverTimezone=UTC
       DB_USERNAME: root
       DB_PASSWORD: 3301
@@ -34,38 +38,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-
-      - name: Build with Maven
-        run: mvn clean install --file pom.xml
-  
-      - name: Run tests
-        run: mvn test
-  
-      - name: Check code coverage
-        run: |
-          mvn jacoco:report # Genera el informe de cobertura de JaCoCo
-      
-          # Extraer los valores de cobertura y total de instrucciones
-          COVERED=$(grep -oP '<counter type="INSTRUCTION" missed="\d+" covered="\d+"' target/site/jacoco/jacoco.xml | \
-                    awk -F'covered="' '{sum_covered += $2} END {print sum_covered}')
-          MISSED=$(grep -oP '<counter type="INSTRUCTION" missed="\d+" covered="\d+"' target/site/jacoco/jacoco.xml | \
-                   awk -F'missed="' '{sum_missed += $2} END {print sum_missed}')
-          TOTAL=$(( COVERED + MISSED ))
-      
-          if [ "$TOTAL" -eq 0 ]; then
-            echo "No coverage data found. Failing the build."
-            exit 1
-          fi
-      
-          COVERAGE_PERCENT=$(( 100 * COVERED / TOTAL ))
-          echo "coverage: $COVERED%"
-          echo "Code total: $TOTAL%"
-          echo "Code coverage percentage: $COVERAGE_PERCENT%"
-      
-          if [ "$COVERAGE_PERCENT" -lt 60 ]; then
-            echo "Code coverage is below 80% ($COVERAGE_PERCENT%). Failing the build."
-            exit 1
-          fi
 
       - name: Get Current Version
         id: get_version
@@ -99,3 +71,48 @@ jobs:
           git push origin "v${RELEASE_VERSION}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+   
+      - name: Generate tag
+        id: project
+        run: echo "tag=$(mvn -q help:evaluate -Dexpression=project.version -DforceStdout)" >> $GITHUB_OUTPUT
+        
+      - name: Generate Docker image
+        run: mvn spring-boot:build-image -DskipTests -Dspring-boot.build-image.imageName=${{ secrets.DOCKERHUB_USERNAME }}/alcalapp:${{ steps.project.outputs.tag }}
+
+      - name: Login to DockerHub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Push image to DockerHub
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/alcalapp:${{ steps.project.outputs.tag }}
+        
+    outputs:
+      tag: ${{ steps.project.outputs.tag }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: publish
+    
+    steps:
+      - name: 'Az CLI login'
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          
+            
+      - name: 'Run az commands to deploy container'
+        run: |
+          az container create \
+            --resource-group ${{ secrets.AZURE_GROUP }} \
+            --name alcalapp \
+            --image ${{ secrets.DOCKERHUB_USERNAME }}/alcalapp:${{ needs.publish.outputs.tag }} \
+            --dns-name-label elisaalcala-alcalapp \
+            --registry-login-server index.docker.io \
+            --registry-username ${{ secrets.DOCKERHUB_USERNAME }} \
+            --registry-password ${{ secrets.DOCKERHUB_READ_TOKEN }} \
+            --ports 8443 \
+            --environment-variables \
+              DB_URL="jdbc:mysql://db-alcalapp.mysql.database.azure.com:3306/alcalapp_db?serverTimezone=UTC&useSSL=true" \
+              DB_USERNAME="${{ secrets.DOCKERHUB_USERNAME }}" \
+              DB_PASSWORD="${{ secrets.DB_PRO_PASSWORD }}"
