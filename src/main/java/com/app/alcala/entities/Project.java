@@ -2,6 +2,7 @@ package com.app.alcala.entities;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -13,13 +14,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 
 @Table(name = "PROJECT")
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Project implements Serializable{
 	
 	private static final long serialVersionUID = 1L;

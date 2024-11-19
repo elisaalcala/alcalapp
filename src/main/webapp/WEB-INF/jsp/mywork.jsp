@@ -9,10 +9,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="/css/style.css">
     
     <%@ include file="scripts.jsp" %>
-    <%@ include file="scriptsMyWork.jsp" %>
-    <%@ include file="style.jsp" %>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/mywork.js"></script>
 
 
 
@@ -85,7 +87,7 @@
                         <thead>
                           <tr>
                             <th>Nombre</th>
-                            <th>Descripcion</th>
+                            <th>Titulo</th>
                             <th>Prioridad</th>
                             <th>Estado</th>
                             <th>Fecha creación</th>
@@ -95,7 +97,7 @@
                           <c:forEach items="${ticketsNotCompleted}" var="ticket">
                             <tr data-ticket-id="${ticket.idTicket}" class="ticket-row task-hover">
                                 <td>${ticket.nameTicket}</td>
-                                <td>${ticket.descriptionTicket}</td>
+                                <td>${ticket.titleTicket}</td>
                                 <td>${ticket.priorityTicket}</td>
                                 <td>${ticket.statusTicket}</td>
                                 <td>${ticket.initialDate}</td>
@@ -155,7 +157,7 @@
                         <thead>
                           <tr>
                             <th>Nombre</th>
-                            <th>Descripcion</th>
+                            <th>Titulo</th>
                             <th>Prioridad</th>
                             <th>Estado</th>
                             <th>Fecha creación</th>
@@ -165,7 +167,7 @@
                           <c:forEach items="${ticketsReady}" var="ticket">
                             <tr data-ticket-id="${ticket.idTicket}" class="ticket-row task-hover">
                                 <td>${ticket.nameTicket}</td>
-                                <td>${ticket.descriptionTicket}</td>
+                                <td>${ticket.titleTicket}</td>
                                 <td>${ticket.priorityTicket}</td>
                                 <td>${ticket.statusTicket}</td>
                                 <td>${ticket.initialDate}</td>
@@ -237,7 +239,7 @@
                           <thead>
                             <tr>
                               <th>Nombre</th>
-                              <th>Descripcion</th>
+                              <th>Titulo</th>
                               <th>Prioridad</th>
                               <th>Estado</th>
                               <th>Fecha creación</th>
@@ -248,7 +250,7 @@
                               <tr data-ticket-id="${ticket.idTicket}" class="ticket-row task-hover">
                                 
                                   <td>${ticket.nameTicket}</td>
-                                  <td>${ticket.descriptionTicket}</td>
+                                  <td>${ticket.titleTicket}</td>
                                   <td>${ticket.priorityTicket}</td>
                                   <td>${ticket.statusTicket}</td>
                                   <td>${ticket.initialDate}</td>
@@ -267,7 +269,17 @@
           </div>
           <div class="width30"> 
             <div class="columnas-derecha">
-              
+
+
+              <input type="hidden" id="labelsJson" value='${labelsJson}' />
+              <input type="hidden" id="tckDataJson" value='${tckDataJson}' />
+              <input type="hidden" id="prjDataJson" value='${prjDataJson}' />
+              <input type="hidden" id="tckDataLineJson" value='${tckDataLineJson}' />
+              <input type="hidden" id="prjDataLineJson" value='${prjDataLineJson}' />
+              <input type="hidden" id="tckDataCreationClosedJson" value='${tckDataCreationClosedJson}' />
+              <input type="hidden" id="tckDataCreationResolvedJson" value='${tckDataCreationResolvedJson}' />
+
+
 
               <div class="card shadow m-column m-left">
 

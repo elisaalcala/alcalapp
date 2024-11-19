@@ -40,7 +40,7 @@ import com.app.alcala.service.ProjectService;
 import com.app.alcala.service.ReleaseService;
 import com.app.alcala.service.TeamService;
 import com.app.alcala.service.TicketService;
-import com.app.alcala.service.impl.RepositoryUserDetailsService;
+import com.app.alcala.service.impl.UserDetailsServiceImpl;
 import com.app.alcala.web.model.EmployeePerTeam;
 import com.app.alcala.web.model.ProjectTable;
 import com.app.alcala.web.model.TableTeam;
@@ -66,7 +66,7 @@ public class AlcalappControllerTest {
     @MockBean
     private AlcalappService alcalappService;
     @MockBean
-    private RepositoryUserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
     
 
     @Test
@@ -213,5 +213,6 @@ public class AlcalappControllerTest {
                 .andExpect(model().attribute("employeesPerTeam", employeesPerTeam))
                 .andExpect(model().attribute("recomendations", recommendations));
     }
+    
 
 }

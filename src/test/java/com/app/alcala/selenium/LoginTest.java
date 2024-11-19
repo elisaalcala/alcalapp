@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import org.hibernate.Hibernate;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -68,6 +69,7 @@ public class LoginTest {
 	}
 
 	@Test
+
 	public void testLoginWithValidCredentials() {
 
 		userRepository.save(new User("test", passwordEncoder.encode("test"), "USER"));
@@ -105,8 +107,8 @@ public class LoginTest {
 				Team teamDelete = teamService.findByNameTeam(employeeDelete.getNameTeam());
 
 				if (teamDelete != null) {
-					teamDelete.getEmployeeMap().remove(employeeDelete.getEmployeeId());
-					teamService.save(teamDelete);
+				    teamDelete.getEmployeeMap().remove(employeeDelete.getEmployeeId());
+				    teamService.save(teamDelete);
 				}
 				employeeDelete.setTeam(null);
 				employeeService.save(employeeDelete);

@@ -1,4 +1,4 @@
-name: Master Release
+name: Pull Request to Master
 
 on:
   pull_request:
@@ -41,7 +41,7 @@ jobs:
       - name: Run tests
         run: mvn test
   
-      - name: Check code coverage
+      - name: Check Coverage
         run: |
           mvn jacoco:report # Genera el informe de cobertura de JaCoCo
       

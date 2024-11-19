@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -9,21 +10,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css">
-    
-    <%@ include file="scripts.jsp" %>
-    <%@ include file="style.jsp" %>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="/css/style.css">
 
-    
+    <%@ include file="scripts.jsp" %>
+
   </head>
 <body>
   <div class="container" id="dailywork">
 
-    <!-- Topbar  -->
+    <!-- NavBar  -->
     <%@ include file="navbar.jsp" %>
     
     <main  class="d-flex">
       
-      <!-- Sidebar -->
+      <!-- SideBar -->
       <%@ include file="sidebar.jsp" %>
     
       <section class="container-fluid">
@@ -66,7 +67,7 @@
                               <td>${ticket.statusTicket}</td>
                               <td>${ticket.initialDate}</td>
                               <c:choose>
-                                <c:when test="${empty proyecto.employeeUserAssign}">
+                                <c:when test="${empty ticket.employeeUserAssign}">
                                   <td>
                                     <a href="#" class="nav-colorlink assignMeTicketLink">
                                       <i class="fa-solid fa-pencil "></i>
@@ -75,7 +76,7 @@
                                   </td>  
                                 </c:when>
                                 <c:otherwise>
-                                  <td>${proyecto.employeeUserAssign}</td>
+                                  <td>${ticket.employeeUserAssign}</td>
                                 </c:otherwise>
                               </c:choose>
                             
@@ -332,6 +333,18 @@
                   </a>
                 </div>
                 <div id="cardBodyBar">
+
+                  <!-- Input ocultos para pasar los datos del servidor al JS -->
+                  <input type="hidden" id="employeesTeam" value='${employeesTeam}' />
+                  <input type="hidden" id="employeesTicketsResolved" value='${employeesTicketsResolved}' />
+                  <input type="hidden" id="employeesProjectsResolved" value='${employeesProjectsResolved}' />
+
+                  <input type="hidden" id="monthsJson" value='${monthsJson}' />
+                  <input type="hidden" id="projectsCompletedByTeamJson" value='${projectsCompletedByTeamJson}' />
+                  <input type="hidden" id="ticketsCompletedByTeamJson" value='${ticketsCompletedByTeamJson}' />
+                  <input type="hidden" id="ticketsCompletedByTeamJsonPro" value='${ticketsCompletedByTeamJsonPro}' />
+
+
                   <div>
                     <canvas id="teamChartBar" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
                   </div>
@@ -358,11 +371,14 @@
         <!-- Footer  -->
         <%@ include file="footer.jsp" %>
       </section>
+      <%@ include file="modalNewUser.jsp" %>
       <%@ include file="modalCreate.jsp" %>
       <%@ include file="modalLogout.jsp" %>
       <%@ include file="modalCreateRelease.jsp" %>
 
-      <%@ include file="scriptsDailyWork.jsp" %>
+      <script src="/js/dailywork.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     </main>
   </div>
 

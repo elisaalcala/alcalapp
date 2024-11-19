@@ -1,4 +1,4 @@
-name: Continuous Deployment - Run Azure Login with OIDC
+name: Push to Master
 
 on:
   push:

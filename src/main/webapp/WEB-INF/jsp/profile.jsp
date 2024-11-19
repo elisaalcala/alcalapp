@@ -9,12 +9,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css">
-    <link href="${pageContext.request.contextPath}/css/timeline.min.css" rel="stylesheet">
-    
-    <%@ include file="scripts.jsp" %>
-    <%@ include file="scriptsProfile.jsp" %>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="/css/style.css">
 
-    <%@ include file="style.jsp" %>
+    <%@ include file="scripts.jsp" %>
+    <script src="/js/profile.js"></script>
+
   </head>
   <body>
     <div class="container">
@@ -161,10 +161,12 @@
                       <span>${team.descriptionTeam}</span>
                         <br>
                         <br>
+                        
                       <span>Componenetes del equipo:</span>
-
+                      
                       <c:forEach items="${employeesPerTeam}" var="employeesPerTeam">
-                        <span> ${employeesPerTeam.userEmployee} - ${employeesPerTeam.employeePosition}</span>
+                        <br>
+                        <span>· ${employeesPerTeam.userEmployee} - ${employeesPerTeam.employeePosition}</span>
                       </c:forEach>
                       
                     </div>

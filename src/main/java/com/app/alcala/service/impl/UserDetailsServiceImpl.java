@@ -13,9 +13,10 @@ import org.springframework.stereotype.Service;
 
 import com.app.alcala.entities.User;
 import com.app.alcala.repositories.UserRepository;
+import com.app.alcala.utils.Constants;
 
 @Service
-public class RepositoryUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -24,7 +25,7 @@ public class RepositoryUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 		User user = userRepository.findByName(username)
-				.orElseThrow(() -> new UsernameNotFoundException("User not found"));
+				.orElseThrow(() -> new UsernameNotFoundException(Constants.EXCEPTION_USER_NOT_FOUND));
 
 		List<GrantedAuthority> roles = new ArrayList<>();
 		for (String role : user.getRoles()) {

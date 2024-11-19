@@ -32,7 +32,7 @@ import com.app.alcala.entities.Release;
 import com.app.alcala.entities.Team;
 import com.app.alcala.service.AlcalappService;
 import com.app.alcala.service.ReleaseService;
-import com.app.alcala.service.impl.RepositoryUserDetailsService;
+import com.app.alcala.service.impl.UserDetailsServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(ReleaseController.class)
@@ -50,7 +50,7 @@ public class ReleaseControllerTest {
     private AlcalappService alcalappService;
     
     @MockBean
-    private RepositoryUserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
     
     @Autowired
     private ObjectMapper objectMapper;
@@ -99,7 +99,7 @@ public class ReleaseControllerTest {
 
         when(releaseService.findByIdRelease(anyLong())).thenReturn(release);
 
-        List<String> allStatus = Arrays.asList("Backlog", "In Progress", "Resolved", "Closed");
+        List<String> allStatus = Arrays.asList("Backlog", "In Progress", "Closed");
 
         mockMvc.perform(get("/releases/1").sessionAttr("team", team))
                 .andExpect(status().isOk())

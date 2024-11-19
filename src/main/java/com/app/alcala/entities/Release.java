@@ -62,7 +62,7 @@ public class Release implements Serializable{
     
     @Column(name = "employee_user_creation")
     private String employeeUserCreation;
-    
+
     @ToString.Exclude
     @OneToMany(targetEntity = Project.class, fetch = FetchType.EAGER, mappedBy = "release")
     @MapKey(name = "idProject")

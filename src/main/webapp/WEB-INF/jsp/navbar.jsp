@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 
 <nav class="navbar navbar-expand bg-gradient-navbar topbar static-top shadow ">
     
@@ -11,6 +13,8 @@
     </a>
 
     <div class="margin-left-15" id="breadcrumb-container"></div>
+
+    <input type="hidden" id="currentPage" value="${page}" />
 
     <ul class="navbar-nav ml-auto">
 
@@ -36,7 +40,7 @@
 
         </li>
 
-      <!-- Nav Item - Messages -->
+      <!-- Nav Item - Calendar -->
       <li class="nav-item dropdown no-arrow mx-1 p-0">
           <a class="nav-link dropdown-toggle link-text dropdown-toggle-noncontent" href="#" id="messagesDropdown" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -68,6 +72,13 @@
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Configuración
               </a>
+              <sec:authorize access="hasRole('ADMIN')">
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item nav-colorlink" data-bs-toggle="modal" data-bs-target="#newUserModal">
+                    <i class="fa-solid fa-user-plus fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Nuevo Usuario
+                </button>
+              </sec:authorize>
               <div class="dropdown-divider"></div>
               <button class="dropdown-item nav-colorlink text-danger" data-bs-toggle="modal" data-bs-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

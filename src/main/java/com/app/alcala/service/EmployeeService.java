@@ -2,8 +2,8 @@ package com.app.alcala.service;
 
 import com.app.alcala.entities.Employee;
 import com.app.alcala.entities.Project;
+import com.app.alcala.entities.Team;
 import com.app.alcala.entities.Ticket;
-import com.app.alcala.web.model.TablePerEmployee;
 import com.app.alcala.web.model.WorkPerEmployee;
 
 public interface EmployeeService {
@@ -21,6 +21,8 @@ public interface EmployeeService {
 	WorkPerEmployee calculateWorkLoad(Employee employee);
 
 	void delete(Employee employeeDelete);
+
+	Employee createNewEmployee(Employee employeeNew, Team team);
 
 	
 

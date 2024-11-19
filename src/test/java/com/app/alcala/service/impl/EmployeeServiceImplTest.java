@@ -3,10 +3,13 @@ package com.app.alcala.service.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -19,6 +22,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.app.alcala.entities.Employee;
 import com.app.alcala.entities.Project;
+import com.app.alcala.entities.Team;
 import com.app.alcala.entities.Ticket;
 import com.app.alcala.repositories.EmployeeRepository;
 import com.app.alcala.web.model.WorkPerEmployee;
@@ -136,5 +140,45 @@ public class EmployeeServiceImplTest {
         assertEquals(1, result.getProjectInProgress().size());
         assertEquals(1, result.getTicketInProgress().size());
         assertEquals(2, result.getLoad());
+    }
+    
+    @Test
+    public void testDeleteEmployee() {
+        // Crear el empleado a eliminar
+        Employee employeeToDelete = new Employee();
+        
+        // Llamada al método delete
+        employeeService.delete(employeeToDelete);
+        
+        // Verificar que el método delete fue llamado en el repositorio con el objeto correcto
+        verify(employeeRepository, times(1)).delete(employeeToDelete);
+    }
+    
+    @Test
+    public void testCreateNewEmployee() {
+        // Datos de prueba
+        Team team = new Team();
+        Employee employeeNew = new Employee();
+        employeeNew.setBirthDate(Timestamp.valueOf(LocalDateTime.of(1990, 5, 15, 0, 0)));
+
+        // Comportamiento esperado del repositorio
+        when(employeeRepository.save(any(Employee.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        // Llamada al método
+        Employee result = employeeService.createNewEmployee(employeeNew, team);
+
+        // Verificaciones
+        LocalDateTime expectedHireDate = LocalDateTime.now().withSecond(0).withNano(0);
+        assertEquals(Timestamp.valueOf(expectedHireDate), result.getHireDate(), "La fecha de contratación debe ser la actual sin segundos ni nanosegundos");
+
+        LocalDateTime expectedBirthDate = LocalDateTime.of(1990, 5, 15, 0, 0);
+        assertEquals(Timestamp.valueOf(expectedBirthDate), result.getBirthDate(), "La fecha de nacimiento debe ser la asignada sin segundos ni nanosegundos");
+
+        assertEquals(new HashMap<>(), result.getProjectMapEmployee(), "El mapa de proyectos debe estar vacío");
+        assertEquals(new HashMap<>(), result.getTicketMapEmployee(), "El mapa de tickets debe estar vacío");
+        assertEquals(team, result.getTeam(), "El equipo debe ser el mismo que se pasó como parámetro");
+
+        // Verificar que el método save fue llamado una vez
+        verify(employeeRepository, times(1)).save(employeeNew);
     }
 }
