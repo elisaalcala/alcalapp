@@ -39,7 +39,7 @@ jobs:
         run: mvn clean install --file pom.xml
   
       - name: Run unit tests from multiple folders
-        run: mvn test -Dtest="src/test/java/com/app/alcala/service/impl/* ,src/test/java/com/app/alcala/web/controller/*"
+        run: mvn test -Dtest="com.app.alcala.service.impl.*Test,com.app.alcala.web.controller.*Test"
 
       - name: Get Current Version
         id: get_version
