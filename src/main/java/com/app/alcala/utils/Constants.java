@@ -4,12 +4,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Constants {
-
+	//DATE FORMAT
 	public static final String DATEFORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 	public static final String DATEFORMAT_YYYY_MM = "yyyy-MM";
 	
+	//LENGUAGES
 	public static final String LANGUAGE_ES = "es";
 	public static final String LANGUAGE_ES_UPPER = "ES";
+	
+	//NAMES
 	public static final String NAME_PRJ = "PRJ ";
 	public static final String NAME_R = "R";
 	public static final String NAME_TCK = "TCK ";
@@ -30,6 +33,8 @@ public class Constants {
 	public static final List<String> STATUS_COMPLETED_TICKET = Arrays.asList("Closed", "Resolved");
 	public static final List<String> STATUS_READY = Arrays.asList("Test", "Ready to UAT", "Ready to PRO");
 
+	public static final List<String> ALL_STATUS_RELEASES = Arrays.asList("Backlog", "In Progress", "Closed");
+
 	// MESSAGE
 	public static final String CREATED_BY = "Creado por ";
 	public static final String ASSIGNED_TO = "Asignado a ";
@@ -42,4 +47,7 @@ public class Constants {
 	
 	//EXCEPTION
 	public static final String EXCEPTION_USER_NOT_FOUND = "User not found";
+	
+	//ROLES
+	public static final List<String> ROLES = Arrays.asList("USER", "ADMIN");
 }

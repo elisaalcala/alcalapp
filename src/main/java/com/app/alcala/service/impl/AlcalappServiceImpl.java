@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -19,6 +20,8 @@ import com.app.alcala.entities.Project;
 import com.app.alcala.entities.Release;
 import com.app.alcala.entities.Team;
 import com.app.alcala.entities.Ticket;
+import com.app.alcala.entities.User;
+import com.app.alcala.repositories.UserRepository;
 import com.app.alcala.service.AlcalappService;
 import com.app.alcala.service.EmployeeService;
 import com.app.alcala.service.MessageService;
@@ -52,6 +55,18 @@ public class AlcalappServiceImpl implements AlcalappService {
 	private EmployeeService employeeService;
 	@Autowired
 	private MessageService messageService;
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+    public Employee createUserAndEmployee(User user, Employee employeeNew) {
+        user.setEncodedPassword(passwordEncoder.encode(user.getEncodedPassword()));
+        userRepository.save(user);
+        
+        Team team = teamService.findByNameTeam(employeeNew.getNameTeam());
+        return employeeService.createNewEmployee(employeeNew, team);
+    }
 
 	@Override
 	public List<ProjectTable> findProjectsPerRelease(Team team) {

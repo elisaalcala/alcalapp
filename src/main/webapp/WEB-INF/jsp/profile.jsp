@@ -161,10 +161,12 @@
                       <span>${team.descriptionTeam}</span>
                         <br>
                         <br>
+                        
                       <span>Componenetes del equipo:</span>
-
+                      
                       <c:forEach items="${employeesPerTeam}" var="employeesPerTeam">
-                        <span> ${employeesPerTeam.userEmployee} - ${employeesPerTeam.employeePosition}</span>
+                        <br>
+                        <span>· ${employeesPerTeam.userEmployee} - ${employeesPerTeam.employeePosition}</span>
                       </c:forEach>
                       
                     </div>

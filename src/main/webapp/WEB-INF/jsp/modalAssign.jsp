@@ -30,7 +30,7 @@
                                         </c:forEach>
                                     </select>
                                 
-                                <button type="button" class="btn btn-primary" id="assignToMeButton">Asignarme a mí</button>
+                                <button type="button" class="btn bg-cyan-800" id="assignToMeButton">Asignarme a mí</button>
                             </div>
                             
                             
@@ -42,7 +42,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="saveAssignButton">Asignar</button>
+                    <button type="button" class="btn bg-cyan-800" id="saveAssignButton">Asignar</button>
                 </div>
             </div>
         </div>

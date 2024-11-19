@@ -27,41 +27,42 @@
       <%@ include file="sidebar.jsp" %>
 
       <section class="container-fluid">
-        <div class="titulo">
-          <h2>Tickets</h2>
-        </div>
-        <!-- DataTales Example -->
-        <div class="card shadow mb-4">
-            <div class="card-body">
-              <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                  <tr>
-                    <th>Nombre</th>
-                    <th>Descripcion</th>
-                    <th>Estado</th>
-                    <th>Fecha Inicio</th>
-                    <th>Encargado</th>
-                    <th>Equipo</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- Aquí se generan las filas de la tabla con JSP -->
-                  <c:forEach items="${tickets}" var="ticket">
-                    <tr data-ticket-id="${ticket.idTicket}" class="ticket-row pointer-row">
-                      <td>${ticket.nameTicket}</td>
-                      <td>${ticket.descriptionTicket}</td>
-                      <td>${ticket.statusTicket}</td>
-                      <td>${ticket.initialDate}</td>
-                      <td>${ticket.employeeUserAssign}</td>
-                      <td>${ticket.teamNameAssign}</td>
+        <div>
+          <div class="titulo">
+            <h2>Incidencias</h2>
+          </div>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+              <div class="card-body">
+                <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Titulo</th>
+                      <th>Estado</th>
+                      <th>Fecha Inicio</th>
+                      <th>Encargado</th>
+                      <th>Equipo</th>
                     </tr>
-                  </c:forEach>
-                </tbody>
-              </table>
-                
-            </div>
+                  </thead>
+                  <tbody>
+                    <!-- Aquí se generan las filas de la tabla con JSP -->
+                    <c:forEach items="${tickets}" var="ticket">
+                      <tr data-ticket-id="${ticket.idTicket}" class="ticket-row pointer-row">
+                        <td>${ticket.nameTicket}</td>
+                        <td>${ticket.titleTicket}</td>
+                        <td>${ticket.statusTicket}</td>
+                        <td>${ticket.initialDate}</td>
+                        <td>${ticket.employeeUserAssign}</td>
+                        <td>${ticket.teamNameAssign}</td>
+                      </tr>
+                    </c:forEach>
+                  </tbody>
+                </table>
+                  
+              </div>
+          </div>
         </div>
-
         <!-- Footer  -->
         <%@ include file="footer.jsp" %>
       </section>

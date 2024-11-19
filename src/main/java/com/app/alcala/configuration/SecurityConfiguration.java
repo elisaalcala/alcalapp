@@ -11,19 +11,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.filter.ForwardedHeaderFilter;
 
-import com.app.alcala.service.impl.RepositoryUserDetailsService;
+import com.app.alcala.service.impl.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
 	@Autowired
-    public RepositoryUserDetailsService userDetailService;
+    public UserDetailsServiceImpl userDetailService;
 
     @Bean
     PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
     
     @Bean
     DaoAuthenticationProvider authenticationProvider() {

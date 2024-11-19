@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -14,18 +15,16 @@
 
     <%@ include file="scripts.jsp" %>
 
-
-    
   </head>
 <body>
   <div class="container" id="dailywork">
 
-    <!-- Topbar  -->
+    <!-- NavBar  -->
     <%@ include file="navbar.jsp" %>
     
     <main  class="d-flex">
       
-      <!-- Sidebar -->
+      <!-- SideBar -->
       <%@ include file="sidebar.jsp" %>
     
       <section class="container-fluid">
@@ -68,7 +67,7 @@
                               <td>${ticket.statusTicket}</td>
                               <td>${ticket.initialDate}</td>
                               <c:choose>
-                                <c:when test="${empty proyecto.employeeUserAssign}">
+                                <c:when test="${empty ticket.employeeUserAssign}">
                                   <td>
                                     <a href="#" class="nav-colorlink assignMeTicketLink">
                                       <i class="fa-solid fa-pencil "></i>
@@ -77,7 +76,7 @@
                                   </td>  
                                 </c:when>
                                 <c:otherwise>
-                                  <td>${proyecto.employeeUserAssign}</td>
+                                  <td>${ticket.employeeUserAssign}</td>
                                 </c:otherwise>
                               </c:choose>
                             
@@ -372,6 +371,7 @@
         <!-- Footer  -->
         <%@ include file="footer.jsp" %>
       </section>
+      <%@ include file="modalNewUser.jsp" %>
       <%@ include file="modalCreate.jsp" %>
       <%@ include file="modalLogout.jsp" %>
       <%@ include file="modalCreateRelease.jsp" %>

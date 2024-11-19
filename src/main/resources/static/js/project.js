@@ -352,3 +352,90 @@
         }
 
     });
+
+    //Calendar
+document.addEventListener('DOMContentLoaded', function () {
+
+    var initialDateHidden = document.getElementById('initialDateHidden').value;
+    var tstDateHidden = document.getElementById('tstDate').value;
+    var proDateHidden = document.getElementById('proDate').value;
+
+    const daysTag = document.querySelector(".days"),
+    currentDate = document.querySelector(".current-date"),
+    prevNextIcon = document.querySelectorAll(".icons span");
+
+    let date = new Date(),
+    currYear = date.getFullYear(),
+    currMonth = date.getMonth();
+
+    
+    const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio","Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    
+    function isSameDay(date1, date2) {
+        return date1.getFullYear() === date2.getFullYear() &&
+            date1.getMonth() === date2.getMonth() &&
+            date1.getDate() === date2.getDate();
+    }
+
+
+    const renderCalendar = () => {
+        
+        let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), 
+        lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), 
+        lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), 
+        lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); 
+        let liTag = "";
+
+        for (let i = firstDayofMonth; i > 0; i--) { // creating li of previous month last days
+            let ad = lastDateofLastMonth - i + 1;
+            liTag += '<li class="inactive">' + ad + '</li>';
+        }
+
+        for (let i = 1; i <= lastDateofMonth; i++) {
+            // Comparación de fecha para cada una de las fechas del proyecto
+            let isInitialDate = isSameDay(new Date(currYear, currMonth, i), new Date(initialDateHidden));
+            let isTstDate = isSameDay(new Date(currYear, currMonth, i), new Date(tstDateHidden));
+            let isProDate = isSameDay(new Date(currYear, currMonth, i), new Date(proDateHidden));
+
+
+            // Agregar clases de acuerdo a las fechas del proyecto
+            let classForDate = '';
+            if (isInitialDate) classForDate = 'initial-date" data-tooltip="Inicio del proyecto ';
+            if (isTstDate) classForDate = 'tst-date" data-tooltip="Despliegue en TST';
+            if (isProDate) classForDate = 'pro-date" data-tooltip="Despliegue a PRO';
+
+            // Agregar clase 'active' si es el día actual
+            let isToday = i === date.getDate() && currMonth === new Date().getMonth() && currYear === new Date().getFullYear() ? 'active' : '';
+
+            // Concatenar las clases y el día en la etiqueta li
+            liTag += '<li class="' + isToday + ' ' + classForDate + '">' + i + '</li>';
+        }
+
+
+        for (let i = lastDayofMonth; i < 6; i++) { // creating li of next month first days
+            let d = i - lastDayofMonth + 1;
+            liTag += '<li class="inactive">' + d  + '</li>';
+        }
+        currentDate.innerText = months[currMonth] +'  '+ currYear; // passing current mon and yr as currentDate text
+        daysTag.innerHTML = liTag;
+    }
+    renderCalendar();
+
+    prevNextIcon.forEach(icon => { 
+        icon.addEventListener("click", () => { 
+            // if clicked icon is previous icon then decrement current month by 1 else increment it by 1
+            
+            currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
+
+            if(currMonth < 0 || currMonth > 11) { // if current month is less than 0 or greater than 11
+                // creating a new date of current year & month and pass it as date value
+                date = new Date(currYear, currMonth, new Date().getDate());
+                currYear = date.getFullYear(); 
+                currMonth = date.getMonth(); 
+            } else {
+                date = new Date(); 
+            }
+            renderCalendar();
+        });
+    });
+});

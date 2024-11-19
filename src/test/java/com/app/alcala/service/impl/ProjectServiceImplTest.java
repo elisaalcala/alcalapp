@@ -3,6 +3,7 @@ package com.app.alcala.service.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -10,6 +11,7 @@ import static org.mockito.Mockito.when;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +26,7 @@ import com.app.alcala.entities.Project;
 import com.app.alcala.entities.Release;
 import com.app.alcala.entities.Team;
 import com.app.alcala.repositories.ProjectRepository;
+import com.app.alcala.utils.Constants;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -246,6 +249,81 @@ public class ProjectServiceImplTest {
         List<Double> result = new ObjectMapper().readValue(jsonResult, List.class);
 
         assertEquals(expected, result, "El promedio de días no es correcto para los últimos seis meses.");
+    }
+    
+    @Test
+    public void testFindProjectsReadyByTeam() {
+        Team team = new Team();
+        List<Project> expectedProjects = Collections.singletonList(new Project());
+
+        when(projectRepository.findByTeamAssignAndStatusProjectIn(eq(team), eq(Constants.STATUS_READY)))
+                .thenReturn(expectedProjects);
+
+        List<Project> result = projectService.findProjectsReadyByTeam(team);
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        verify(projectRepository).findByTeamAssignAndStatusProjectIn(team, Constants.STATUS_READY);
+    }
+
+    @Test
+    public void testFindCountProjectsReadyByEmployee() {
+        Employee employee = new Employee();
+        int expectedCount = 5;
+
+        when(projectRepository.countByEmployeeAssignAndStatusProjectIn(eq(employee), eq(Constants.STATUS_READY)))
+                .thenReturn((long) expectedCount);
+
+        Integer result = projectService.findCountProjectsReadyByEmployee(employee);
+
+        assertNotNull(result);
+        assertEquals(expectedCount, result);
+        verify(projectRepository).countByEmployeeAssignAndStatusProjectIn(employee, Constants.STATUS_READY);
+    }
+
+    @Test
+    public void testFindCountProjectsNotCompletedByEmployee() {
+        Employee employee = new Employee();
+        int expectedCount = 3;
+
+        when(projectRepository.countByEmployeeAssignAndStatusProjectIn(eq(employee), eq(Constants.STATUS_NOT_COMPLETED)))
+                .thenReturn((long) expectedCount);
+
+        Integer result = projectService.findCountProjectsNotCompletedByEmployee(employee);
+
+        assertNotNull(result);
+        assertEquals(expectedCount, result);
+        verify(projectRepository).countByEmployeeAssignAndStatusProjectIn(employee, Constants.STATUS_NOT_COMPLETED);
+    }
+
+    @Test
+    public void testFindCountProjectsFinishByEmployee() {
+        Employee employee = new Employee();
+        int expectedCount = 4;
+
+        when(projectRepository.countByEmployeeAssignAndStatusProjectIn(eq(employee), eq(Constants.STATUS_COMPLETED)))
+                .thenReturn((long) expectedCount);
+
+        Integer result = projectService.findCountProjectsFinishByEmployee(employee);
+
+        assertNotNull(result);
+        assertEquals(expectedCount, result);
+        verify(projectRepository).countByEmployeeAssignAndStatusProjectIn(employee, Constants.STATUS_COMPLETED);
+    }
+
+    @Test
+    public void testFindProjectsCompletedByTeam() {
+        Team team = new Team();
+        List<Project> expectedProjects = Collections.singletonList(new Project());
+
+        when(projectRepository.findByTeamAssignAndStatusProjectIn(eq(team), eq(Constants.STATUS_COMPLETED)))
+                .thenReturn(expectedProjects);
+
+        List<Project> result = projectService.findprojectsCompletedByTeam(team);
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        verify(projectRepository).findByTeamAssignAndStatusProjectIn(team, Constants.STATUS_COMPLETED);
     }
 
 

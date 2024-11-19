@@ -32,7 +32,7 @@ import com.app.alcala.entities.Release;
 import com.app.alcala.entities.Team;
 import com.app.alcala.service.AlcalappService;
 import com.app.alcala.service.ReleaseService;
-import com.app.alcala.service.impl.RepositoryUserDetailsService;
+import com.app.alcala.service.impl.UserDetailsServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(ReleaseController.class)
@@ -50,7 +50,7 @@ public class ReleaseControllerTest {
     private AlcalappService alcalappService;
     
     @MockBean
-    private RepositoryUserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
     
     @Autowired
     private ObjectMapper objectMapper;

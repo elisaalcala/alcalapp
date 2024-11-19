@@ -121,10 +121,11 @@
       white-space: nowrap;
   }
   .collapse-item:hover {
-    background-color: #84c8cee3;
+    background-color: #ebd9c3 !important;
+    color: #867858 !important;
     text-decoration: none;
-    color : #00838f;
   }
+
   .bg-clear{
       background-color: #c7c7c771;
   }
@@ -137,6 +138,9 @@
       width: 100%;
       margin-right: auto;
       margin-left: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
   }
   
   /* Título del contenido */
@@ -202,6 +206,23 @@
       background-color: #88d4dad2;
       color: #00838f;
   }
+
+  .bg-base-light {
+    background-color: #5c98a6c2;
+    color: white;
+  }
+  .bg-base-light:hover,
+  .bg-base-light:active,
+  .bg-base-light:focus-visible {
+    background-color: #ebd9c3 !important;
+    color: #867858 !important;
+    box-shadow: none !important;
+    border-color: none !important;
+  }
+  .bg-base-light:focus {
+    box-shadow: none;
+  }
+
   /* Tablas */
   table {
     width: 100%;
@@ -284,6 +305,9 @@ div.dt-container div.dt-search input:focus {
 .bg-blocked{
   background-color: #BF9765;
 }
+.bg-base{
+  background-color: #49828ff5;
+}
 .color-incidences{
   color: #A22003;
 }
@@ -316,9 +340,7 @@ table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date, table.dataT
   .assignedTeam {
         width: 100%; 
     }
-  .textarea-height{
-    height: 300px;
-  }
+ 
   /* Footer */
   .sticky-footer {
       padding: 2rem 0;
@@ -331,14 +353,14 @@ table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date, table.dataT
   
   /* Calendar */
   .wrapper{
-  width: 450px;
+  width: 100%;
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.12);
 }
 .wrapper header{
-  background-color: #00838fda;
-  border-color: #00838fda;
+  background-color: #bf9b6fb5;
+  border-color: #bf9b6fb5;
   color: white;
   display: flex;
   align-items: center;
@@ -364,8 +386,8 @@ header .icons span{
   margin-right: -10px;
 }
 header .icons span:hover{
-  background-color: #84c8cee3;
-  color : #00838f;
+  background-color: #8b7459b5;
+  color : white;
 }
 header .current-date{
   font-size: 1.45rem;
@@ -402,7 +424,7 @@ ul.weeks, ul.days{
   z-index: 1;
   cursor: pointer;
   position: relative;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 .days li.inactive{
   color: #aaa;
@@ -430,38 +452,38 @@ ul.weeks, ul.days{
   transform: translate(-50%, -50%);
 }
 .days li.active::before{
-  background: #00838f;
+  background: #00838fc0;
 }
 .days li:not(.active):not(.initial-date):not(.requirements-date):not(.prj-assignment-date):not(.develop-date):not(.tst-date):not(.uat-date):not(.pro-date):hover::before {
   background: #f2f2f2; 
 }
 
 .initial-date::before {
-  background: #69c52f;
+  background: #b1e98eee;
 }
 
 .requirements-date::before {
-  background: #b5bf00;
+  background: #e6ec6a;
 }
 
 .prj-assignment-date::before {
-  background: #b351ab;
+  background: #f0adea;
 }
 
 .develop-date::before {
-  background: #009ad6;
+  background: #8dcce6;
 }
 
 .tst-date::before {
-  background: #860eff;
+  background: #c08ef1;
 }
 
 .uat-date::before {
-  background: #c67400;
+  background: #f59f28d8;
 }
 
 .pro-date::before{
-  background: #ff0000;
+  background: #ac3030;
 }
 .cal-margins{
   margin-left: 20px;
@@ -608,6 +630,13 @@ ul.weeks, ul.days{
 .width40{
   width: 40%;
 }
+.width35{
+  width: 35%;
+}
+.width65{
+  width: 65%;
+}
+
 .flex-start{
   align-items:flex-start;
 }
@@ -750,5 +779,33 @@ ul.weeks, ul.days{
   justify-content: center; /* Centra el contenido horizontalmente */
   align-items: center; /* Centra el contenido verticalmente */
   gap: 8px; /* Añade un espacio fijo entre el texto y el icono */
+}
+
+.custom-card {
+  width: 100%; /* La carta ocupa todo el ancho disponible */
+  max-width: 1300px; /* Limita el ancho máximo de la carta en pantallas normales (hasta 1080px) */
+  margin: 20px auto; /* Márgenes automáticos en los laterales y margen de 20px arriba y abajo */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); /* Sombra para el efecto de profundidad */
+  border-radius: 8px; /* Esquinas redondeadas */
+  padding: 0; /* El padding interno será controlado por los elementos dentro de la carta */
+}
+
+.custom-card .card-header,
+.custom-card .card-body {
+  padding: 12px; /* Espaciado interno de la cabecera y el cuerpo */
+}
+
+
+@media (min-width: 1024px) {
+  .custom-card {
+    margin: 25px auto; /* Más margen en pantallas aún más grandes */
+  }
+}
+
+
+@media (min-width: 1600px) {
+  .custom-card {
+    max-width: 1590px; /* Confirmar el max-width en pantallas 2K y más grandes */
+  }
 }
 
