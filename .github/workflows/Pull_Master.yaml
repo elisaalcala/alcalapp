@@ -6,8 +6,7 @@ on:
       - master  # Activa el workflow en cada pull request a la rama master
 
 jobs:
-  release:
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"  # Verifica que el mensaje de commit no contenga [skip ci]
+  release: # Verifica que el mensaje de commit no contenga [skip ci]
     runs-on: ubuntu-latest
     
     services:
