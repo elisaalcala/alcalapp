@@ -3,7 +3,9 @@ name: Pull Request to Master
 on:
   pull_request:
     branches:
-      - master  # Activa el workflow en cada pull request a la rama master
+      - master
+    types: [opened, synchronize, reopened]
+
 
 jobs:
   release: # Verifica que el mensaje de commit no contenga [skip ci]
