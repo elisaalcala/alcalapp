@@ -55,6 +55,7 @@ jobs:
         run: |
           git config --global user.name "elisaalcala"
           git config --global user.email "elisaalcgue@gmail.com"
+          git remote set-url origin https://elisaalcala:${{ secrets.GITHUB_TOKEN }}@github.com/elisaalcala/alcalapp.git
           if [[ $(git diff --stat pom.xml) != '' ]]; then
             git add pom.xml
             git commit -m "Release version ${RELEASE_VERSION} [skip ci]"
