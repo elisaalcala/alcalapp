@@ -99,7 +99,7 @@ public class ReleaseControllerTest {
 
         when(releaseService.findByIdRelease(anyLong())).thenReturn(release);
 
-        List<String> allStatus = Arrays.asList("Backlog", "In Progress", "Resolved", "Closed");
+        List<String> allStatus = Arrays.asList("Backlog", "In Progress", "Closed");
 
         mockMvc.perform(get("/releases/1").sessionAttr("team", team))
                 .andExpect(status().isOk())

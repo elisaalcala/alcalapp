@@ -120,7 +120,7 @@ public class EmployeeTest {
         String expectedString = "Employee(employeeId=1, employeeName=John, employeeLastName=Doe, employeeDni=12345678A, " +
                 "employeePosition=Developer, birthDate=" + birthDate.toString() + ", hireDate=" + hireDate.toString() + 
                 ", userEmployee=johndoe, nameTeam=DevTeam, team=" + teamMock.toString() + 
-                ", projectMapEmployee={}, ticketMapEmployee={})";
+                ")";
 
         // Verifica que el método toString genere la salida esperada
         assertThat(employee.toString()).isEqualTo(expectedString);

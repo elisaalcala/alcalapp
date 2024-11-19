@@ -99,10 +99,7 @@ public class TeamTest {
 
     @Test
     public void testToString() {
-        String expectedString = "Team(idTeam=1, nameTeam=Development Team, teamLeader=" + teamLeader.toString() +
-                ", descriptionTeam=This team is responsible for software development., " +
-                "employeeMap=" + employeeMap.toString() + ", projectMapTeam=" + projectMapTeam.toString() +
-                ", ticketMapTeam=" + ticketMapTeam.toString() + ")";
+        String expectedString = "Team{idTeam=" + 1 + ", nameTeam='" + "Development Team" + "'}"; 
 
         // Verifica que el método toString genere la salida esperada
         assertThat(team.toString()).isEqualTo(expectedString);

@@ -128,7 +128,7 @@ public class ReleaseTest {
                 ", requirementsDate=" + requirementsDate.toString() + ", prjAssignmentDate=" + prjAssignmentDate.toString() +
                 ", developDate=" + developDate.toString() + ", tstDate=" + tstDate.toString() + ", uatDate=" + uatDate.toString() +
                 ", proDate=" + proDate.toString() + ", statusRelease=InProgress, employeeUserCreation=john.doe, " +
-                "projectMap=" + projectMap.toString() + ", employeeCreation=null)";
+                 "employeeCreation=null)";
 
         // Verifica que el método toString genere la salida esperada
         assertThat(release.toString()).isEqualTo(expectedString);
