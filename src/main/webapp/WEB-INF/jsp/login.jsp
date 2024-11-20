@@ -13,18 +13,83 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <style>
+    body {
+        background: linear-gradient(to right, #175a69, #4b8997e1);
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; /* Centrado vertical un poco más arriba */
+        height: 100vh; /* Hace que el body ocupe toda la pantalla */
+        margin: 0;
+    }
     
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+        height: 100%;
+    }
+    
+    .card {
+        width: 400px; /* El tamaño del cuadrado */
+        height: 400px; /* Mantiene el div cuadrado */
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
+        border-radius: 8px;
+        background-color: white;
+    }
+    
+    .card-body {
+        width: 100%;
+    }
+    
+    .text-center h1 {
+        margin-bottom: 20px;
+    }
+    
+    .form-group {
+        width: 90%; /* Ajustar el ancho de los inputs */
+        margin-bottom: 15px;
+    }
+    
+    .custom-control-label {
+        margin-left: 5px;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+    .bg-base-light {
+        background-color: #196273;
+        color: white;
+    }
+    .bg-base-light:hover,
+    .bg-base-light:active,
+    .bg-base-light:focus-visible {
+        background-color: #ebd9c3 !important;
+        color: #867858 !important;
+        box-shadow: none !important;
+        border-color: none !important;
+    }
+    .bg-base-light:focus {
+        box-shadow: none;
+    }
+    </style>
 </head>
 <body class="bg-gradient-primary">
     <div class="container login">
         <div class="row justify-content-center">
-            <div class="card shadow-lg ">
-                <div class="card-body ">
+            <div class="card shadow-lg">
+                <div class="card-body">
                     <div class="col">
-                        <div class="p-4">
+                        <div class="p-4 pt-3">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Bienvenido a Alcalapp!</h1>
+                                <h1 class="h4 text-gray-900 mb-4">Bienvenido a AlcalApp!</h1>
                             </div>
                             <form class="user" id="loginForm">
                                 <div class="form-group">
@@ -42,16 +107,14 @@
                                 <c:if test="${not empty param.error}">
                                     <div class="alert alert-danger" id="errorMessage">Error en el usuario o la contraseña</div>
                                 </c:if>
-                                <button class="btn btn-primary btn-user btn-block"  id="loginButton" >
+                                <button class="btn bg-base-light btn-user btn-block" id="loginButton">
                                     Iniciar sesion
                                 </button>
                             </form>
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="">¿Has olvidado tu contraseña?</a>
-                            </div>
-                            <div class="text-center">
-                                <a class="small" href="">Si no tienes cuenta, contacta con tu superior</a>
+                                <p class="small m-0">¿Has olvidado tu contraseña?</p>
+                                <p class="small ">Contacta con tu superior para recuperar la cuenta</p>
                             </div>
                         </div>
                     </div>

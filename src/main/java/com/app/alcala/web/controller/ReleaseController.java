@@ -84,7 +84,7 @@ public class ReleaseController {
 	@DeleteMapping("/{id}/delete")
 	public ResponseEntity<String> deleteRelease(@PathVariable long id) {
 
-		Boolean deletedRelease = alcalappService.deleteRelease(id);
+		alcalappService.deleteRelease(id);
 		String redirectUrl = "/releases";
 		return ResponseEntity.ok().body("{\"redirectUrl\": \"" + redirectUrl + "\"}");
 	}

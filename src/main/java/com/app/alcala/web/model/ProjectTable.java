@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.app.alcala.entities.Project;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
