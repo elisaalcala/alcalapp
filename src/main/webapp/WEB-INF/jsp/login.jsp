@@ -79,11 +79,25 @@
     .bg-base-light:focus {
         box-shadow: none;
     }
+
+    .popup_error {
+        display: none;  /* Asegúrate de que esté oculto por defecto */
+        background-color: red;  /* Fondo rojo */
+        color: white;  /* Texto blanco */
+        padding: 10px 20px;  /* Espaciado interno */
+        border-radius: 10px;  /* Bordes redondeados */
+        font-size: 16px;  /* Tamaño de la fuente */
+        text-align: center;  /* Centra el texto */
+        z-index: 9999;  /* Asegura que esté encima de otros elementos */
+    }
+
+
     </style>
 </head>
 <body class="bg-gradient-primary">
-    <div class="container login">
-        <div class="row justify-content-center">
+    <div style="display: flex; flex-direction: column;" class="container login">
+        <div style="height: 3.5em;"><span id="pswdusr_popup" class="popup_error"></span></div>
+        <div id="login_box" class="row justify-content-center">
             <div class="card shadow-lg">
                 <div class="card-body">
                     <div class="col">
@@ -126,37 +140,72 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("loginButton").addEventListener("click", function(event) {
+            document.getElementById("loginButton").addEventListener("click", function (event) {
                 event.preventDefault();
-                var username = document.getElementById('username').value;
-                var password = document.getElementById('password').value;
-                const params = new URLSearchParams();
-                params.append('username', username);
-                params.append('password', password);
                 
-                fetch("/login", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: params.toString()
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        var errorMessageElement = document.getElementById("errorMessage");
-                        errorMessageElement.classList.remove("d-none");
-                        throw new Error('Error al logearte');
+                var username = document.getElementById("username").value;
+                var password = document.getElementById("password").value;
+
+                var settings = {
+                    "url": "/authenticate",  // Eliminar los parámetros de la URL
+                    "method": "POST",
+                    "timeout": 0,
+                    "dataType": "json",  // Asegura que la respuesta sea tratada como JSON
+                    "data": {  // Enviar los datos en el cuerpo de la solicitud
+                        username: username,
+                        password: password
                     }
-                    window.location.href = "/dailywork";
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    
-                });
+                };
+
+                $.ajax(settings)
+                    .done(function (response) {
+                        if (response.error == "" || response.error === null) {
+                            // Si el error es vacío o nulo, redirigir a /dailywork
+                            window.location.href = "/dailywork";
+                        } else {
+                            // Si el error no es vacío o nulo, mostrar un popup con el error
+                            showPopupError(response.error);
+                        }
+                    })
+                    .fail(function () {
+                        // Si la solicitud falla (error con la conexión al servidor)
+                        showPopupError("El usuario no existe");
+                    });
             });
         });
+
+        
+
+        // Función personalizada para mostrar un popup con el mensaje de error
+        function showPopupError(errorMessage) {
+            var popup = document.getElementById("pswdusr_popup");
+
+            // Establecer el mensaje de error
+            popup.innerText = errorMessage;
+            
+            // Mostrar el popup
+            popup.style.display = "block";  // Cambiar display a block para hacerlo visible
+            
+            // Usar un pequeño retraso antes de aplicar la transición de opacidad
+            setTimeout(function() {
+                popup.style.opacity = 1;  // Hacer visible con transición
+            }, 10);  // Este pequeño retraso es para que el navegador registre el cambio de display
+
+            // Después de 3 segundos, ocultar el popup suavemente
+            setTimeout(function() {
+                popup.style.opacity = 0;  // Iniciar la transición de desvanecimiento
+            }, 3000);
+
+            // Después de que la transición termine, poner display: none para ocultarlo completamente
+            setTimeout(function() {
+                popup.style.display = "none";  // Ocultar el popup
+            }, 4000);  // Este es el tiempo total (3000ms + 1000ms de la transición)
+        }
+
+
     </script>
 </body>
 </html>

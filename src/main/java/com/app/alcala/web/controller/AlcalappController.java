@@ -1,12 +1,14 @@
 package com.app.alcala.web.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.app.alcala.entities.Employee;
 import com.app.alcala.entities.Project;
@@ -58,10 +61,7 @@ public class AlcalappController {
 	private UserDetailsServiceImpl userDetailsService;
 
 	@GetMapping("/login")
-	public String loginPage(@RequestParam(name = "error", required = false) String error, Model model) {
-		if (error != null && !error.isEmpty()) {
-			model.addAttribute("loginError", true);
-		}
+	public String loginPage() {
 		return "login";
 	}
 
@@ -73,19 +73,26 @@ public class AlcalappController {
 		return ResponseEntity.ok().body("{\"redirectUrl\": \"" + redirectUrl + "\"}");
 	}
 
-	@PostMapping("/login")
-	public String login(@RequestParam String username, @RequestParam String password) {
-		try {
-			UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-			if (userDetails.getPassword().equals(password)) {
-				return "dailywork";
-			} else {
-				return "login";
-			}
-		} catch (UsernameNotFoundException e) {
-			return "login";
-		}
+	@PostMapping("/authenticate")
+	@ResponseBody
+	public ResponseEntity<Map<String, String>> login(@RequestParam String username, @RequestParam String password) {
+	    Map<String, String> response = new HashMap<>();
+	    try {
+	        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+	        if (userDetails.getPassword().equals(password)) {
+	            response.put("error", "");  // Responde con error vacío si las credenciales son correctas
+	            return ResponseEntity.ok(response);
+	        } else {
+	            response.put("error", "Contraseña incorrecta");  // Responde con el error de "Wrong password"
+	            return ResponseEntity.ok(response);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        response.put("error", "El usuario no existe");  // Si ocurre un error en el servidor
+	        return ResponseEntity.ok(response);
+	    }
 	}
+
 
 	@GetMapping("/dailywork")
 	public String dailyWorkPage(Model model, HttpServletRequest request) throws JsonProcessingException {

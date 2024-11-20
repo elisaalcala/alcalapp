@@ -43,13 +43,8 @@ public class SecurityConfiguration {
 		http
 			.authorizeHttpRequests(authorize -> authorize
 					// PUBLIC PAGES
-					.requestMatchers("/login", "/WEB-INF/jsp/login.jsp", "/error","/favicon.ico").permitAll()
+					.requestMatchers("/login", "/authenticate", "/WEB-INF/jsp/login.jsp", "/favicon.ico").permitAll()
 					.requestMatchers("/**","/WEB-INF/jsp/**").authenticated()
-			)
-			.formLogin(formLogin -> formLogin
-					.loginPage("/login")
-	                .defaultSuccessUrl("/dailywork")
-					
 			)
 			.logout(logout -> logout
 					.logoutUrl("/logout")
