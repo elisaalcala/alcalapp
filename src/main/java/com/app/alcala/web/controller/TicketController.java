@@ -110,7 +110,7 @@ public class TicketController {
 		HttpSession session = request.getSession();
 		Team team = (Team) session.getAttribute("team");
 
-		Boolean deletedTicket = alcalappService.deleteTicket(id, team);
+		alcalappService.deleteTicket(id, team);
 		String redirectUrl = "/tickets";
 		return ResponseEntity.ok().body("{\"redirectUrl\": \"" + redirectUrl + "\"}");
 	}

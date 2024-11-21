@@ -98,7 +98,7 @@ public class ProjectController {
 	@DeleteMapping("/{id}/delete")
 	public ResponseEntity<String> deleteProject(@PathVariable long id) {
 
-		Boolean deletedProject = alcalappService.deleteProject(id);
+		alcalappService.deleteProject(id);
 		String redirectUrl = "/projects";
 		return ResponseEntity.ok().body("{\"redirectUrl\": \"" + redirectUrl + "\"}");
 	}

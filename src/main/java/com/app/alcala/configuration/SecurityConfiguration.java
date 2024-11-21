@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.filter.ForwardedHeaderFilter;
 
 import com.app.alcala.service.impl.UserDetailsServiceImpl;
 
@@ -44,13 +43,13 @@ public class SecurityConfiguration {
 		http
 			.authorizeHttpRequests(authorize -> authorize
 					// PUBLIC PAGES
-					.requestMatchers("/login", "/WEB-INF/jsp/login.jsp", "/error","/favicon.ico").permitAll()
+					.requestMatchers("/login", "/WEB-INF/jsp/login.jsp", "/favicon.ico").permitAll()
 					.requestMatchers("/**","/WEB-INF/jsp/**").authenticated()
 			)
 			.formLogin(formLogin -> formLogin
 					.loginPage("/login")
-	                .defaultSuccessUrl("/dailywork")
-					
+					.defaultSuccessUrl("/dailywork",true)
+					.failureUrl("/login?error=true")
 			)
 			.logout(logout -> logout
 					.logoutUrl("/logout")

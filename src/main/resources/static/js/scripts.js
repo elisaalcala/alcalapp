@@ -279,26 +279,6 @@
          });
     });
     
-    // Función para controlar los paneles de colapso del la barra lateral
-    document.addEventListener("DOMContentLoaded", function() {
-        function togglePanel(panelLinkSelector, panelSelector) {
-            var panelLink = document.querySelector(panelLinkSelector);
-            var panel = document.querySelector(panelSelector);
-
-            panelLink.addEventListener('click', function() {
-                if (panel.classList.contains('show')) {
-                    panel.classList.remove('show');
-                    panelLink.classList.add('collapsed');
-                } else {
-                    panel.classList.add('show');
-                    panelLink.classList.remove('collapsed');
-                }
-            });
-        }
-
-        // Controlar el panel de Estadísticas
-        togglePanel('.nav-link[data-target="#collapseEstadisticas"]', '#collapseEstadisticas');
-    });
 
     // Agregar evento click a todas las filas de la tabla DataTable
     document.addEventListener("DOMContentLoaded", function() {

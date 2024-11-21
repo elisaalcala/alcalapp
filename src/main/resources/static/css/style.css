@@ -246,17 +246,7 @@
   .dt-layout-table{
     display: block;
   }
-  .dt-paging-button {
-    padding: 3px;
-    padding-right: 6px;
-    padding-left: 6px;
-    border: 1px solid #ffffff;
-    background-color: #e1f4f5;
-    color: #00838f;
-}
-.dt-paging-button:hover {
-  background-color: #98dfe3;
-}
+
 .first{
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -310,9 +300,6 @@ div.dt-container div.dt-search input:focus {
 }
 .color-incidences{
   color: #A22003;
-}
-.padding-0{
-  padding: 0%;
 }
 
 table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date, table.dataTable td.dt-type-numeric, table.dataTable td.dt-type-date {
@@ -644,13 +631,7 @@ ul.weeks, ul.days{
   --bs-card-border-color: white;
 }
 
-.carga-style{
-    justify-content: center;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    align-content: stretch;
-}
+
 
 /* Estilo para las filas de la tabla */
 .task-hover {
@@ -809,3 +790,69 @@ ul.weeks, ul.days{
   }
 }
 
+.chart-container{
+  width: 45%;
+  height: 45%;
+}
+
+.carga-style{
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  align-content: stretch;
+}
+
+@media (max-width: 1600px) {
+  .carga-style {
+      flex-direction: column; 
+      align-items: center;
+      justify-content: flex-start;
+  }
+
+  .chart-container {
+      width: 70%;  /* Ocupa el 70% */
+  }
+
+  .chart-area {
+      width: 100%; /* Ocupa el 100% */
+  }
+}
+
+@media (max-width: 1200px) {
+
+  .columna-derecha-dailywork {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+}
+
+.fit-content {
+  height: fit-content;
+}
+
+.limit-area{
+  width: 100%;
+  height: 100%;
+  max-height: 300px;
+  max-width: 550px;
+}
+.page-link {
+  position: relative;
+  display: block;
+  padding: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
+  font-size: var(--bs-pagination-font-size);
+  color: #0f6f85;
+  text-decoration: none;
+  background-color: var(--bs-pagination-bg);
+
+}
+
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: #49828ff5;
+  border-color: #49828ff5;
+}
