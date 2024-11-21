@@ -134,7 +134,7 @@ public class LoginTest {
 		passwordField.sendKeys("invalidPassword");
 		loginButton.click();
 
-		assertTrue(driver.getCurrentUrl().endsWith("/login"));
+		assertTrue(driver.getCurrentUrl().endsWith("/login?error=true"));
 
 	}
 }

@@ -111,7 +111,7 @@ public class AlcalappControllerTest {
                 .param("username", "user")
                 .param("password", "password"))
         		.andExpect(status().isFound())
-                .andExpect(header().string("Location", "/login?error"));
+                .andExpect(header().string("Location", "/login?error=true"));
     }
 
     @Test
