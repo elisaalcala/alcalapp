@@ -30,93 +30,24 @@
       <%@ include file="sidebar.jsp" %>
 
       <section class="container-fluid">
-        <div class="titulo">
-          <h2>Mi trabajo - ${employee.employeeName} ${employee.employeeLastName}</h2>
-        </div>
+        <div>
+          <div class="titulo">
+            <h2>Mi trabajo - ${employee.employeeName} ${employee.employeeLastName}</h2>
+          </div>
 
-        <div class="columnas">
+          <div class="columnas">
 
-          <div class="width70">
-            <div class="columnas-izquierda">
+            <div class="width70">
+              <div class="columnas-izquierda">
 
-                <div class="card shadow m-column m-right">
-                  <div class=" card-header d-flex align-items-center justify-content-between bg-projects">
-                    <h6 class="m-0 font-weight-bold text-uppercase text-white">Proyectos por hacer</h6>
-                    <a href="#" id="toggleBodyPrjToDo" class="text-white">
-                      <i id="toggleIconPrjToDo" class="fas fa-chevron-up fa-fw text-gray-400"></i>
-                    </a>
-                  </div>
-                  <div class="card-body padding-0" id="cardBodyPrjToDo">
-                          <div class="chart-area">
-                              <div class="columna-izquierda">
-                                <table>
-                                  <thead>
-                                    <tr>
-                                      <th>Nombre</th>
-                                      <th>Titulo</th>
-                                      <th>Estado</th>
-                                      <th>Release</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <c:forEach items="${projectsNotCompleted}" var="proyecto">
-                                      <tr data-proyecto-id="${proyecto.idProject}" class="proyecto-row  task-hover">
-                                          <td>${proyecto.nameProject}</td>
-                                          <td>${proyecto.titleProject}</td>
-                                          <td>${proyecto.statusProject}</td>
-                                          <td>${proyecto.releaseName}</td>
-                                        
-                                      </tr>
-                                    </c:forEach>
-                                </table>
-                                </div>
-                          </div>
-                      </div>
-                </div>
-
-                <div class="card shadow m-column m-right">
-                  <div class=" card-header d-flex align-items-center justify-content-between bg-incidences">
-                    <h6 class="m-0 font-weight-bold text-uppercase text-white">Incidencias por hacer</h6>
-                    <a href="#" id="toggleBodyTckToDo" class="text-white">
-                      <i id="toggleIconTckToDo" class="fas fa-chevron-up fa-fw text-gray-400"></i>
-                    </a>
-                  </div>
-                  <div class="card-body padding-0" id="cardBodyTckToDo">
-                    <div class="chart-area">
-                      <table>
-                        <thead>
-                          <tr>
-                            <th>Nombre</th>
-                            <th>Titulo</th>
-                            <th>Prioridad</th>
-                            <th>Estado</th>
-                            <th>Fecha creación</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <c:forEach items="${ticketsNotCompleted}" var="ticket">
-                            <tr data-ticket-id="${ticket.idTicket}" class="ticket-row task-hover">
-                                <td>${ticket.nameTicket}</td>
-                                <td>${ticket.titleTicket}</td>
-                                <td>${ticket.priorityTicket}</td>
-                                <td>${ticket.statusTicket}</td>
-                                <td>${ticket.initialDate}</td>
-                              
-                            </tr>
-                          </c:forEach>
-                      </table>
-                    </div>
-                  </div> 
-                </div>
-
-                <div class="card shadow m-column m-right">
+                  <div class="card shadow m-column m-right">
                     <div class=" card-header d-flex align-items-center justify-content-between bg-projects">
-                      <h6 class="m-0 font-weight-bold text-uppercase text-white">Proyectos por desplegar</h6>
-                      <a href="#" id="toggleBodyPrjToDeploy" class="text-white">
-                        <i id="toggleIconPrjToDeploy" class="fas fa-chevron-up fa-fw text-gray-400"></i>
+                      <h6 class="m-0 font-weight-bold text-uppercase text-white">Proyectos por hacer</h6>
+                      <a href="#" id="toggleBodyPrjToDo" class="text-white">
+                        <i id="toggleIconPrjToDo" class="fas fa-chevron-up fa-fw text-gray-400"></i>
                       </a>
                     </div>
-                    <div class="card-body padding-0" id="cardBodyPrjToDeploy">
+                    <div class="card-body p-0" id="cardBodyPrjToDo">
                             <div class="chart-area">
                                 <div class="columna-izquierda">
                                   <table>
@@ -129,113 +60,31 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <c:forEach items="${projectsReady}" var="proyecto">
-                                        <tr data-proyecto-id="${proyecto.idProject}" class="proyecto-row task-hover">
+                                      <c:forEach items="${projectsNotCompleted}" var="proyecto">
+                                        <tr data-proyecto-id="${proyecto.idProject}" class="proyecto-row  task-hover">
                                             <td>${proyecto.nameProject}</td>
                                             <td>${proyecto.titleProject}</td>
                                             <td>${proyecto.statusProject}</td>
                                             <td>${proyecto.releaseName}</td>
-                                         
+                                          
                                         </tr>
                                       </c:forEach>
                                   </table>
                                   </div>
                             </div>
                         </div>
-                </div>
-              
-                <div class="card shadow m-column m-right">
-                  <div class=" card-header d-flex align-items-center justify-content-between bg-incidences">
-                    <h6 class="m-0 font-weight-bold text-uppercase text-white">Incidencias por desplegar</h6>
-                    <a href="#" id="toggleBodyTckToDeploy" class="text-white">
-                      <i id="toggleIconTckToDeploy" class="fas fa-chevron-up fa-fw text-gray-400"></i>
-                    </a>
                   </div>
-                  <div class="card-body padding-0" id="cardBodyTckToDeploy">
-                    <div class="chart-area">
-                      <table>
-                        <thead>
-                          <tr>
-                            <th>Nombre</th>
-                            <th>Titulo</th>
-                            <th>Prioridad</th>
-                            <th>Estado</th>
-                            <th>Fecha creación</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <c:forEach items="${ticketsReady}" var="ticket">
-                            <tr data-ticket-id="${ticket.idTicket}" class="ticket-row task-hover">
-                                <td>${ticket.nameTicket}</td>
-                                <td>${ticket.titleTicket}</td>
-                                <td>${ticket.priorityTicket}</td>
-                                <td>${ticket.statusTicket}</td>
-                                <td>${ticket.initialDate}</td>
-                            
-                            </tr>
-                          </c:forEach>
-                      </table>
+
+                  <div class="card shadow m-column m-right">
+                    <div class=" card-header d-flex align-items-center justify-content-between bg-incidences">
+                      <h6 class="m-0 font-weight-bold text-uppercase text-white">Incidencias por hacer</h6>
+                      <a href="#" id="toggleBodyTckToDo" class="text-white">
+                        <i id="toggleIconTckToDo" class="fas fa-chevron-up fa-fw text-gray-400"></i>
+                      </a>
                     </div>
-                  </div> 
-                </div>
-
-
-                <div class="card shadow m-column m-right">
-
-                  <div class=" card-header d-flex align-items-center justify-content-between bg-finish">
-                    <h6 class="m-0 font-weight-bold text-uppercase text-white">Proyectos acabados</h6>
-
-                    <a href="#" id="toggleBodyPrjFinish" class="text-white">
-                      <i id="toggleIconPrjFinish" class="fas fa-chevron-up fa-fw text-gray-400"></i>
-                    </a>
-
-                  </div>
-
-                  <!-- DataTales Example -->
-                    <div class="card shadow" id="cardBodyPrjFinish">
-                      <div class="card-body">
-                        <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-                          <thead>
-                            <tr>
-                              <th>Nombre</th>
-                              <th>Titulo</th>
-                              <th>Estado</th>
-                              <th>Release</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <c:forEach items="${projectsFinish}" var="proyecto">
-                              <tr data-proyecto-id="${proyecto.idProject}" class="proyecto-row task-hover">
-                                  <td>${proyecto.nameProject}</td>
-                                  <td>${proyecto.titleProject}</td>
-                                  <td>${proyecto.statusProject}</td>
-                                  <td>${proyecto.releaseName}</td>
-                                
-                              </tr>
-                            </c:forEach>
-                          </tbody>
-                        </table>
-                          
-                      </div>
-                  </div>
-                  
-                </div>
-
-                <div class="card shadow m-column m-right">
-
-                  <div class=" card-header d-flex align-items-center justify-content-between bg-finish">
-                    <h6 class="m-0 font-weight-bold text-uppercase text-white">Incidencias acabadas</h6>
-                    
-                    <a href="#" id="toggleBodyTckFinish" class="text-white">
-                      <i id="toggleIconTckFinish" class="fas fa-chevron-up fa-fw text-gray-400"></i>
-                    </a>
-
-                  </div>
-
-                  <!-- DataTales Example -->
-                    <div class="card shadow" id="cardBodyTckFinish">
-                      <div class="card-body">
-                        <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                    <div class="card-body p-0" id="cardBodyTckToDo">
+                      <div class="chart-area">
+                        <table>
                           <thead>
                             <tr>
                               <th>Nombre</th>
@@ -246,9 +95,8 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <c:forEach items="${ticketsFinish}" var="ticket">
+                            <c:forEach items="${ticketsNotCompleted}" var="ticket">
                               <tr data-ticket-id="${ticket.idTicket}" class="ticket-row task-hover">
-                                
                                   <td>${ticket.nameTicket}</td>
                                   <td>${ticket.titleTicket}</td>
                                   <td>${ticket.priorityTicket}</td>
@@ -257,82 +105,236 @@
                                 
                               </tr>
                             </c:forEach>
-                          </tbody>
                         </table>
-                          
                       </div>
+                    </div> 
                   </div>
-                  
-                </div>
-          
+
+                  <div class="card shadow m-column m-right">
+                      <div class=" card-header d-flex align-items-center justify-content-between bg-projects">
+                        <h6 class="m-0 font-weight-bold text-uppercase text-white">Proyectos por desplegar</h6>
+                        <a href="#" id="toggleBodyPrjToDeploy" class="text-white">
+                          <i id="toggleIconPrjToDeploy" class="fas fa-chevron-up fa-fw text-gray-400"></i>
+                        </a>
+                      </div>
+                      <div class="card-body p-0" id="cardBodyPrjToDeploy">
+                              <div class="chart-area">
+                                  <div class="columna-izquierda">
+                                    <table>
+                                      <thead>
+                                        <tr>
+                                          <th>Nombre</th>
+                                          <th>Titulo</th>
+                                          <th>Estado</th>
+                                          <th>Release</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <c:forEach items="${projectsReady}" var="proyecto">
+                                          <tr data-proyecto-id="${proyecto.idProject}" class="proyecto-row task-hover">
+                                              <td>${proyecto.nameProject}</td>
+                                              <td>${proyecto.titleProject}</td>
+                                              <td>${proyecto.statusProject}</td>
+                                              <td>${proyecto.releaseName}</td>
+                                          
+                                          </tr>
+                                        </c:forEach>
+                                    </table>
+                                    </div>
+                              </div>
+                          </div>
+                  </div>
+                
+                  <div class="card shadow m-column m-right">
+                    <div class=" card-header d-flex align-items-center justify-content-between bg-incidences">
+                      <h6 class="m-0 font-weight-bold text-uppercase text-white">Incidencias por desplegar</h6>
+                      <a href="#" id="toggleBodyTckToDeploy" class="text-white">
+                        <i id="toggleIconTckToDeploy" class="fas fa-chevron-up fa-fw text-gray-400"></i>
+                      </a>
+                    </div>
+                    <div class="card-body p-0" id="cardBodyTckToDeploy">
+                      <div class="chart-area">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Nombre</th>
+                              <th>Titulo</th>
+                              <th>Prioridad</th>
+                              <th>Estado</th>
+                              <th>Fecha creación</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <c:forEach items="${ticketsReady}" var="ticket">
+                              <tr data-ticket-id="${ticket.idTicket}" class="ticket-row task-hover">
+                                  <td>${ticket.nameTicket}</td>
+                                  <td>${ticket.titleTicket}</td>
+                                  <td>${ticket.priorityTicket}</td>
+                                  <td>${ticket.statusTicket}</td>
+                                  <td>${ticket.initialDate}</td>
+                              
+                              </tr>
+                            </c:forEach>
+                        </table>
+                      </div>
+                    </div> 
+                  </div>
+
+
+                  <div class="card shadow m-column m-right">
+
+                    <div class=" card-header d-flex align-items-center justify-content-between bg-finish">
+                      <h6 class="m-0 font-weight-bold text-uppercase text-white">Proyectos acabados</h6>
+
+                      <a href="#" id="toggleBodyPrjFinish" class="text-white">
+                        <i id="toggleIconPrjFinish" class="fas fa-chevron-up fa-fw text-gray-400"></i>
+                      </a>
+
+                    </div>
+
+                    <!-- DataTales Example -->
+                      <div class="card shadow" id="cardBodyPrjFinish">
+                        <div class="card-body">
+                          <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                              <tr>
+                                <th>Nombre</th>
+                                <th>Titulo</th>
+                                <th>Estado</th>
+                                <th>Release</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <c:forEach items="${projectsFinish}" var="proyecto">
+                                <tr data-proyecto-id="${proyecto.idProject}" class="proyecto-row task-hover">
+                                    <td>${proyecto.nameProject}</td>
+                                    <td>${proyecto.titleProject}</td>
+                                    <td>${proyecto.statusProject}</td>
+                                    <td>${proyecto.releaseName}</td>
+                                  
+                                </tr>
+                              </c:forEach>
+                            </tbody>
+                          </table>
+                            
+                        </div>
+                    </div>
+                    
+                  </div>
+
+                  <div class="card shadow m-column m-right">
+
+                    <div class=" card-header d-flex align-items-center justify-content-between bg-finish">
+                      <h6 class="m-0 font-weight-bold text-uppercase text-white">Incidencias acabadas</h6>
+                      
+                      <a href="#" id="toggleBodyTckFinish" class="text-white">
+                        <i id="toggleIconTckFinish" class="fas fa-chevron-up fa-fw text-gray-400"></i>
+                      </a>
+
+                    </div>
+
+                    <!-- DataTales Example -->
+                      <div class="card shadow" id="cardBodyTckFinish">
+                        <div class="card-body">
+                          <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                              <tr>
+                                <th>Nombre</th>
+                                <th>Titulo</th>
+                                <th>Prioridad</th>
+                                <th>Estado</th>
+                                <th>Fecha creación</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <c:forEach items="${ticketsFinish}" var="ticket">
+                                <tr data-ticket-id="${ticket.idTicket}" class="ticket-row task-hover">
+                                  
+                                    <td>${ticket.nameTicket}</td>
+                                    <td>${ticket.titleTicket}</td>
+                                    <td>${ticket.priorityTicket}</td>
+                                    <td>${ticket.statusTicket}</td>
+                                    <td>${ticket.initialDate}</td>
+                                  
+                                </tr>
+                              </c:forEach>
+                            </tbody>
+                          </table>
+                            
+                        </div>
+                    </div>
+                    
+                  </div>
+            
+              </div>
             </div>
-          </div>
-          <div class="width30"> 
-            <div class="columnas-derecha">
+            <div class="width30"> 
+              <div class="columnas-derecha columna-derecha-dailywork">
 
 
-              <input type="hidden" id="labelsJson" value='${labelsJson}' />
-              <input type="hidden" id="tckDataJson" value='${tckDataJson}' />
-              <input type="hidden" id="prjDataJson" value='${prjDataJson}' />
-              <input type="hidden" id="tckDataLineJson" value='${tckDataLineJson}' />
-              <input type="hidden" id="prjDataLineJson" value='${prjDataLineJson}' />
-              <input type="hidden" id="tckDataCreationClosedJson" value='${tckDataCreationClosedJson}' />
-              <input type="hidden" id="tckDataCreationResolvedJson" value='${tckDataCreationResolvedJson}' />
+                <input type="hidden" id="labelsJson" value='${labelsJson}' />
+                <input type="hidden" id="tckDataJson" value='${tckDataJson}' />
+                <input type="hidden" id="prjDataJson" value='${prjDataJson}' />
+                <input type="hidden" id="tckDataLineJson" value='${tckDataLineJson}' />
+                <input type="hidden" id="prjDataLineJson" value='${prjDataLineJson}' />
+                <input type="hidden" id="tckDataCreationClosedJson" value='${tckDataCreationClosedJson}' />
+                <input type="hidden" id="tckDataCreationResolvedJson" value='${tckDataCreationResolvedJson}' />
 
 
 
-              <div class="card shadow m-column m-left">
+                <div class="card shadow m-column m-left w-100">
 
-                <div class=" card-header d-flex align-items-center justify-content-between bg-charts">
-                  <h6 class="m-0 font-weight-bold text-uppercase text-white">Estadisticas individuales - proporciones</h6>
+                  <div class=" card-header d-flex align-items-center justify-content-between bg-charts">
+                    <h6 class="m-0 font-weight-bold text-uppercase text-white">Estadisticas individuales - proporciones</h6>
 
-                  <a href="#" id="toggleBodyProp" class="text-white">
-                    <i id="toggleIconProp" class="fas fa-chevron-up fa-fw text-gray-400"></i>
-                  </a>
+                    <a href="#" id="toggleBodyProp" class="text-white">
+                      <i id="toggleIconProp" class="fas fa-chevron-up fa-fw text-gray-400"></i>
+                    </a>
+
+                  </div>
+
+                  <div class="d-flex flex-column align-items-center" id="cardBodyProp">
+                    <div class="limit-area">
+                      <canvas id="myChartBar" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
+                    </div>
+                    
+                    <div class="limit-area">
+                      <canvas id="myChartLineTckCreation" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
+                    </div>
+                  </div>
 
                 </div>
 
-                <div id="cardBodyProp">
-                  <div>
-                    <canvas id="myChartBar" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
+                <div class="card shadow m-column m-left w-100">
+
+                  <div class=" card-header d-flex align-items-center justify-content-between bg-charts">
+                    <h6 class="m-0 font-weight-bold text-uppercase text-white">Estadisticas individuales - tiempos</h6>
+
+                    <a href="#" id="toggleBodyTime" class="text-white">
+                      <i id="toggleIconTime" class="fas fa-chevron-up fa-fw text-gray-400"></i>
+                    </a>
+
                   </div>
-                  
-                  <div>
-                    <canvas id="myChartLineTckCreation" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
+
+                  <div class="d-flex flex-column align-items-center" id="cardBodyTime">
+
+                    <div class="limit-area">
+                      <canvas id="myChartLine" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
+                    </div>
+
+                    <div class="limit-area">
+                      <canvas id="myChartLineTck" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
+                    </div>
+
                   </div>
+
                 </div>
 
               </div>
-
-              <div class="card shadow m-column m-left">
-
-                <div class=" card-header d-flex align-items-center justify-content-between bg-charts">
-                  <h6 class="m-0 font-weight-bold text-uppercase text-white">Estadisticas individuales - tiempos</h6>
-
-                  <a href="#" id="toggleBodyTime" class="text-white">
-                    <i id="toggleIconTime" class="fas fa-chevron-up fa-fw text-gray-400"></i>
-                  </a>
-
-                </div>
-
-                <div id="cardBodyTime">
-
-                  <div>
-                    <canvas id="myChartLine" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
-                  </div>
-
-                  <div>
-                    <canvas id="myChartLineTck" style="margin-top: 20px;margin-bottom: 20px;margin-left: 10px;margin-right: 10px;"> </canvas>
-                  </div>
-
-                </div>
-
-              </div>
-
             </div>
+
+
           </div>
-
-
         </div>
         <!-- Footer  -->
         <%@ include file="footer.jsp" %>

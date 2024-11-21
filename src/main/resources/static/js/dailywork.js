@@ -54,26 +54,49 @@
 
     });
     
-    // Función para controlar los paneles de colapso del la barra lateral
-    document.addEventListener("DOMContentLoaded", function() {
-        function togglePanel(panelLinkSelector, panelSelector) {
-            var panelLink = document.querySelector(panelLinkSelector);
-            var panel = document.querySelector(panelSelector);
 
-            panelLink.addEventListener('click', function() {
-                if (panel.classList.contains('show')) {
-                    panel.classList.remove('show');
-                    panelLink.classList.add('collapsed');
-                } else {
-                    panel.classList.add('show');
-                    panelLink.classList.remove('collapsed');
-                }
-            });
-        }
-
-        // Controlar el panel de Estadísticas
-        togglePanel('.nav-link[data-target="#collapseCargaTrabajo"]', '#collapseCargaTrabajo');
+    document.addEventListener("DOMContentLoaded", function () {
+        // Obtener todos los enlaces que controlan el colapso
+        var panelLinks = document.querySelectorAll('.nav-link[data-bs-toggle="collapse"]');
+    
+        panelLinks.forEach(function (panelLink) {
+            // Obtener el target del colapso
+            var targetId = panelLink.getAttribute('data-bs-target');
+            var collapseElement = document.querySelector(targetId);
+    
+            if (collapseElement) {
+                // Agregar evento de clic
+                panelLink.addEventListener('click', function (event) {
+                    event.preventDefault(); // Prevenir comportamiento por defecto del enlace
+    
+                    // Comprobar si el colapso actual está abierto
+                    var isShown = collapseElement.classList.contains('show');
+    
+                    // Cerrar todos los colapsos abiertos, incluyendo el actual si corresponde
+                    document.querySelectorAll('.collapse.show').forEach(function (openCollapse) {
+                        openCollapse.classList.remove('show'); // Cerrar
+                        var associatedLink = document.querySelector(`[data-bs-target="#${openCollapse.id}"]`);
+                        if (associatedLink) {
+                            associatedLink.classList.add('collapsed'); // Marcar como colapsado
+                        }
+                    });
+    
+                    // Si el colapso actual no estaba abierto, abrirlo
+                    if (!isShown) {
+                        collapseElement.classList.add('show'); // Abrir
+                        panelLink.classList.remove('collapsed'); // Marcar como expandido
+                    }
+                });
+            }
+        });
     });
+    
+
+    
+    
+    
+    
+    
 
     $(document).ready(function() {
 
