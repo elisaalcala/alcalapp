@@ -28,6 +28,7 @@ import com.app.alcala.utils.Constants;
 import com.app.alcala.web.model.EmployeePerTeam;
 import com.app.alcala.web.model.ProjectTable;
 import com.app.alcala.web.model.TableTeam;
+import com.app.alcala.web.model.TeamDTO;
 import com.app.alcala.web.model.UserAndEmployeeDTO;
 import com.app.alcala.web.model.WorkLoad;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -197,6 +198,14 @@ public class AlcalappController {
 		alcalappService.createUserAndEmployee(userAndEmployee.getUser(), userAndEmployee.getEmployee());
 
 		return ResponseEntity.ok("Usuario y empleado creados con éxito");
+	}
+	
+	@PostMapping("/createTeam")
+	public ResponseEntity<String> createTeam(@RequestBody TeamDTO team) {
+
+		teamService.createTeam(team);
+
+		return ResponseEntity.ok("Equipo creado con éxito");
 	}
 
 }

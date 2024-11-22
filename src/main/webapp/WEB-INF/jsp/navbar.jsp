@@ -78,6 +78,10 @@
                     <i class="fa-solid fa-user-plus fa-sm fa-fw mr-2 text-gray-400"></i>
                     Nuevo Usuario
                 </button>
+                <button class="dropdown-item nav-colorlink" data-bs-toggle="modal" data-bs-target="#newTeamModal">
+                    <i class="fa-solid fa-people-group fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Nuevo Equipo
+                </button>
               </sec:authorize>
               <div class="dropdown-divider"></div>
               <button class="dropdown-item nav-colorlink text-danger" data-bs-toggle="modal" data-bs-target="#logoutModal">

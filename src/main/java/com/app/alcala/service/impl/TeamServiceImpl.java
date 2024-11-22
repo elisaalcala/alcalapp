@@ -1,5 +1,6 @@
 package com.app.alcala.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import com.app.alcala.entities.Team;
 import com.app.alcala.entities.Ticket;
 import com.app.alcala.repositories.TeamRepository;
 import com.app.alcala.service.TeamService;
+import com.app.alcala.web.model.TeamDTO;
 
 @Service
 public class TeamServiceImpl implements TeamService{
@@ -48,6 +50,19 @@ public class TeamServiceImpl implements TeamService{
 	@Override
 	public void delete(Team teamDelete) {
 		teamRepository.delete(teamDelete);
+	}
+
+
+	@Override
+	public Team createTeam(TeamDTO team) {
+		Team newTeam = new Team();
+		newTeam.setDescriptionTeam(team.getDescriptionTeam());
+		newTeam.setNameTeam(team.getNameTeam());
+		newTeam.setTicketMapTeam(new HashMap<>());
+		newTeam.setProjectMapTeam(new HashMap<>());
+		newTeam.setEmployeeMap(new HashMap<>());
+		newTeam.setTeamLeader(null);
+		return teamRepository.save(newTeam);
 	}
 	
 	
