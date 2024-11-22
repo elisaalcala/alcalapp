@@ -2,10 +2,12 @@
 
 <ul class="navbar-nav bg-gradient-sidebar sidebar shadow" id="accordionSidebar">
 
-
     <hr class="sidebar-divider">
 
-    <div style="display: flex; flex-direction: column; justify-content: space-between; align-items: center; height: 100%;">
+    <div style="display: flex; flex-direction: column; align-items: center; height: 100%;">
+
+        
+
       <div>
         <div class="sidebar-heading nav-color">
           Trabajo diario
@@ -66,16 +68,17 @@
         </li>
       </div>
 
-      <div style="margin-bottom: 1em;;">
-        <hr class="sidebar-divider">
+        <div style="margin-bottom: 1em;;">
+          <hr class="sidebar-divider">
 
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-          <a class="rounded-circle border-0 nav-colorlink" id="sidebarToggle" style="font-size: 1.7rem;">
-              <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
-          </a>
-    </div>
-      </div>
+          <!-- Sidebar Toggler (Sidebar) -->
+          <div class="text-center d-none d-md-inline">
+            <a class="rounded-circle border-0 nav-colorlink" id="sidebarToggle" style="font-size: 1.7rem;">
+                <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+            </a>
+         </div>
+        </div>
+      
     </div>
     
 

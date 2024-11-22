@@ -22,6 +22,7 @@ import com.app.alcala.entities.Project;
 import com.app.alcala.entities.Release;
 import com.app.alcala.entities.Team;
 import com.app.alcala.entities.Ticket;
+import com.app.alcala.entities.User;
 import com.app.alcala.service.AlcalappService;
 import com.app.alcala.service.EmployeeService;
 import com.app.alcala.service.ProjectService;
@@ -81,12 +82,15 @@ public class AlcalappController {
 
 		String name = request.getUserPrincipal().getName();
 		Employee employee = employeeService.findByUserEmployee(name);
+        User user = alcalappService.findByUserName(name);
 		Team team = teamService.findByNameTeam(employee.getNameTeam());
 		List<Team> createTicketTeamsList = teamService.findTeamsToSendTicket(team);
 		List<Release> releasesOpen = releaseService.findByReleasesOpen();
 
 		HttpSession session = request.getSession();
 		session.setAttribute("employee", employee);
+        
+
 		session.setAttribute("team", team);
 		session.setAttribute("createTicketTeamsList", createTicketTeamsList);
 		session.setAttribute("releasesOpen", releasesOpen);
@@ -114,6 +118,7 @@ public class AlcalappController {
 		String projectsCompletedByTeamJson = projectService.getHoursProjectResolvedPerMonth(projectsCompletedByTeam);
 		String monthsJson = alcalappService.getLastSixMonths();
 
+        model.addAttribute("role", user.getRoles().get(0));
 		model.addAttribute("createTicketTeamsList", createTicketTeamsList);
 		model.addAttribute("employee", employee);
 		model.addAttribute("team", team);
@@ -253,7 +258,12 @@ public class AlcalappController {
 	
 	
 	@GetMapping("/users/{id}")
-	public String userPage(Model model, @PathVariable long id) {
+	public String userPage(Model model, HttpServletRequest request, @PathVariable long id) {
+
+        String name = request.getUserPrincipal().getName();
+        User user = alcalappService.findByUserName(name);
+        model.addAttribute("role", user.getRoles().get(0));
+        model.addAttribute("sessionUsername", name);
 
 		Employee employeeSelect = employeeService.findByEmployeeId(id);
 		model.addAttribute("employeeSelect", employeeSelect);

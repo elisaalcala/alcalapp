@@ -59,6 +59,8 @@ public interface AlcalappService {
 
 	Employee deleteUser(long id);
 
+    User findByUserName(String name);
+
 
 
 

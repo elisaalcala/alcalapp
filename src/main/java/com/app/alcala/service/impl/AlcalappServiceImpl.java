@@ -361,6 +361,11 @@ public class AlcalappServiceImpl implements AlcalappService {
 		return employeeService.save(employee);
 	}
 
+    @Override
+    public User findByUserName(String name) {
+        return userRepository.findByName(name).get();
+    }
+
 	
 
 }

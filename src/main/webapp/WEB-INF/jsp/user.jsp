@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -33,27 +36,96 @@
         <input type="hidden" id="username" value="${employeeSelect.userEmployee}" />
 
 
-        <div class="card custom-card shadow ">
+        <div class="card custom-card shadow" style="display: flex; justify-content: center; ">
           <div class="card-header d-flex align-items-center justify-content-between bg-base">
-            <h6 class="m-0 font-weight-bold text-uppercase text-white">Employee - ${employeeSelect.userEmployee}</h6>
-            <div>
-              <button type="button" class="btn bg-base-light" id="editButton" data-bs-toggle="modal" data-bs-target="#editModalEmployee">
-                <i class="fa-solid fa-pen-to-square"></i>
-                
-              </button>
-              <button type="button" class="btn btn-danger ml-1" id="deleteButton" data-bs-toggle="modal" 
-                data-bs-target="#deleteModalEmployee">
-                <i class="fa-solid fa-trash"></i>
-                
-              </button>
-            </div>
+            <h6 class="m-0 font-weight-bold text-uppercase text-white">Información de usuario</h6>
+            <c:if test="${role == 'ADMIN' || role == 'MANAGER'}">
+                <div>
+                <button type="button" class="btn bg-base-light" id="editButton" data-bs-toggle="modal" data-bs-target="#editModalEmployee">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    
+                </button>
+                <button type="button" class="btn btn-danger ml-1" id="deleteButton" data-bs-toggle="modal" 
+                    data-bs-target="#deleteModalEmployee">
+                    <i class="fa-solid fa-trash"></i>
+                    
+                </button>
+                </div>
+            </c:if>
           </div>
-          <div class="card-body">
+          <div id="user_info" class="card-body" style="max-height: 100vh; padding: 2em;">
+            <div class="row" style="display: flex; flex-direction: row; justify-content: center; gap: 4em; margin-right: 2em;">
+                <!-- Profile Picture Section -->
+                <div class="col-md-3 d-flex justify-content-center align-items-center">
+                    <div class="rounded-circle bg-light d-flex justify-content-center align-items-center" style="width: 15em; height: 15em; border: 2px solid #ddd; overflow: hidden;">
+                        <img src="/images/profile.svg" alt="Profile" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
 
-            
-          
-            
+                <!-- User Information Section -->
+                <div class="col-md-9" style="width: 50%">
+                    <!-- User Account -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong>Usuario:</strong> <span>${employeeSelect.userEmployee}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Correo:</strong> <span>${employeeSelect.userEmployee}@outlook.es</span>
+                        </div>
+                    </div>
 
+                    <!-- Divisor -->
+                    <hr class="my-4" style="border: 0; border-top: 2px solid #49828ff5;">
+
+                    <!-- Personal Information -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong>Nombre:</strong> <span>${employeeSelect.employeeName}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Apellido:</strong> <span>${employeeSelect.employeeLastName}</span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong>DNI:</strong> <span>${employeeSelect.employeeDni}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Nacimiento:</strong> 
+                            <span>
+                                <fmt:formatDate value="${employeeSelect.birthDate}" pattern="dd/MM/yyyy" />
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Divisor -->
+                    <hr class="my-4" style="border: 0; border-top: 2px solid #49828ff5;">
+
+                    <!-- Work Information -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong>Puesto:</strong> <span>${employeeSelect.employeePosition}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Equipo:</strong> <span>${employeeSelect.nameTeam}</span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong>Contratación:</strong>
+                            <span>
+                                <fmt:formatDate value="${employeeSelect.hireDate}" pattern="dd/MM/yyyy" />
+                            </span>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Activo:</strong>
+                            <input type="checkbox" id="employeeActive" ${employeeSelect.employeeActive ? 'checked' : ''}>
+
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
           </div>
           
         </div>
