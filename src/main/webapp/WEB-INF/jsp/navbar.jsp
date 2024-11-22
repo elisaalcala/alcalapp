@@ -76,6 +76,12 @@
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Mi perfil
               </a>
+              <sec:authorize access="hasRole('MANAGER')">
+                <a class="dropdown-item nav-colorlink" href="/teams/${team.idTeam}">
+                    <i class="fas fa-gear fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Gestion Equipo
+                    </a>
+                </sec:authorize>
               <div class="dropdown-divider"></div>
               <button class="dropdown-item nav-colorlink text-danger" data-bs-toggle="modal" data-bs-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

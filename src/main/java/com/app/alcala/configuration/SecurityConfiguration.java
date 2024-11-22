@@ -44,6 +44,7 @@ public class SecurityConfiguration {
 			.authorizeHttpRequests(authorize -> authorize
 					// PUBLIC PAGES
 					.requestMatchers("/login", "/WEB-INF/jsp/login.jsp", "/favicon.ico").permitAll()
+					.requestMatchers("/gestion", "/WEB-INF/jsp/gestion.jsp").hasRole("ADMIN")
 					.requestMatchers("/**","/WEB-INF/jsp/**").authenticated()
 			)
 			.formLogin(formLogin -> formLogin

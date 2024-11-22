@@ -49,7 +49,36 @@
         });
         });
     });
-
+        //Asignar Ticket Link
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById('assignToMeLink').addEventListener('click', function() {
+                
+                var employeeAssignToMe = document.getElementById('employeeUserHidden').value;
+                var idTicket = document.getElementById('ticketId').value;
+                var url = `/tickets/`+idTicket+`/assign`;
+                
+                fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(employeeAssignToMe)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al asignar el ticket');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    window.location.href = data.redirectUrl;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+    
+        });
     //Asignar Ticket Modal
     document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('saveAssignButton').addEventListener('click', function() {
@@ -225,7 +254,7 @@
         });
         });
     });
-    
+
     //Clone Ticket
     document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('cloneTicketButton').addEventListener('click', function() {
@@ -358,36 +387,7 @@
         document.getElementById("finishDate").textContent = formattedFinishDate;
     });
 
-    //Asignar Ticket Link
-    document.addEventListener('DOMContentLoaded', (event) => {
-        document.getElementById('assignToMeLink').addEventListener('click', function() {
-            
-            var employeeAssignToMe = document.getElementById('employeeUserHidden').value;
-            var idTicket = document.getElementById('ticketId').value;
-            var url = `/tickets/`+idTicket+`/assign`;
-            
-            fetch(url, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(employeeAssignToMe)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error al asignar el ticket');
-                }
-                return response.json();
-            })
-            .then(data => {
-                window.location.href = data.redirectUrl;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
 
-    });
 
     //TimeLine
     document.addEventListener('DOMContentLoaded', function() {

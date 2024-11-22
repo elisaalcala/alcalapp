@@ -40,7 +40,7 @@
                         <label for="cloneProjectReleaseName" class="form-label">Release:</label>
                         <select class="form-select" id="cloneProjectReleaseName">
                             <option value="" selected disabled>Seleccionar release</option>
-                            <c:forEach items="${openReleases}" var="release">
+                            <c:forEach items="${releasesOpen}" var="release">
                                 <option value="${release.nameRelease}" ${project.releaseName == release.nameRelease ? 'selected' : ''}>${release.nameRelease}</option>
                             </c:forEach>
                         </select>

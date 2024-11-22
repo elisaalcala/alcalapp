@@ -52,7 +52,7 @@ public class ReleaseServiceImpl implements ReleaseService {
 	public Release mapNewRelease(Release savedRelease, Employee employee) {
 		savedRelease.setEmployeeCreation(employee);
 		savedRelease.setEmployeeUserCreation(employee.getUserEmployee());
-		savedRelease.setStatusRelease(Constants.STATUS_START);
+		savedRelease.setStatusRelease(Constants.STATUS_BACKLOG);
 		SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.DATEFORMAT_YYYY_MM);
 		String formattedDate = dateFormat.format(savedRelease.getProDate());
 		savedRelease.setNameRelease(Constants.NAME_R + formattedDate);

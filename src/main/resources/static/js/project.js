@@ -343,7 +343,7 @@
         if (localStorage.getItem('openAssignMeProjectModal') === 'true') {
             // Eliminar la bandera del localStorage para evitar clics adicionales en futuras visitas
             localStorage.removeItem('openAssignMeProjectModal');
-            
+            debugger
             // Simular el clic en el botón con id `deleteButton`
             var assignToMeLinkProject = document.getElementById('assignToMeLinkProject');
             if (assignToMeLinkProject) {
