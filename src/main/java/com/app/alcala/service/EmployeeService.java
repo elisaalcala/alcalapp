@@ -6,7 +6,6 @@ import com.app.alcala.entities.Employee;
 import com.app.alcala.entities.Project;
 import com.app.alcala.entities.Team;
 import com.app.alcala.entities.Ticket;
-import com.app.alcala.web.model.EmployeeDTO;
 import com.app.alcala.web.model.WorkPerEmployee;
 
 public interface EmployeeService {
