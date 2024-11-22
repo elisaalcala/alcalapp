@@ -51,9 +51,17 @@
               <div id="calendar"></div>
           </div>
       </li>
+      <sec:authorize access="hasRole('ADMIN')">
+        
+            <!-- Nav Item - Questions -->
+            <li class="nav-item mx-1 p-0">
+                <a class="nav-link link-text" href="/gestion" id="gestionAdmin" role="button">
+                    <i class="fa fa-gear"></i>
+                </a>
 
-      <li class="topbar-divider"></li>
-
+            </li>
+        </sec:authorize>
+      <li class="topbar-divider pl-1"></li>
       <!-- Nav Item - User Information -->
       <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle link-text" href="#"  id="userDropdown" role="button"
@@ -68,21 +76,6 @@
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Mi perfil
               </a>
-              <a class="dropdown-item nav-colorlink" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Configuración
-              </a>
-              <sec:authorize access="hasRole('ADMIN')">
-                <div class="dropdown-divider"></div>
-                <button class="dropdown-item nav-colorlink" data-bs-toggle="modal" data-bs-target="#newUserModal">
-                    <i class="fa-solid fa-user-plus fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Nuevo Usuario
-                </button>
-                <button class="dropdown-item nav-colorlink" data-bs-toggle="modal" data-bs-target="#newTeamModal">
-                    <i class="fa-solid fa-people-group fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Nuevo Equipo
-                </button>
-              </sec:authorize>
               <div class="dropdown-divider"></div>
               <button class="dropdown-item nav-colorlink text-danger" data-bs-toggle="modal" data-bs-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

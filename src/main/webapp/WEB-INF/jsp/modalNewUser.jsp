@@ -41,7 +41,7 @@
                         <!-- Equipo -->
                         <div class="mb-3">
                             <label for="nameTeam" class="form-label">Equipo:</label>
-                            <select class="form-select" id="nameTeam" name="nameTeam" required>
+                            <select class="form-select" id="nameTeamUser" name="nameTeamUser" required>
                                 <option value="" selected disabled>Seleccionar equipo</option>
                                 <option value="${team.nameTeam}">${team.nameTeam}</option>
                                 <c:forEach items="${createTicketTeamsList}" var="team">
@@ -112,7 +112,7 @@
         const employeeLastName = document.getElementById("employeeLastName").value;
         const employeeDni = document.getElementById("employeeDni").value;
         const birthDate = document.getElementById("birthDate").value;
-        const nameTeam = document.getElementById("nameTeam").value;
+        const nameTeam = document.getElementById("nameTeamUser").value;
         const employeePosition = document.getElementById("employeePosition").value;
         const userEmployee = document.getElementById("userEmployee").value;
         const password = document.getElementById("password").value;

@@ -36,42 +36,27 @@
         <div class="card custom-card shadow ">
           <div class="card-header d-flex align-items-center justify-content-between bg-base">
             <h6 class="m-0 font-weight-bold text-uppercase text-white">Employee - ${employeeSelect.userEmployee}</h6>
+            <div>
+              <button type="button" class="btn bg-base-light" id="editButton" data-bs-toggle="modal" data-bs-target="#editModalEmployee">
+                <i class="fa-solid fa-pen-to-square"></i>
+                
+              </button>
+              <button type="button" class="btn btn-danger ml-1" id="deleteButton" data-bs-toggle="modal" 
+                data-bs-target="#deleteModalEmployee">
+                <i class="fa-solid fa-trash"></i>
+                
+              </button>
+            </div>
           </div>
           <div class="card-body">
 
-            <div class="div-col justify-content-between mt-1">
-
-              <div class="div-col">
-
-                <div class="ticket-button m-left">
-                  <button type="button" class="btn bg-base-light" id="editButton" data-bs-toggle="modal" data-bs-target="#editModalEmployee">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                    Editar
-                  </button>
-                </div>
-                <div class="ticket-button m-left">
-                  <button type="button" class="btn btn-danger" id="deleteButton" data-bs-toggle="modal" 
-                    data-bs-target="#deleteModalEmployee">
-                    <i class="fa-solid fa-trash"></i>
-                    Eliminar
-                  </button>
-                </div>
-                
-              </div>
-              
-            </div>
-
-            <div class="m-4">
-                <div class="d-flex">
-  
-                    
-  
-                </div>
-              </div>
+            
+          
             
 
+          </div>
+          
         </div>
-      </div>
 
         <!-- Footer  -->
         <%@ include file="footer.jsp" %>

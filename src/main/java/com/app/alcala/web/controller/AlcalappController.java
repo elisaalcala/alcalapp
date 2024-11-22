@@ -217,6 +217,8 @@ public class AlcalappController {
 	public String gestion(Model model) {
 		List<Team> teams = teamService.findAll();
 		model.addAttribute("teams", teams);
+		List<Employee> employees = employeeService.findAll();
+		model.addAttribute("employees", employees);
 		model.addAttribute("page", "GESTION");
 		return "gestion";
 	}
@@ -249,13 +251,6 @@ public class AlcalappController {
 		return ResponseEntity.ok().body("{\"redirectUrl\": \"" + redirectUrl + "\"}");
 	}
 	
-	@GetMapping("/users")
-	public String gestionUser(Model model) {
-		List<Employee> employees = employeeService.findAll();
-		model.addAttribute("employees", employees);
-		model.addAttribute("page", "GESTION USER");
-		return "users";
-	}
 	
 	@GetMapping("/users/{id}")
 	public String userPage(Model model, @PathVariable long id) {

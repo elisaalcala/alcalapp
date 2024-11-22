@@ -32,72 +32,64 @@
         <input type="hidden" id="teamId" value="${team.idTeam}" />
 
 
-        <div class="card custom-card shadow ">
-          <div class="card-header d-flex align-items-center justify-content-between bg-base">
-            <h6 class="m-0 font-weight-bold text-uppercase text-white">Equipo - ${team.nameTeam}</h6>
+        <div class="card custom-card shadow " style="height: 100%;">
+          <div class="card-header d-flex align-items-center justify-content-between bg-base px-3">
+            <h6 class="m-0  font-weight-bold text-uppercase text-white">Equipo - ${team.nameTeam}</h6>
+            <div>
+              <button type="button" class="btn bg-base-light" id="editButton" data-bs-toggle="modal" data-bs-target="#editModalTeam">
+                <i class="fa-solid fa-pen-to-square"></i>
+                
+              </button>
+              <button type="button" class="btn btn-danger ml-1" id="deleteButton" data-bs-toggle="modal" 
+                data-bs-target="#deleteModalTeam" ${borrado ? '' : 'disabled'}>
+                <i class="fa-solid fa-trash"></i>
+                
+              </button>
+            </div>
           </div>
           <div class="card-body">
 
-            <div class="div-col justify-content-between mt-1">
 
-              <div class="div-col">
 
-                <div class="ticket-button m-left">
-                  <button type="button" class="btn bg-base-light" id="editButton" data-bs-toggle="modal" data-bs-target="#editModalTeam">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                    Editar
-                  </button>
-                </div>
-                <div class="ticket-button m-left">
-                  <button type="button" class="btn btn-danger" id="deleteButton" data-bs-toggle="modal" 
-                    data-bs-target="#deleteModalTeam" ${borrado ? '' : 'disabled'}>
-                    <i class="fa-solid fa-trash"></i>
-                    Eliminar
-                  </button>
-                </div>
-                
-              </div>
-              
-            </div>
-
-            <div class="m-4">
-                <div class="d-flex">
-  
-                    <div class="width60">
-  
+            <div class="m-4" style="height: 80%;">
+                <div class="d-flex" style="gap: 3em; height: 100%;">
+                    <div class="width60 d-flex" style="flex-direction: column; gap: 1em; height: 100%;">
                       <!--Empleados por equipo-->
-                      <div class="card shadow mb-4">
-                            <div class="card-body">
-                                <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                        <th>Usuario</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Puesto</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach items="${empleados}" var="empleado">
-                                    <tr data-empleado-row-per-team="${empleado.employeeId}" class="empleado-row-per-team pointer-row">
-                                        <td>${empleado.userEmployee}</td>
-                                        <td>${empleado.employeeName}</td>
-                                        <td>${empleado.employeeLastName}</td>
-                                        <td>${empleado.employeePosition}</td>
-                                    </tr>
-                                    </c:forEach>
-                                </table>
-                              
-                            </div>
+                      <div class="ticket-detail-heading color-cyan">
+                        Usuarios:
+                      </div>
+                      <div class="card" style="height: 100%;">
+                          <div class="card-body">
+                              <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                                  <thead>
+                                      <tr>
+                                      <th>Usuario</th>
+                                      <th>Nombre</th>
+                                      <th>Apellido</th>
+                                      <th>Puesto</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                  <c:forEach items="${empleados}" var="empleado">
+                                  <tr data-empleado-row-per-team-2="${empleado.employeeId}" class="empleado-row-per-team-2 pointer-row">
+                                      <td>${empleado.userEmployee}</td>
+                                      <td>${empleado.employeeName}</td>
+                                      <td>${empleado.employeeLastName}</td>
+                                      <td>${empleado.employeePosition}</td>
+                                  </tr>
+                                  </c:forEach>
+                              </table>
+                            
+                          </div>
                       </div>
                     </div>
                     
                     <div class="width40">
                         <div class="ticket-info h-100 ">
                             <div class="ticket-detail-heading color-cyan">
-                                Descripcion
+                                Descripcion:
                             </div>
-                            <div class="row h-100">
+                            <div class="row h-100 m-0">
                               <textarea class="form-control mb-4 mt-3" id="descripcionTeam" readonly>${team.descriptionTeam}</textarea>
                             </div>
                             

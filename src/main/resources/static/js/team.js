@@ -92,3 +92,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+ // Agregar evento click a todas las filas de la tabla DataTable
+ document.addEventListener("DOMContentLoaded", function() {
+    //employee
+    document.querySelectorAll('.empleado-row-per-team-2').forEach(row => {
+      row.addEventListener('click', () => {
+        // Obtener el ID del ticket desde el atributo data-ticket-id de la fila
+        const employeeId = row.getAttribute('data-empleado-row-per-team-2');
+        if (employeeId) {
+          // Redireccionar a la página correspondiente al ticket
+          window.location.href = '/users/'+ employeeId;
+        }
+      });
+    });
+
+  });

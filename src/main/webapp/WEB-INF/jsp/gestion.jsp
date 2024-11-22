@@ -32,31 +32,76 @@
           <div class="titulo">
             <h2>Gestion Administrador</h2>
           </div>
-          <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-              <div class="card-body">
-                      <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-                          <thead>
-                            <tr>
-                              <th>ID</th>
-                              <th>Nombre</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <c:forEach items="${teams}" var="team">
-                              <tr data-team-id="${team.idTeam}" class="team-row pointer-row">
-                                <td>${team.idTeam}</td>
-                                <td>${team.nameTeam}</td>
-                              </tr>
-                            </c:forEach>
-                        </table>
-                  
+          <div class="d-flex">
+            <!-- DataTales Team -->
+            <div class="card shadow m-4 w-100">
+              <div class="card-header d-flex align-items-center justify-content-between bg-base">
+                <h6 class="m-0 font-weight-bold text-uppercase text-white">Equipos</h6>
+                <button type="button" class="btn bg-base-light" id="assignButton" data-bs-toggle="modal" data-bs-target="#newTeamModal">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
               </div>
+                <div class="card-body">
+                        <table class="table table-bordered table-striped" id="dataTableTeam" width="100%" cellspacing="0">
+                            <thead>
+                              <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <c:forEach items="${teams}" var="team">
+                                <tr data-team-id="${team.idTeam}" class="team-row pointer-row">
+                                  <td>${team.idTeam}</td>
+                                  <td>${team.nameTeam}</td>
+                                </tr>
+                              </c:forEach>
+                          </table>
+                    
+                </div>
+            </div>
+            <!-- DataTales User -->
+            <div class="card shadow m-4 w-100">
+              <div class="card-header d-flex align-items-center justify-content-between bg-base">
+                <h6 class="m-0 font-weight-bold text-uppercase text-white">Usuarios</h6>
+                <button type="button" class="btn bg-base-light" id="assignButton" data-bs-toggle="modal" data-bs-target="#newUserModal">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+              <div class="card-body">
+                <table class="table table-bordered table-striped" id="dataTableUser" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Equipo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <c:forEach items="${employees}" var="employee">
+                        <tr data-employee-id="${employee.employeeId}" class="employee-row pointer-row">
+                          <td>${employee.employeeId}</td>
+                          <td>${employee.userEmployee}</td>
+                          <td>${employee.employeeName}</td>
+                          <td>${employee.employeeLastName}</td>
+                          <td>${employee.nameTeam}</td>
+                        </tr>
+                      </c:forEach>
+                  </table>
+              </div>
+            </div>
           </div>
+
         </div>  
         <!-- Footer  -->
         <%@ include file="footer.jsp" %>
       </section>
+
+      <%@ include file="modalNewTeam.jsp" %>
+      <%@ include file="modalNewUser.jsp" %>
+      
       <%@ include file="modalCreate.jsp" %>
       <%@ include file="modalLogout.jsp" %>
       <%@ include file="modalCreateRelease.jsp" %>

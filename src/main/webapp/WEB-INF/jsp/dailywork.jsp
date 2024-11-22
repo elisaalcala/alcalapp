@@ -384,8 +384,7 @@
         <!-- Footer  -->
         <%@ include file="footer.jsp" %>
       </section>
-      <%@ include file="modalNewTeam.jsp" %>
-      <%@ include file="modalNewUser.jsp" %>
+
       <%@ include file="modalCreate.jsp" %>
       <%@ include file="modalLogout.jsp" %>
       <%@ include file="modalCreateRelease.jsp" %>

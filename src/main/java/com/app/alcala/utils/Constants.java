@@ -49,5 +49,5 @@ public class Constants {
 	public static final String EXCEPTION_USER_NOT_FOUND = "User not found";
 	
 	//ROLES
-	public static final List<String> ROLES = Arrays.asList("USER", "ADMIN");
+	public static final List<String> ROLES = Arrays.asList("USER", "ADMIN", "MANAGER");
 }
