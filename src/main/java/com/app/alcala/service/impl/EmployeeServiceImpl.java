@@ -96,8 +96,16 @@ public class EmployeeServiceImpl implements EmployeeService{
 		employeeNew.setProjectMapEmployee(new HashMap<>());
 		employeeNew.setTicketMapEmployee(new HashMap<>());
 		employeeNew.setTeam(team);
+		employeeNew.setEmployeeActive(true);
 		return save(employeeNew);
 	}
+
+	@Override
+	public List<Employee> findAll() {
+		return employeeRepository.findByEmployeeActiveTrue();
+	}
+
+
 
 
 }

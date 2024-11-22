@@ -23,4 +23,12 @@ public interface TeamService {
 
 	Team createTeam(TeamDTO team);
 
+	List<Team> findAll();
+
+	Team findByIdTeam(long id);
+
+	Team editTeam(long id, TeamDTO teamDTO);
+
+	void delete(long id);
+
 }

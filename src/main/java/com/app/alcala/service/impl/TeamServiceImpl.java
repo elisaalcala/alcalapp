@@ -2,6 +2,7 @@ package com.app.alcala.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,11 @@ public class TeamServiceImpl implements TeamService{
 	public void delete(Team teamDelete) {
 		teamRepository.delete(teamDelete);
 	}
+	@Override
+	public void delete(long id) {
+		Team teamDelete = teamRepository.findByIdTeam(id);
+		teamRepository.delete(teamDelete);
+	}
 
 
 	@Override
@@ -63,6 +69,24 @@ public class TeamServiceImpl implements TeamService{
 		newTeam.setEmployeeMap(new HashMap<>());
 		newTeam.setTeamLeader(null);
 		return teamRepository.save(newTeam);
+	}
+
+	@Override
+	public List<Team> findAll() {
+		return teamRepository.findAll();
+	}
+
+	@Override
+	public Team findByIdTeam(long id) {
+		return teamRepository.findByIdTeam(id);
+	}
+
+	@Override
+	public Team editTeam(long id, TeamDTO teamDTO) {
+		Team team = teamRepository.findByIdTeam(id);
+		team.setDescriptionTeam(teamDTO.getDescriptionTeam());
+		team.setNameTeam(teamDTO.getNameTeam());
+		return teamRepository.save(team);
 	}
 	
 	

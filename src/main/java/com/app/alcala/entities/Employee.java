@@ -37,6 +37,9 @@ public class Employee implements Serializable {
 
     @Column(name = "name_employee")
     private String employeeName;
+    
+    @Column(name = "active_employee")
+    private Boolean employeeActive;
 
     @Column(name = "last_name_employee")
     private String employeeLastName;

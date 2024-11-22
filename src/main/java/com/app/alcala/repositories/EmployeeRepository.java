@@ -13,7 +13,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
 	Optional<Employee> findByEmployeeId(Long employeeId);
 	
-	List<Employee> findAll();
+	List<Employee> findByEmployeeActiveTrue();
 	
 	List<Employee> findByNameTeam(String nameTeam);
 	

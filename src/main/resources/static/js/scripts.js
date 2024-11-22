@@ -319,6 +319,30 @@
         });
       });
 
+      //Team
+      document.querySelectorAll('.team-row').forEach(row => {
+        row.addEventListener('click', () => {
+          // Obtener el ID del ticket desde el atributo data-ticket-id de la fila
+          const teamId = row.getAttribute('data-team-id');
+          if (teamId) {
+            // Redireccionar a la página correspondiente al ticket
+            window.location.href = 'teams/'+ teamId;
+          }
+        });
+      });
+
+      //employee
+      document.querySelectorAll('.employee-row').forEach(row => {
+        row.addEventListener('click', () => {
+          // Obtener el ID del ticket desde el atributo data-ticket-id de la fila
+          const employeeId = row.getAttribute('data-employee-id');
+          if (employeeId) {
+            // Redireccionar a la página correspondiente al ticket
+            window.location.href = 'users/'+ employeeId;
+          }
+        });
+      });
+
     });
     
     //Create Ticket
@@ -515,3 +539,6 @@
         breadcrumbHTML += '</ol></nav>';
         breadcrumbContainer.innerHTML = breadcrumbHTML;
     });
+
+
+

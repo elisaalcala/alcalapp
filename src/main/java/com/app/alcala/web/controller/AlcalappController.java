@@ -1,5 +1,6 @@
 package com.app.alcala.web.controller;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -25,6 +29,7 @@ import com.app.alcala.service.ReleaseService;
 import com.app.alcala.service.TeamService;
 import com.app.alcala.service.TicketService;
 import com.app.alcala.utils.Constants;
+import com.app.alcala.web.model.EmployeeDTO;
 import com.app.alcala.web.model.EmployeePerTeam;
 import com.app.alcala.web.model.ProjectTable;
 import com.app.alcala.web.model.TableTeam;
@@ -206,6 +211,76 @@ public class AlcalappController {
 		teamService.createTeam(team);
 
 		return ResponseEntity.ok("Equipo creado con éxito");
+	}
+	
+	@GetMapping("/gestion")
+	public String gestion(Model model) {
+		List<Team> teams = teamService.findAll();
+		model.addAttribute("teams", teams);
+		model.addAttribute("page", "GESTION");
+		return "gestion";
+	}
+	
+	@GetMapping("/teams/{id}")
+	public String teamPage(Model model, @PathVariable long id) {
+
+		Team team = teamService.findByIdTeam(id);
+		Collection<Employee> empleados = team.getEmployeeMap().values();
+		model.addAttribute("team", team);
+		model.addAttribute("empleados", empleados);
+		model.addAttribute("borrado", empleados.isEmpty());
+		
+		return "team";
+	}
+	
+	@PutMapping("/teams/{id}/edit")
+	public ResponseEntity<String> updateTeam(@PathVariable long id, @RequestBody TeamDTO teamDTO) {
+
+		Team team = teamService.editTeam(id, teamDTO);
+		String redirectUrl = "/teams/" + team.getIdTeam();
+		return ResponseEntity.ok().body("{\"redirectUrl\": \"" + redirectUrl + "\"}");
+	}
+	
+	@DeleteMapping("/teams/{id}/delete")
+	public ResponseEntity<String> deleteTeam(@PathVariable long id) {
+		
+		teamService.delete(id);
+		String redirectUrl = "/gestion";
+		return ResponseEntity.ok().body("{\"redirectUrl\": \"" + redirectUrl + "\"}");
+	}
+	
+	@GetMapping("/users")
+	public String gestionUser(Model model) {
+		List<Employee> employees = employeeService.findAll();
+		model.addAttribute("employees", employees);
+		model.addAttribute("page", "GESTION USER");
+		return "users";
+	}
+	
+	@GetMapping("/users/{id}")
+	public String userPage(Model model, @PathVariable long id) {
+
+		Employee employeeSelect = employeeService.findByEmployeeId(id);
+		model.addAttribute("employeeSelect", employeeSelect);
+		
+		return "user";
+	}
+	
+	@PutMapping("/users/{id}/edit")
+	public ResponseEntity<String> updateUser(@PathVariable long id, @RequestBody EmployeeDTO employeeDTO, Model model) {
+
+		Employee employee = alcalappService.editEmployee(id, employeeDTO);
+		String redirectUrl = "/users/" + employee.getEmployeeId();
+		
+		return ResponseEntity.ok().body("{\"redirectUrl\": \"" + redirectUrl + "\"}");
+	}
+	
+	@PutMapping("/users/{id}/delete")
+	public ResponseEntity<String> deleteUser(@PathVariable long id) {
+		
+		alcalappService.deleteUser(id);
+		String redirectUrl = "/users";
+		return ResponseEntity.ok().body("{\"redirectUrl\": \"" + redirectUrl + "\"}");
 	}
 
 }
