@@ -41,7 +41,7 @@
                 
               </button>
               <button type="button" class="btn btn-danger ml-1" id="deleteButton" data-bs-toggle="modal" 
-                data-bs-target="#deleteModalTeam" ${borrado ? '' : 'disabled'}>
+                data-bs-target="#deleteModalTeam" <sec:authorize access="!hasRole('ADMIN')">disabled</sec:authorize>>
                 <i class="fa-solid fa-trash"></i>
                 
               </button>

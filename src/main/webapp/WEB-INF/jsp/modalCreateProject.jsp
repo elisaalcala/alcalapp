@@ -48,9 +48,9 @@
                     </div>
                     <div class="mb-3">
                         <label for="createProjectTeamNameAssign" class="form-label">Equipo:</label>
-                        <select class="form-select" id="createProjectTeamNameAssign">
+                        <select class="form-select" id="createProjectTeamNameAssign" <sec:authorize access="hasRole('MANAGER')">disabled</sec:authorize>>
                             <option value="" selected disabled>Seleccionar equipo</option>
-                            <option value="${team.nameTeam}">${team.nameTeam}</option>
+                            <option value="${team.nameTeam}" <sec:authorize access="hasRole('MANAGER')">selected</sec:authorize>>${team.nameTeam}</option>
                             <c:forEach items="${createTicketTeamsList}" var="teams">
                                 <option value="${teams.nameTeam}">${teams.nameTeam}</option>
                             </c:forEach>

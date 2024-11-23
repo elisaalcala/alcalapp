@@ -24,7 +24,8 @@
               <span>Mi trabajo</span></a>
         </li>
     
-        <hr class="sidebar-divider">
+        <!-- Divisor -->
+        <hr class="my-4" style="border: 0; border-top: 2px solid #49828ff5;">
     
         <div class="sidebar-heading nav-color">
           Control general
@@ -48,8 +49,8 @@
               <span>Incidencias</span></a>
         </li>
     
-        <hr class="sidebar-divider">
-    
+        <!-- Divisor -->
+        <hr class="my-4" style="border: 0; border-top: 2px solid #49828ff5;">
     
         <div class="sidebar-heading nav-color">
           Crear
@@ -61,11 +62,14 @@
                 <span>Incidencia</span></button>
         </li>
     
-        <li class="nav-item">
-          <button class="nav-link nav-colorlink" data-bs-toggle="modal" data-bs-target="#createModalRelease">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Release</span></button>
-        </li>
+        <sec:authorize access="hasRole('ADMIN') or hasRole('MANAGER')">
+            <li class="nav-item">
+              <button class="nav-link nav-colorlink" data-bs-toggle="modal" data-bs-target="#createModalRelease">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Release</span></button>
+            </li>
+        </sec:authorize>
+        
       </div>
 
         <div style="margin-bottom: 1em;;">
