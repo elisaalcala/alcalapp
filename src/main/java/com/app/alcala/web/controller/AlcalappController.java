@@ -96,6 +96,7 @@ public class AlcalappController {
 
 		HttpSession session = request.getSession();
 		session.setAttribute("employee", employee);
+        session.setAttribute("role", user.getRoles().get(0));
         
 
 		session.setAttribute("team", team);
