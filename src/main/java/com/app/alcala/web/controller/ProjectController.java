@@ -63,10 +63,8 @@ public class ProjectController {
 	}
 
 	@GetMapping("/{id}")
-	public String projectPage(Model model, @PathVariable long id, HttpServletRequest request) {
+	public String projectPage(Model model, @PathVariable long id) {
 
-		HttpSession session = request.getSession();
-		Team team = (Team) session.getAttribute("team");
 
 		List<String> allStatus = new ArrayList<>(Arrays.asList("Backlog", "In Progress", "Closed", "Blocked", "Test", "Ready to UAT", "Ready to PRO", "Finish"));
 
@@ -74,7 +72,7 @@ public class ProjectController {
 
 		model.addAttribute("project", project);
 		model.addAttribute("allStatus", allStatus);
-		model.addAttribute("allEmployees", team.getEmployeeMap().values());
+		model.addAttribute("allEmployees", project.getTeamAssign().getEmployeeMap().values());
 		model.addAttribute("page", project.getNameProject());
 		return "project";
 	}

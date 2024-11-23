@@ -29,14 +29,18 @@
                                             </c:if>
                                         </c:forEach>
                                     </select>
-                                
-                                <button type="button" class="btn bg-cyan-800" id="assignToMeButtonProject">Asignarme a mí</button>
+                                <c:if test="${project.teamAssign.nameTeam eq employee.team.nameTeam}">
+                                    <button type="button" class="btn bg-cyan-800" id="assignToMeButtonProject">Asignarme a mí</button>
+                                </c:if>
+                                <c:if test="${!(project.teamAssign.nameTeam eq employee.team.nameTeam)}">
+                                    <button type="button" class="btn bg-cyan-800" id="assignToMeButtonProject" disabled >Asignarme a mí</button>
+                                </c:if>
                             </div>
                             
                             
                         </div>
                         <div id="alertMessageAssignProject" class="alert alert-danger m-top" role="alert" style="display: none;"></div>
-                        <a href="#" id="quitAssignProject">Quitar Asignación</a>
+                        <a href="#" class="color-cyan" id="quitAssignProject">Quitar Asignación</a>
                     </form>
 
                 </div>

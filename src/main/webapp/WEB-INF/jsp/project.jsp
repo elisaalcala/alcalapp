@@ -44,15 +44,27 @@
             <div class="div-col justify-content-between mt-1">
 
               <div class="div-col">
-
+                <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
                 <div class="ticket-button m-left">
                   <button type="button" class="btn bg-base-light" id="assignButton" data-bs-toggle="modal" data-bs-target="#assignModalProject" 
-                  ${employee.nameTeam != project.teamNameAssign ? 'disabled' : ''}>Asignar</button>
+                  <sec:authorize access="hasRole('ADMIN')">
+                      >
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('MANAGER')">
+                      ${employee.nameTeam != project.teamNameAssign ? 'disabled' : ''}>
+                    </sec:authorize>
+                    Asignar</button>
 
                 </div>
+              </sec:authorize>
                 <div class="ticket-button dropdown m-left">
                   <button class="btn bg-base-light dropdown-toggle" type="button" id="changeStatusButtonProject" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                  ${employee.nameTeam != project.teamNameAssign ? 'disabled' : ''}>
+                  <sec:authorize access="hasRole('ADMIN')">
+                      >
+                    </sec:authorize>
+                    <sec:authorize access="hasAnyRole('MANAGER', 'USER')">
+                      ${employee.nameTeam != project.teamNameAssign ? 'disabled' : ''}>
+                    </sec:authorize>
                     Cambiar estado
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -65,26 +77,40 @@
 
               </div>
               <div class="div-col">
-
-                <div class="ticket-button m-left">
-                  <button type="button" class="btn bg-base-light" id="cloneButton" data-bs-toggle="modal" data-bs-target="#cloneModalProject">
-                    <i class="fa-solid fa-clone"></i>
-                    Clonar</button>
-                </div>
+                <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
+                  <div class="ticket-button m-left">
+                    <button type="button" class="btn bg-base-light" id="cloneButton" data-bs-toggle="modal" data-bs-target="#cloneModalProject">
+                      <i class="fa-solid fa-clone"></i>
+                      Clonar</button>
+                  </div>
+                </sec:authorize>
                 <div class="ticket-button m-left">
                   <button type="button" class="btn bg-base-light" id="editButton" data-bs-toggle="modal" data-bs-target="#editModalProject"
-                  ${employee.nameTeam != project.teamNameAssign ? 'disabled' : ''}>
+                  <sec:authorize access="hasRole('ADMIN')">
+                      >
+                    </sec:authorize>
+                    <sec:authorize access="hasAnyRole('MANAGER', 'USER')">
+                      ${employee.nameTeam != project.teamNameAssign ? 'disabled' : ''}>
+                    </sec:authorize>
                     <i class="fa-solid fa-pen-to-square"></i>
                     Editar
                   </button>
                 </div>
-                <div class="ticket-button m-left">
-                  <button type="button" class="btn btn-danger" id="deleteButton" data-bs-toggle="modal" data-bs-target="#deleteModalProject"
-                  ${employee.nameTeam != project.teamNameAssign ? 'disabled' : ''}>
-                    <i class="fa-solid fa-trash"></i>
-                    Eliminar</button>
-                </div>
-                
+                <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
+                  <div class="ticket-button m-left">
+                    <button type="button" class="btn btn-danger" id="deleteButton" data-bs-toggle="modal" data-bs-target="#deleteModalProject"
+                    <sec:authorize access="hasRole('ADMIN')">
+                      >
+                    </sec:authorize>
+                    <sec:authorize access="hasAnyRole('MANAGER', 'USER')">
+                      ${employee.nameTeam != project.teamNameAssign ? 'disabled' : ''}>
+                    </sec:authorize>
+                      <i class="fa-solid fa-trash"></i>
+                      Eliminar
+                    </button>
+                  </div>
+                </sec:authorize>
+
               </div>
               
             </div>
@@ -134,7 +160,14 @@
                             </dd>
                           </c:when>
                           <c:otherwise>
-                            <dd class="col" id="employeeUserAssign">${project.employeeUserAssign}</dd>
+                            <dd class="col" id="employeeUserAssign">${project.employeeUserAssign}
+                              <br>
+                              <c:if test="${employee.userEmployee eq project.employeeUserAssign}">
+                                  <a href="#" id="unassignFromMeLinkProject" class="color-cyan">
+                                      <i class="fa-solid fa-trash"></i>
+                                      Desasignarme</a>
+                              </c:if>
+                            </dd>
                           </c:otherwise>
                         </c:choose>
                     </div>

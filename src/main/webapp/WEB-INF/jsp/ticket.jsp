@@ -50,12 +50,24 @@
                 <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
                   <div class="ticket-button m-left">
                     <button type="button" class="btn bg-base-light" id="assignButton" data-bs-toggle="modal" data-bs-target="#assignModal" 
-                    ${employee.nameTeam != ticket.teamNameAssign ? 'disabled' : ''}>Asignar</button>
+                    <sec:authorize access="hasRole('ADMIN')">
+                      >
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('MANAGER')">
+                      ${employee.nameTeam != ticket.teamNameAssign ? 'disabled' : ''}>
+                    </sec:authorize>
+                    Asignar</button>
+
                   </div>
                 </sec:authorize>
                 <div class="ticket-button dropdown m-left">
                   <button class="btn bg-base-light dropdown-toggle" type="button" id="changeStatusButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                  ${employee.nameTeam != ticket.teamNameAssign ? 'disabled' : ''}>
+                  <sec:authorize access="hasRole('ADMIN')">
+                      >
+                    </sec:authorize>
+                    <sec:authorize access="hasAnyRole('MANAGER', 'USER')">
+                      ${employee.nameTeam != ticket.teamNameAssign ? 'disabled' : ''}>
+                    </sec:authorize>
                     Cambiar estado
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -67,7 +79,13 @@
                 </div>
                 <div class="ticket-button m-left">
                   <button type="button" class="btn bg-base-light" id="moveButton" data-bs-toggle="modal" data-bs-target="#moveModal" 
-                  ${employee.nameTeam != ticket.teamNameAssign ? 'disabled' : ''}>Traspasar</button>
+                  <sec:authorize access="hasRole('ADMIN')">
+                      >
+                    </sec:authorize>
+                    <sec:authorize access="hasAnyRole('MANAGER', 'USER')">
+                      ${employee.nameTeam != ticket.teamNameAssign ? 'disabled' : ''}>
+                    </sec:authorize>
+                    Traspasar</button>
                 </div>
 
               </div>
@@ -80,7 +98,12 @@
                 </div>
                 <div class="ticket-button m-left">
                   <button type="button" class="btn bg-base-light" id="editButton" data-bs-toggle="modal" data-bs-target="#editModal"
-                  ${employee.nameTeam != ticket.teamNameAssign ? 'disabled' : ''}>
+                  <sec:authorize access="hasRole('ADMIN')">
+                      >
+                    </sec:authorize>
+                    <sec:authorize access="hasAnyRole('MANAGER', 'USER')">
+                      ${employee.nameTeam != ticket.teamNameAssign ? 'disabled' : ''}>
+                    </sec:authorize>
                     <i class="fa-solid fa-pen-to-square"></i>
                     Editar
                   </button>
@@ -91,7 +114,7 @@
                     <sec:authorize access="hasRole('ADMIN')">
                       >
                     </sec:authorize>
-                    <sec:authorize access="hasRole('MANAGER')">
+                    <sec:authorize access="hasAnyRole('MANAGER', 'USER')">
                       ${employee.nameTeam != ticket.teamNameAssign ? 'disabled' : ''}>
                     </sec:authorize>
                       <i class="fa-solid fa-trash"></i>

@@ -353,6 +353,37 @@
 
     });
 
+    //DesAsignar Ticket Link
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.getElementById('unassignFromMeLinkProject').addEventListener('click', function() {
+            
+            var employeeDesAssignToMe = 'Sin asignar';
+            var projectId = document.getElementById('projectId').value;
+            var url = `/projects/`+ projectId + `/assign`;
+            
+            fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(employeeDesAssignToMe)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error al asignar el proyecto');
+                }
+                return response.json();
+            })
+            .then(data => {
+                window.location.href = data.redirectUrl;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        });
+    });
+
     //Calendar
 document.addEventListener('DOMContentLoaded', function () {
 

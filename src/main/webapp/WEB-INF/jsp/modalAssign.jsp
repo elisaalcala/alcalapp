@@ -29,8 +29,14 @@
                                             </c:if>
                                         </c:forEach>
                                     </select>
+                                    
+                                    <c:if test="${ticket.teamAssign.nameTeam eq employee.team.nameTeam}">
+                                        <button type="button" class="btn bg-cyan-800" id="assignToMeButton">Asignarme a mí</button>
+                                    </c:if>
+                                    <c:if test="${!(ticket.teamAssign.nameTeam eq employee.team.nameTeam)}">
+                                        <button type="button" class="btn bg-cyan-800" id="assignToMeButton" disabled >Asignarme a mí</button>
+                                    </c:if>
                                 
-                                <button type="button" class="btn bg-cyan-800" id="assignToMeButton">Asignarme a mí</button>
                             </div>
                             
                             
