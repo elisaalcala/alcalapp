@@ -131,10 +131,12 @@ public class AlcalappServiceImpl implements AlcalappService {
 		Ticket ticket = ticketService.findById(id);
 		Employee employeeQuit = ticket.getEmployeeAssign();
 		Team teamQuit = ticket.getTeamAssign();
-		employeeService.deleteTicket(employeeQuit, ticket);
+		if (!ObjectUtils.isEmpty(employeeQuit)) employeeService.deleteTicket(employeeQuit, ticket);
 		teamService.deleteTicket(teamQuit, ticket);
 		LocalDateTime currentDate = LocalDateTime.now();
-		Message message = messageService.messageMove(Timestamp.valueOf(currentDate),employeeQuit.getUserEmployee(),team.getNameTeam() );
+        String employeeQuitMssg = "";
+        if (!ObjectUtils.isEmpty(employeeQuit)) employeeQuitMssg = employeeQuit.getUserEmployee();
+		Message message = messageService.messageMove(Timestamp.valueOf(currentDate), employeeQuitMssg, team.getNameTeam() );
 		return ticketService.moveTicket(ticket, team, message);
 	}
 

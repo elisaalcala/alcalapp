@@ -47,8 +47,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public Employee deleteProject(Employee employeeQuit, Project project) {
-		employeeQuit.getProjectMapEmployee().remove(project.getIdProject());
-		return employeeRepository.save(employeeQuit);
+        employeeQuit.getProjectMapEmployee().remove(project.getIdProject());
+        return employeeRepository.save(employeeQuit);
 	}
 
 	@Override

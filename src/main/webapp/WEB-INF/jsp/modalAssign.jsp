@@ -24,9 +24,7 @@
                                             </c:otherwise>
                                         </c:choose>
                                         <c:forEach items="${allEmployees}" var="employeelist"> 
-                                            <c:if test="${empty ticket.employeeUserAssign or not employeelist.userEmployee eq ticket.employeeUserAssign}">
-                                                <option value="${employeelist.userEmployee}">${employeelist.employeeName} ${employeelist.employeeLastName}</option>
-                                            </c:if>
+                                            <option value="${employeelist.userEmployee}">${employeelist.employeeName} ${employeelist.employeeLastName}</option>
                                         </c:forEach>
                                     </select>
                                     

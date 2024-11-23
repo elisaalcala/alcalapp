@@ -147,7 +147,7 @@
                                                         <a><i style="cursor: pointer; margin-left: 4px;" class="fa-solid fa-pencil" data-bs-toggle="modal" data-bs-target="#assignModalProject"></i></a>
                                                     </c:if>
                                                     <sec:authorize access="hasAnyRole('USER')">
-                                                        <c:if test="${employee.employeeName == project.employeeUserAssign}">
+                                                        <c:if test="${employee.userEmployee == project.employeeUserAssign}">
                                                             <br>
                                                             <a href="#" id="unassignFromMeLinkProject" class="color-cyan">
                                                                 <i class="fa-solid fa-trash"></i>

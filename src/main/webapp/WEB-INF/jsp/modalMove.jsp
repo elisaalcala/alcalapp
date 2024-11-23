@@ -19,6 +19,7 @@
                                         <c:forEach items="${createTicketTeamsList}" var="teams"> 
                                             <option value="${teams.nameTeam}">${teams.nameTeam}</option>
                                         </c:forEach>
+                                        <option value="${employee.nameTeam}">${employee.nameTeam}</option>
                                     </select>
                             </div>  
                         </div>

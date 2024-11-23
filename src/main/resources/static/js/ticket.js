@@ -11,7 +11,6 @@
             var editTicketDescription = document.getElementById('editTicketDescription').value;
             var editTicketPriority = document.getElementById('editTicketPriority').value;
             var editTicketEnvironment = document.getElementById('editTicketEnvironment').value;
-            var editTicketTeamNameAssign = document.getElementById('editTicketTeamNameAssign').value;
 
             // Crear un objeto con los datos actualizados del ticket
             var editTicket = {
@@ -19,7 +18,6 @@
                 descriptionTicket: editTicketDescription,
                 priorityTicket: editTicketPriority,
                 environmentTicket: editTicketEnvironment,
-                teamNameAssign: editTicketTeamNameAssign
             };
             
             // Realizar la solicitud PUT para actualizar el ticket
@@ -49,6 +47,7 @@
         });
         });
     });
+
         //Asignar Ticket Link
         document.addEventListener('DOMContentLoaded', (event) => {
             document.getElementById('assignToMeLink').addEventListener('click', function() {
@@ -294,6 +293,7 @@
                 
             // Obtener los valores editados del formulario
             var url = `/tickets/create`;
+            debugger
             var cloneTicketTitle = document.getElementById('cloneTicketTitle').value;
             var cloneTicketDescription = document.getElementById('cloneTicketDescription').value;
             var cloneTicketPriority = document.getElementById('cloneTicketPriority').value;
