@@ -47,12 +47,12 @@
             <div class="div-col justify-content-between mt-1">
 
               <div class="div-col">
-
-                <div class="ticket-button m-left">
-                  <button type="button" class="btn bg-base-light" id="assignButton" data-bs-toggle="modal" data-bs-target="#assignModal" 
-                  ${employee.nameTeam != ticket.teamNameAssign ? 'disabled' : ''}>Asignar</button>
-
-                </div>
+                <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
+                  <div class="ticket-button m-left">
+                    <button type="button" class="btn bg-base-light" id="assignButton" data-bs-toggle="modal" data-bs-target="#assignModal" 
+                    ${employee.nameTeam != ticket.teamNameAssign ? 'disabled' : ''}>Asignar</button>
+                  </div>
+                </sec:authorize>
                 <div class="ticket-button dropdown m-left">
                   <button class="btn bg-base-light dropdown-toggle" type="button" id="changeStatusButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                   ${employee.nameTeam != ticket.teamNameAssign ? 'disabled' : ''}>
@@ -85,12 +85,21 @@
                     Editar
                   </button>
                 </div>
-                <div class="ticket-button m-left">
-                  <button type="button" class="btn btn-danger" id="deleteButton" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                  ${employee.nameTeam != ticket.teamNameAssign ? 'disabled' : ''}>
-                    <i class="fa-solid fa-trash"></i>
-                    Eliminar</button>
-                </div>
+                <sec:authorize access="hasAnyRole('ADMIN', 'MANAGER')">
+                  <div class="ticket-button m-left">
+                    <button type="button" class="btn btn-danger" id="deleteButton" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                    <sec:authorize access="hasRole('ADMIN')">
+                      >
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('MANAGER')">
+                      ${employee.nameTeam != ticket.teamNameAssign ? 'disabled' : ''}>
+                    </sec:authorize>
+                      <i class="fa-solid fa-trash"></i>
+                      Eliminar
+                    </button>
+                  </div>
+                </sec:authorize>
+
                 
               </div>
               
@@ -136,10 +145,18 @@
                                   <i class="fa-solid fa-pencil "></i>
                                   Asignarme a mi</a>
                               </c:if>
+                              
                             </dd>
                           </c:when>
                           <c:otherwise>
-                            <dd class="col" id="employeeUserAssign">${ticket.employeeUserAssign}</dd>
+                            <dd class="col" id="employeeUserAssign">${ticket.employeeUserAssign}
+                            <br>
+                              <c:if test="${employee.userEmployee eq ticket.employeeUserAssign}">
+                                  <a href="#" id="unassignFromMeLink" class="color-cyan">
+                                      <i class="fa-solid fa-trash"></i>
+                                      Desasignarme</a>
+                              </c:if>
+                            </dd>
                           </c:otherwise>
                         </c:choose>
                     </div>

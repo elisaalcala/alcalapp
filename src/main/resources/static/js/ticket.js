@@ -79,6 +79,38 @@
             });
     
         });
+
+        //DesAsignar Ticket Link
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById('unassignFromMeLink').addEventListener('click', function() {
+                
+                var employeeDesAssignToMe = 'Sin asignar';
+                var idTicket = document.getElementById('ticketId').value;
+                var url = `/tickets/`+idTicket+`/assign`;
+                
+                fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(employeeDesAssignToMe)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al asignar el ticket');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    window.location.href = data.redirectUrl;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+    
+        });
+
     //Asignar Ticket Modal
     document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('saveAssignButton').addEventListener('click', function() {
@@ -109,6 +141,7 @@
                 console.error('Error:', error);
             });
         });
+
         // Script para el botón "Asignarme a mí"
         document.getElementById('assignToMeButton').addEventListener('click', function() {
         
