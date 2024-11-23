@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.app.alcala.entities.Employee;
@@ -76,6 +77,12 @@ public class AlcalappController {
 		String redirectUrl = "/login";
 		return ResponseEntity.ok().body("{\"redirectUrl\": \"" + redirectUrl + "\"}");
 	}
+
+    @RequestMapping("/error")
+    public String handleError() {
+        // Retorna la vista para mostrar los errores
+        return "error"; // Asegúrate de tener el archivo JSP en esta ubicación
+    }
 
 	@GetMapping("/dailywork")
 	public String dailyWorkPage(Model model, HttpServletRequest request) throws JsonProcessingException {
