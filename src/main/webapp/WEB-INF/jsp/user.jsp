@@ -38,20 +38,20 @@
 
         <div class="card custom-card shadow" style="display: flex; justify-content: center; ">
           <div class="card-header d-flex align-items-center justify-content-between bg-base">
-            <h6 class="m-0 font-weight-bold text-uppercase text-white">Información de usuario</h6>
-            <c:if test="${role == 'ADMIN' || role == 'MANAGER'}">
+            <h6 class="m-0 font-weight-bold text-uppercase text-white">Información de usuario - ${employeeSelect.userEmployee}</h6>
                 <div>
-                <button type="button" class="btn bg-base-light" id="editButton" data-bs-toggle="modal" data-bs-target="#editModalEmployee">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                    
-                </button>
-                <button type="button" class="btn btn-danger ml-1" id="deleteButton" data-bs-toggle="modal" 
-                    data-bs-target="#deleteModalEmployee">
-                    <i class="fa-solid fa-trash"></i>
-                    
-                </button>
+                    <sec:authorize access="hasRole('ADMIN') or hasRole('MANAGER')">
+                        <button type="button" class="btn bg-base-light" id="editButton" data-bs-toggle="modal" data-bs-target="#editModalEmployee">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('ADMIN')">
+                        <button type="button" class="btn btn-danger ml-1" id="deleteButton" data-bs-toggle="modal" 
+                            data-bs-target="#deleteModalEmployee">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </sec:authorize>
                 </div>
-            </c:if>
           </div>
           <div id="user_info" class="card-body" style="max-height: 100vh; padding: 2em;">
             <div class="row" style="display: flex; flex-direction: row; justify-content: center; gap: 4em; margin-right: 2em;">
@@ -64,19 +64,6 @@
 
                 <!-- User Information Section -->
                 <div class="col-md-9" style="width: 50%">
-                    <!-- User Account -->
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <strong>Usuario:</strong> <span>${employeeSelect.userEmployee}</span>
-                        </div>
-                        <div class="col-md-6">
-                            <strong>Correo:</strong> <span>${employeeSelect.userEmployee}@outlook.es</span>
-                        </div>
-                    </div>
-
-                    <!-- Divisor -->
-                    <hr class="my-4" style="border: 0; border-top: 2px solid #49828ff5;">
-
                     <!-- Personal Information -->
                     <div class="row mb-3">
                         <div class="col-md-6">
@@ -101,6 +88,21 @@
                     <!-- Divisor -->
                     <hr class="my-4" style="border: 0; border-top: 2px solid #49828ff5;">
 
+                    <!-- User Account -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong>Correo:</strong>
+                            <span>${employeeSelect.userEmployee}@outlook.es</span>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Activo:</strong>
+                            <span> ${employeeSelect.employeeActive ? 'Si' : 'No'} </span>
+                        </div>
+                    </div>
+
+                    <!-- Divisor -->
+                    <hr class="my-4" style="border: 0; border-top: 2px solid #49828ff5;">
+
                     <!-- Work Information -->
                     <div class="row mb-3">
                         <div class="col-md-6">
@@ -118,9 +120,8 @@
                             </span>
                         </div>
                         <div class="col-md-6">
-                            <strong>Activo:</strong>
-                            <input type="checkbox" id="employeeActive" ${employeeSelect.employeeActive ? 'checked' : ''}>
-
+                            <strong>Role:</strong>
+                            <span> ${role} </span>
                         </div>
                     </div>
                     
