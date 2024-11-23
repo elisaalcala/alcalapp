@@ -74,7 +74,7 @@ public class SideBarTest {
 	public void setUp() {
 
  
-		userRepository.save(new User("testSideBar", passwordEncoder.encode("test"), "USER"));
+		userRepository.save(new User("testSideBar", passwordEncoder.encode("test"), "ADMIN"));
 		Employee employeeTest = new Employee();
 		employeeTest.setUserEmployee("testSideBar");
 		employeeService.save(employeeTest);

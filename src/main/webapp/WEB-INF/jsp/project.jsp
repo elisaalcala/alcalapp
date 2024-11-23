@@ -144,7 +144,7 @@
                                                 <dd class="col" id="employeeUserAssign">
                                                     ${project.employeeUserAssign}
                                                     <c:if test="${(employee.nameTeam == project.teamNameAssign && role == 'MANAGER') || role == 'ADMIN'}">
-                                                        <a><i style="cursor: pointer; margin-left: 4px;s" class="fa-solid fa-pencil" data-bs-toggle="modal" data-bs-target="#assignModalProject"></i></a>
+                                                        <a><i style="cursor: pointer; margin-left: 4px;" class="fa-solid fa-pencil" data-bs-toggle="modal" data-bs-target="#assignModalProject"></i></a>
                                                     </c:if>
                                                     <sec:authorize access="hasAnyRole('USER')">
                                                         <c:if test="${employee.employeeName == project.employeeUserAssign}">
@@ -268,6 +268,4 @@
 </body>
 
 </html>
-
-
 

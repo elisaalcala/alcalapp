@@ -83,14 +83,14 @@
 
         // Script para el botón "Asignarme a mí"
         document.getElementById('assignToMeButtonProject').addEventListener('click', function() {
-        
+            
             var selectElement = document.querySelector('.assignedEmployee');
             
             var employeeName = document.getElementById('employeeNameAssignToMe').value;
             var employeeLastName = document.getElementById('employeeLastNameAssignToMe').value;
-
+            
             for (var i = 0; i < selectElement.options.length; i++) {
-                if (selectElement.options[i].textContent === employeeName + ` ` + employeeLastName) {
+                if (selectElement.options[i].text === employeeName + ` ` + employeeLastName) {
                     selectElement.options[i].selected = true;
                     break;
                 }
