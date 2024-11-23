@@ -78,25 +78,24 @@ public class AlcalappController {
 		return ResponseEntity.ok().body("{\"redirectUrl\": \"" + redirectUrl + "\"}");
 	}
 
-    @RequestMapping("/error")
-    public String handleError() {
-        // Retorna la vista para mostrar los errores
-        return "error"; // Asegúrate de tener el archivo JSP en esta ubicación
-    }
+	@GetMapping("/error")
+	public String handleError() {
+
+		return "error";
+	}
 
 	@GetMapping("/dailywork")
 	public String dailyWorkPage(Model model, HttpServletRequest request) throws JsonProcessingException {
 
 		String name = request.getUserPrincipal().getName();
 		Employee employee = employeeService.findByUserEmployee(name);
-        User user = alcalappService.findByUserName(name);
+		User user = alcalappService.findByUserName(name);
 		Team team = teamService.findByNameTeam(employee.getNameTeam());
 		List<Team> createTicketTeamsList = teamService.findTeamsToSendTicket(team);
 		List<Release> releasesOpen = releaseService.findByReleasesOpen();
 
 		HttpSession session = request.getSession();
 		session.setAttribute("employee", employee);
-        
 
 		session.setAttribute("team", team);
 		session.setAttribute("createTicketTeamsList", createTicketTeamsList);
@@ -125,7 +124,7 @@ public class AlcalappController {
 		String projectsCompletedByTeamJson = projectService.getHoursProjectResolvedPerMonth(projectsCompletedByTeam);
 		String monthsJson = alcalappService.getLastSixMonths();
 
-        model.addAttribute("role", user.getRoles().get(0));
+		model.addAttribute("role", user.getRoles().get(0));
 		model.addAttribute("createTicketTeamsList", createTicketTeamsList);
 		model.addAttribute("employee", employee);
 		model.addAttribute("team", team);
@@ -192,23 +191,6 @@ public class AlcalappController {
 		return "mywork";
 	}
 
-	@GetMapping("/profile")
-	public String profilePage(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		Team team = (Team) session.getAttribute("team");
-		Employee employee = (Employee) session.getAttribute("employee");
-
-		List<EmployeePerTeam> employeesPerTeam = alcalappService.getEmployeesPerTeam(team.getEmployeeMap().values(),
-				employee);
-		List<Ticket> recomendations = ticketService.findByEmployeeAssignOrderByModifyDateDesc(employee);
-
-		model.addAttribute("page", "MI PERFIL");
-		model.addAttribute("employeesPerTeam", employeesPerTeam);
-		model.addAttribute("recomendations", recomendations);
-
-		return "profile";
-	}
-
 	@PostMapping("/createUser")
 	public ResponseEntity<String> createUser(@RequestBody UserAndEmployeeDTO userAndEmployee) {
 
@@ -216,7 +198,7 @@ public class AlcalappController {
 
 		return ResponseEntity.ok("Usuario y empleado creados con éxito");
 	}
-	
+
 	@PostMapping("/createTeam")
 	public ResponseEntity<String> createTeam(@RequestBody TeamDTO team) {
 
@@ -224,7 +206,7 @@ public class AlcalappController {
 
 		return ResponseEntity.ok("Equipo creado con éxito");
 	}
-	
+
 	@GetMapping("/gestion")
 	public String gestion(Model model) {
 		List<Team> teams = teamService.findAll();
@@ -234,19 +216,26 @@ public class AlcalappController {
 		model.addAttribute("page", "GESTION");
 		return "gestion";
 	}
-	
-	@GetMapping("/teams/{id}")
-	public String teamPage(Model model, @PathVariable long id) {
 
+	@GetMapping("/teams/{id}")
+	public String teamPage(Model model, HttpServletRequest request, @PathVariable long id) {
+		
+		String name = request.getUserPrincipal().getName();
+		User user = alcalappService.findByUserName(name);
 		Team team = teamService.findByIdTeam(id);
 		Collection<Employee> empleados = team.getEmployeeMap().values();
 		model.addAttribute("team", team);
 		model.addAttribute("empleados", empleados);
 		model.addAttribute("borrado", empleados.isEmpty());
 		
+		if (user.getRoles().get(0).equals("MANAGER"))
+			
+			model.addAttribute("page", "MI EQUIPO");
+		else
+			model.addAttribute("page",team.getNameTeam());
 		return "team";
 	}
-	
+
 	@PutMapping("/teams/{id}/edit")
 	public ResponseEntity<String> updateTeam(@PathVariable long id, @RequestBody TeamDTO teamDTO) {
 
@@ -254,42 +243,46 @@ public class AlcalappController {
 		String redirectUrl = "/teams/" + team.getIdTeam();
 		return ResponseEntity.ok().body("{\"redirectUrl\": \"" + redirectUrl + "\"}");
 	}
-	
+
 	@DeleteMapping("/teams/{id}/delete")
 	public ResponseEntity<String> deleteTeam(@PathVariable long id) {
-		
+
 		teamService.delete(id);
 		String redirectUrl = "/gestion";
 		return ResponseEntity.ok().body("{\"redirectUrl\": \"" + redirectUrl + "\"}");
 	}
-	
-	
+
 	@GetMapping("/users/{id}")
 	public String userPage(Model model, HttpServletRequest request, @PathVariable long id) {
 
-        String name = request.getUserPrincipal().getName();
-        User user = alcalappService.findByUserName(name);
-        model.addAttribute("role", user.getRoles().get(0));
-        model.addAttribute("sessionUsername", name);
+		String name = request.getUserPrincipal().getName();
+		User user = alcalappService.findByUserName(name);
+		model.addAttribute("role", user.getRoles().get(0));
+		model.addAttribute("sessionUsername", name);
 
 		Employee employeeSelect = employeeService.findByEmployeeId(id);
 		model.addAttribute("employeeSelect", employeeSelect);
-		
+		if (user.getRoles().get(0).equals("USER"))
+			
+			model.addAttribute("page", "MI PERFIL");
+		else
+			model.addAttribute("page", employeeSelect.getUserEmployee());
+
 		return "user";
 	}
-	
+
 	@PutMapping("/users/{id}/edit")
 	public ResponseEntity<String> updateUser(@PathVariable long id, @RequestBody EmployeeDTO employeeDTO, Model model) {
 
 		Employee employee = alcalappService.editEmployee(id, employeeDTO);
 		String redirectUrl = "/users/" + employee.getEmployeeId();
-		
+
 		return ResponseEntity.ok().body("{\"redirectUrl\": \"" + redirectUrl + "\"}");
 	}
-	
+
 	@PutMapping("/users/{id}/delete")
 	public ResponseEntity<String> deleteUser(@PathVariable long id) {
-		
+
 		alcalappService.deleteUser(id);
 		String redirectUrl = "/users";
 		return ResponseEntity.ok().body("{\"redirectUrl\": \"" + redirectUrl + "\"}");

@@ -32,6 +32,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 
 import com.app.alcala.configuration.SecurityConfiguration;
 import com.app.alcala.entities.Employee;
+import com.app.alcala.entities.Message;
 import com.app.alcala.entities.Team;
 import com.app.alcala.entities.Ticket;
 import com.app.alcala.service.AlcalappService;
@@ -92,17 +93,26 @@ public class TicketControllerTest {
     @Test
     @WithMockUser(username = "johndoe", roles = "USER")
     public void testTicketPageById() throws Exception {
-        Ticket ticket = new Ticket();
-        ticket.setNameTicket("Test Ticket");
+        
         Team team = new Team();
         team.setEmployeeMap(new HashMap<>());
         Employee employee = new Employee();
         employee.setEmployeeName("Test Employee");
-        team.getEmployeeMap().put((long) 1, employee);
+        team.getEmployeeMap().put(1L, employee);
+
+        Ticket ticket = new Ticket();
+        ticket.setNameTicket("Test Ticket");
+        ticket.setTeamAssign(team); 
 
         when(ticketService.findById(anyLong())).thenReturn(ticket);
 
-		List<String> allStatus = new ArrayList<>(Arrays.asList("Backlog", "In Progress", "Closed", "Blocked", "Test", "Ready to UAT", "Ready to PRO", "Resolved"));
+        List<String> allStatus = new ArrayList<>(Arrays.asList(
+                "Backlog", "In Progress", "Closed", "Blocked", "Test",
+                "Ready to UAT", "Ready to PRO", "Resolved"
+        ));
+
+        List<Message> historial = Arrays.asList();
+        ticket.setMessageTicket(historial);
 
         mockMvc.perform(get("/tickets/1").sessionAttr("team", team))
                 .andExpect(status().isOk())
@@ -111,7 +121,7 @@ public class TicketControllerTest {
                 .andExpect(model().attribute("allStatus", allStatus))
                 .andExpect(model().attribute("allEmployees", team.getEmployeeMap().values()))
                 .andExpect(model().attribute("page", "Test Ticket"))
-                .andExpect(model().attribute("historial", ticket.getMessageTicket()));
+                .andExpect(model().attribute("historial", historial));
     }
 
 
