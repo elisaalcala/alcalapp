@@ -11,7 +11,6 @@
             var editTicketDescription = document.getElementById('editTicketDescription').value;
             var editTicketPriority = document.getElementById('editTicketPriority').value;
             var editTicketEnvironment = document.getElementById('editTicketEnvironment').value;
-            var editTicketTeamNameAssign = document.getElementById('editTicketTeamNameAssign').value;
 
             // Crear un objeto con los datos actualizados del ticket
             var editTicket = {
@@ -19,7 +18,6 @@
                 descriptionTicket: editTicketDescription,
                 priorityTicket: editTicketPriority,
                 environmentTicket: editTicketEnvironment,
-                teamNameAssign: editTicketTeamNameAssign
             };
             
             // Realizar la solicitud PUT para actualizar el ticket
@@ -49,6 +47,68 @@
         });
         });
     });
+
+        //Asignar Ticket Link
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById('assignToMeLink').addEventListener('click', function() {
+                
+                var employeeAssignToMe = document.getElementById('employeeUserHidden').value;
+                var idTicket = document.getElementById('ticketId').value;
+                var url = `/tickets/`+idTicket+`/assign`;
+                
+                fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(employeeAssignToMe)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al asignar el ticket');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    window.location.href = data.redirectUrl;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+    
+        });
+
+        //DesAsignar Ticket Link
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById('unassignFromMeLink').addEventListener('click', function() {
+                
+                var employeeDesAssignToMe = 'Sin asignar';
+                var idTicket = document.getElementById('ticketId').value;
+                var url = `/tickets/`+idTicket+`/assign`;
+                
+                fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(employeeDesAssignToMe)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al asignar el ticket');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    window.location.href = data.redirectUrl;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+    
+        });
 
     //Asignar Ticket Modal
     document.addEventListener('DOMContentLoaded', (event) => {
@@ -80,6 +140,7 @@
                 console.error('Error:', error);
             });
         });
+
         // Script para el botón "Asignarme a mí"
         document.getElementById('assignToMeButton').addEventListener('click', function() {
         
@@ -89,7 +150,7 @@
             var employeeLastName = document.getElementById('employeeLastNameAssignToMe').value;
         
             for (var i = 0; i < selectElement.options.length; i++) {
-                if (selectElement.options[i].textContent === employeeName + ` ` + employeeLastName) {
+                if (selectElement.options[i].text === employeeName + ` ` + employeeLastName) {
                     selectElement.options[i].selected = true;
                     break;
                 }
@@ -225,13 +286,14 @@
         });
         });
     });
-    
+
     //Clone Ticket
     document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('cloneTicketButton').addEventListener('click', function() {
                 
             // Obtener los valores editados del formulario
             var url = `/tickets/create`;
+            debugger
             var cloneTicketTitle = document.getElementById('cloneTicketTitle').value;
             var cloneTicketDescription = document.getElementById('cloneTicketDescription').value;
             var cloneTicketPriority = document.getElementById('cloneTicketPriority').value;
@@ -358,36 +420,7 @@
         document.getElementById("finishDate").textContent = formattedFinishDate;
     });
 
-    //Asignar Ticket Link
-    document.addEventListener('DOMContentLoaded', (event) => {
-        document.getElementById('assignToMeLink').addEventListener('click', function() {
-            
-            var employeeAssignToMe = document.getElementById('employeeUserHidden').value;
-            var idTicket = document.getElementById('ticketId').value;
-            var url = `/tickets/`+idTicket+`/assign`;
-            
-            fetch(url, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(employeeAssignToMe)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error al asignar el ticket');
-                }
-                return response.json();
-            })
-            .then(data => {
-                window.location.href = data.redirectUrl;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
 
-    });
 
     //TimeLine
     document.addEventListener('DOMContentLoaded', function() {

@@ -67,7 +67,7 @@ public class ReleaseAndProjectTest {
 	options.addArguments("--disable-dev-shm-usage");
 
         driver = new ChromeDriver(options);
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(100));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         
     }
 
@@ -81,9 +81,11 @@ public class ReleaseAndProjectTest {
     @Test
     public void testRelaseAndProjectActions() {
     	
-    	userRepository.save(new User("testReleaseAndProject", passwordEncoder.encode("test"), "USER"));
+    	userRepository.save(new User("testReleaseAndProject", passwordEncoder.encode("test"), "ADMIN"));
 		Employee employeeTest = new Employee();
 		employeeTest.setUserEmployee("testReleaseAndProject");
+		employeeTest.setEmployeeName("testReleaseAndProject");
+		employeeTest.setEmployeeLastName("testReleaseAndProject");
 		employeeService.save(employeeTest);
 		Team teamTest = new Team();
 		teamTest.setNameTeam("teamTestReleaseAndProject");
@@ -245,9 +247,8 @@ public class ReleaseAndProjectTest {
         WebElement newStatusOption = driver.findElement(By.id("Closed"));
         newStatusOption.click();
         
-        wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("ticketStatus"), "Closed"));
-        WebElement statusDisplay = driver.findElement(By.id("ticketStatus"));
-        assertEquals("Closed", statusDisplay.getText());
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("changeStatusButtonProject"), "Closed"));
+
 
         WebElement editButtonProject = driver.findElement(By.id("editButton"));
         editButtonProject.click();
@@ -264,10 +265,6 @@ public class ReleaseAndProjectTest {
 
         driver.get("https://localhost:" + this.port + "/projects/" + projectId);
         
-//        wait.until(ExpectedConditions.attributeToBe(By.id("descripcionProject"), "value",
-//                "Nueva descripción del proyecto"));
-//        WebElement updatedDescriptionField = driver.findElement(By.id("descripcionProject"));
-//        assertEquals("Nueva descripción del proyecto", updatedDescriptionField.getAttribute("value"));
 
         WebElement deleteButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("deleteButton")));
 

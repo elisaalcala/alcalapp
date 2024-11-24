@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import org.hibernate.Hibernate;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -135,7 +134,7 @@ public class LoginTest {
 		passwordField.sendKeys("invalidPassword");
 		loginButton.click();
 
-		assertTrue(driver.getCurrentUrl().endsWith("/login"));
+		assertTrue(driver.getCurrentUrl().endsWith("/login?error=true"));
 
 	}
 }

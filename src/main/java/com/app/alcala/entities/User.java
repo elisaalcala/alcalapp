@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.testcontainers.shaded.org.checkerframework.common.aliasing.qual.Unique;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

@@ -5,6 +5,7 @@ import java.util.List;
 import com.app.alcala.entities.Project;
 import com.app.alcala.entities.Team;
 import com.app.alcala.entities.Ticket;
+import com.app.alcala.web.model.TeamDTO;
 
 public interface TeamService {
 
@@ -19,5 +20,15 @@ public interface TeamService {
 	Team save(Team team);
 
 	void delete(Team teamDelete);
+
+	Team createTeam(TeamDTO team);
+
+	List<Team> findAll();
+
+	Team findByIdTeam(long id);
+
+	Team editTeam(long id, TeamDTO teamDTO);
+
+	void delete(long id);
 
 }

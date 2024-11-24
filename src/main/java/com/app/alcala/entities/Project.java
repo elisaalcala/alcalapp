@@ -2,7 +2,6 @@ package com.app.alcala.entities;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

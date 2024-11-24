@@ -1,8 +1,10 @@
 package com.app.alcala.web.controller;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyCollection;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -14,9 +16,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -41,13 +44,14 @@ import com.app.alcala.service.ReleaseService;
 import com.app.alcala.service.TeamService;
 import com.app.alcala.service.TicketService;
 import com.app.alcala.service.impl.UserDetailsServiceImpl;
-import com.app.alcala.web.model.EmployeePerTeam;
 import com.app.alcala.web.model.ProjectTable;
 import com.app.alcala.web.model.TableTeam;
 import com.app.alcala.web.model.WorkLoad;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(AlcalappController.class)
 @Import(SecurityConfiguration.class)
+@ExtendWith(MockitoExtension.class)
 public class AlcalappControllerTest {
 
     @Autowired
@@ -67,6 +71,8 @@ public class AlcalappControllerTest {
     private AlcalappService alcalappService;
     @MockBean
     private UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    private ObjectMapper objectMapper;
     
 
     @Test
@@ -111,12 +117,13 @@ public class AlcalappControllerTest {
                 .param("username", "user")
                 .param("password", "password"))
         		.andExpect(status().isFound())
-                .andExpect(header().string("Location", "/login?error"));
+                .andExpect(header().string("Location", "/login?error=true"));
     }
 
     @Test
     @WithMockUser(username = "johndoe", roles = "USER")
     public void testDailyWorkPage() throws Exception {
+        // Crear mocks de las entidades y servicios necesarios
         Employee employee = new Employee();
         employee.setNameTeam("TeamA");
 
@@ -124,10 +131,14 @@ public class AlcalappControllerTest {
         List<Team> createTicketTeamsList = Arrays.asList(new Team());
         List<Release> releasesOpen = Arrays.asList(new Release());
 
+        com.app.alcala.entities.User user = new com.app.alcala.entities.User();
+        user.setRoles(Arrays.asList("USER"));
+        // Configurar las respuestas de los servicios mockeados
         when(employeeService.findByUserEmployee("johndoe")).thenReturn(employee);
         when(teamService.findByNameTeam("TeamA")).thenReturn(team);
         when(teamService.findTeamsToSendTicket(any(Team.class))).thenReturn(createTicketTeamsList);
         when(releaseService.findByReleasesOpen()).thenReturn(releasesOpen);
+        when(alcalappService.findByUserName(any())).thenReturn(user);
 
         List<ProjectTable> projectsTables = Arrays.asList(new ProjectTable());
         List<Ticket> ticketsNotCompleted = Arrays.asList(new Ticket());
@@ -143,6 +154,7 @@ public class AlcalappControllerTest {
         when(alcalappService.loadPerEmployee(any(WorkLoad.class))).thenReturn(loadPerEmployee);
         when(alcalappService.calculateTableTeam(any(Team.class))).thenReturn(tableTeam);
 
+        // Ejecutar la solicitud simulada y verificar los resultados
         mockMvc.perform(get("/dailywork"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("dailywork"))
@@ -156,6 +168,7 @@ public class AlcalappControllerTest {
                 .andExpect(model().attribute("loadPerEmployee", loadPerEmployee))
                 .andExpect(model().attribute("page", "TRABAJO DIARIO"));
     }
+
     
     @Test
     @WithMockUser(username = "johndoe", roles = "USER")
@@ -190,29 +203,67 @@ public class AlcalappControllerTest {
                 .andExpect(model().attribute("page", "MI TRABAJO"));
     }
     
+
+
     @Test
-    @WithMockUser(username = "johndoe", roles = "USER")
-    public void testProfilePage() throws Exception {
-        Employee employee = new Employee();
-        Team team = new Team();
-        Map<Long, Employee> employeeMap = new HashMap<Long, Employee>();
-        team.setEmployeeMap(employeeMap);
-        
-        List<EmployeePerTeam> employeesPerTeam = Arrays.asList(new EmployeePerTeam());
-        List<Ticket> recommendations = Arrays.asList(new Ticket());
+    @WithMockUser(username = "admin", roles = "ADMIN")
+    public void testGestion() throws Exception {
+        List<Team> teams = Arrays.asList(new Team());
+        List<Employee> employees = Arrays.asList(new Employee());
 
-        when(alcalappService.getEmployeesPerTeam(anyCollection(), any(Employee.class))).thenReturn(employeesPerTeam);
-        when(ticketService.findByEmployeeAssignOrderByModifyDateDesc(any(Employee.class))).thenReturn(recommendations);
+        // Simular el comportamiento de los servicios
+        when(teamService.findAll()).thenReturn(teams);
+        when(employeeService.findAll()).thenReturn(employees);
 
-        mockMvc.perform(get("/profile")
-                .sessionAttr("employee", employee)
-                .sessionAttr("team", team))
+        mockMvc.perform(get("/gestion"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("profile"))
-                .andExpect(model().attribute("page", "MI PERFIL"))
-                .andExpect(model().attribute("employeesPerTeam", employeesPerTeam))
-                .andExpect(model().attribute("recomendations", recommendations));
+                .andExpect(view().name("gestion"))
+                .andExpect(model().attribute("teams", teams))
+                .andExpect(model().attribute("employees", employees))
+                .andExpect(model().attribute("page", "GESTION"));
     }
     
+    @Test
+    @WithMockUser(username = "johndoe", roles = "USER")
+    public void testTeamPage() throws Exception {
+        long teamId = 1L;
+        Team team = new Team();
+        team.setNameTeam("Team A");
+        team.setEmployeeMap(new HashMap<>());
+        com.app.alcala.entities.User user = new com.app.alcala.entities.User();
+        user.setRoles(Arrays.asList("MANAGER"));
+
+
+        when(teamService.findByIdTeam(teamId)).thenReturn(team);
+        when(alcalappService.findByUserName(anyString())).thenReturn(user);
+
+        mockMvc.perform(get("/teams/{id}", teamId))
+                .andExpect(status().isOk())
+                .andExpect(view().name("team"))
+                .andExpect(model().attribute("team", team))
+                .andExpect(model().attribute("page", "MI EQUIPO"));
+    }
+    
+    @Test
+    @WithMockUser(username = "johndoe", roles = "USER")
+    public void testUserPage() throws Exception {
+        long teamId = 1L;
+        Employee employee = new Employee();
+        com.app.alcala.entities.User user = new com.app.alcala.entities.User();
+        user.setRoles(Arrays.asList("USER"));
+
+
+        when(employeeService.findByEmployeeId(teamId)).thenReturn(employee);
+        when(alcalappService.findByUserName(anyString())).thenReturn(user);
+
+        mockMvc.perform(get("/users/{id}", teamId))
+                .andExpect(status().isOk())
+                .andExpect(view().name("user"))
+                .andExpect(model().attribute("employeeSelect", employee))
+                .andExpect(model().attribute("page", "MI PERFIL"));
+    }
+
+
+ 
 
 }

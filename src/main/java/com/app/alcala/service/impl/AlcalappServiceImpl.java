@@ -5,9 +5,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,6 +32,7 @@ import com.app.alcala.service.ReleaseService;
 import com.app.alcala.service.TeamService;
 import com.app.alcala.service.TicketService;
 import com.app.alcala.utils.Constants;
+import com.app.alcala.web.model.EmployeeDTO;
 import com.app.alcala.web.model.EmployeePerTeam;
 import com.app.alcala.web.model.ProjectTable;
 import com.app.alcala.web.model.TablePerEmployee;
@@ -128,10 +131,12 @@ public class AlcalappServiceImpl implements AlcalappService {
 		Ticket ticket = ticketService.findById(id);
 		Employee employeeQuit = ticket.getEmployeeAssign();
 		Team teamQuit = ticket.getTeamAssign();
-		employeeService.deleteTicket(employeeQuit, ticket);
+		if (!ObjectUtils.isEmpty(employeeQuit)) employeeService.deleteTicket(employeeQuit, ticket);
 		teamService.deleteTicket(teamQuit, ticket);
 		LocalDateTime currentDate = LocalDateTime.now();
-		Message message = messageService.messageMove(Timestamp.valueOf(currentDate),employeeQuit.getUserEmployee(),team.getNameTeam() );
+        String employeeQuitMssg = "";
+        if (!ObjectUtils.isEmpty(employeeQuit)) employeeQuitMssg = employeeQuit.getUserEmployee();
+		Message message = messageService.messageMove(Timestamp.valueOf(currentDate), employeeQuitMssg, team.getNameTeam() );
 		return ticketService.moveTicket(ticket, team, message);
 	}
 
@@ -293,8 +298,76 @@ public class AlcalappServiceImpl implements AlcalappService {
 		
 		return employeesPerTeam;
 	}
-	
-	
 
+	@Override
+	public Employee editEmployee(long id, EmployeeDTO employeeDTO) {
+		User user = userRepository.findByName(employeeDTO.getUsername()).get();
+		user.setRoles(Arrays.asList(employeeDTO.getRole()));
+		Employee employee = employeeService.findByEmployeeId(id);
+		employee.setEmployeeDni(employeeDTO.getEmployeeDni());
+		employee.setEmployeeLastName(employeeDTO.getEmployeeLastName());
+		employee.setEmployeeName(employeeDTO.getEmployeeName());
+		employee.setEmployeePosition(employeeDTO.getEmployeePosition());
+		employee.setBirthDate(employeeDTO.getBirthDate());
+		if(!employee.getNameTeam().equals(employeeDTO.getNameTeam())) {
+			desasignarTicketsAbiertos(employee);
+			desasignarProyectosAbiertos(employee);
+			employee.setNameTeam(employeeDTO.getNameTeam());
+			employee.setTeam(teamService.findByNameTeam(employeeDTO.getNameTeam()));
+		}
+		return employeeService.save(employee);
+	}
+
+	private void desasignarTicketsAbiertos(Employee employee) {
+	    
+	    Collection<Ticket> assignedTickets = employee.getTicketMapEmployee().values();
+
+	    List<Ticket> ticketsToUnassign = assignedTickets.stream()
+	            .filter(ticket -> ticket.getTeamAssign().equals(employee.getTeam())) 
+	            .filter(ticket -> !ticket.getStatusTicket().equalsIgnoreCase(Constants.STATUS_CLOSED) 
+	                    && !ticket.getStatusTicket().equalsIgnoreCase(Constants.STATUS_RESOLVED)) 
+	            .collect(Collectors.toList());
+
+	    for (Ticket ticket : ticketsToUnassign) {
+	        ticket.setEmployeeAssign(null);
+	        ticket.setEmployeeUserAssign(null);
+	        ticketService.save(ticket); 
+	    }
+	}
+
+	private void desasignarProyectosAbiertos(Employee employee) {
+	    
+	    Collection<Project> assignedProjects = employee.getProjectMapEmployee().values();
+
+	    List<Project> projectsToUnassign = assignedProjects.stream()
+	            .filter(project -> project.getTeamAssign().equals(employee.getTeam()))
+	            .filter(project -> !project.getStatusProject().equalsIgnoreCase(Constants.STATUS_CLOSED)
+	                    && !project.getStatusProject().equalsIgnoreCase(Constants.STATUS_FINISH))
+	            .collect(Collectors.toList());
+
+	    for (Project project : projectsToUnassign) {
+	        project.setEmployeeAssign(null); 
+	        project.setEmployeeUserAssign(null);
+	        projectService.save(project); 
+	    }
+	}
+
+	@Override
+	public Employee deleteUser(long id) {
+		Employee employee = employeeService.findByEmployeeId(id);
+		desasignarTicketsAbiertos(employee);
+		desasignarProyectosAbiertos(employee);
+		employee.setNameTeam(null);
+		employee.setTeam(null);
+		employee.setEmployeeActive(false);
+		return employeeService.save(employee);
+	}
+
+    @Override
+    public User findByUserName(String name) {
+        return userRepository.findByName(name).get();
+    }
+
+	
 
 }

@@ -292,7 +292,7 @@
 			</tr>
 			<tr>
 				<td>Gavin Cortez</td>
-				<td>Team Leader</td>
+				<td>MANAGER</td>
 				<td>San Francisco</td>
 				<td>22</td>
 				<td>2008-10-26</td>

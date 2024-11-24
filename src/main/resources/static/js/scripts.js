@@ -279,26 +279,6 @@
          });
     });
     
-    // Función para controlar los paneles de colapso del la barra lateral
-    document.addEventListener("DOMContentLoaded", function() {
-        function togglePanel(panelLinkSelector, panelSelector) {
-            var panelLink = document.querySelector(panelLinkSelector);
-            var panel = document.querySelector(panelSelector);
-
-            panelLink.addEventListener('click', function() {
-                if (panel.classList.contains('show')) {
-                    panel.classList.remove('show');
-                    panelLink.classList.add('collapsed');
-                } else {
-                    panel.classList.add('show');
-                    panelLink.classList.remove('collapsed');
-                }
-            });
-        }
-
-        // Controlar el panel de Estadísticas
-        togglePanel('.nav-link[data-target="#collapseEstadisticas"]', '#collapseEstadisticas');
-    });
 
     // Agregar evento click a todas las filas de la tabla DataTable
     document.addEventListener("DOMContentLoaded", function() {
@@ -335,6 +315,30 @@
           if (releaseId) {
             // Redireccionar a la página correspondiente al ticket
             window.location.href = 'releases/'+ releaseId;
+          }
+        });
+      });
+
+      //Team
+      document.querySelectorAll('.team-row').forEach(row => {
+        row.addEventListener('click', () => {
+          // Obtener el ID del ticket desde el atributo data-ticket-id de la fila
+          const teamId = row.getAttribute('data-team-id');
+          if (teamId) {
+            // Redireccionar a la página correspondiente al ticket
+            window.location.href = 'teams/'+ teamId;
+          }
+        });
+      });
+
+      //employee
+      document.querySelectorAll('.employee-row').forEach(row => {
+        row.addEventListener('click', () => {
+          // Obtener el ID del ticket desde el atributo data-ticket-id de la fila
+          const employeeId = row.getAttribute('data-employee-id');
+          if (employeeId) {
+            // Redireccionar a la página correspondiente al ticket
+            window.location.href = 'users/'+ employeeId;
           }
         });
       });
@@ -501,37 +505,62 @@
     });
 
     
-    //Migas de pan
-    document.addEventListener("DOMContentLoaded", function() {
-        const breadcrumbContainer = document.getElementById('breadcrumb-container');
-        const currentPage = document.getElementById('currentPage').value;
-        const path = window.location.pathname.split('/').filter(segment => segment);
-        function transformBreadcrumbs(breadcrumbs) {
-            const replacements = {
-                "projects": "PROYECTOS",
-                "tickets": "INCIDENCIAS",
-                "releases": "RELEASES"
-            };
+// Migas de pan
+document.addEventListener("DOMContentLoaded", function () {
+    const breadcrumbContainer = document.getElementById('breadcrumb-container');
+    const currentPage = document.getElementById('currentPage').value;
+    const path = window.location.pathname.split('/').filter(segment => segment);
 
-            return breadcrumbs.map(item => replacements[item] || item);
-        }
-        const transformedList = transformBreadcrumbs(path);
-        let breadcrumbHTML = `<nav aria-label="breadcrumb">
-            <ol class="breadcrumb margin-bottom-0">
-                <li class="breadcrumb-item"><a class="link-text" href="/dailywork">Trabajo Diario</a></li>`;
+    function transformBreadcrumbs(breadcrumbs) {
+        const replacements = {
+            "projects": "PROYECTOS",
+            "tickets": "INCIDENCIAS",
+            "releases": "RELEASES",
+            "users": "GESTION",
+            "teams": "GESTION"
+        };
 
-        href  = ``
-        if (currentPage != "TRABAJO DIARIO"){
+        return breadcrumbs.map(item => replacements[item] || item);
+    }
+
+    const transformedList = transformBreadcrumbs(path);
+    let breadcrumbHTML = `<nav aria-label="breadcrumb">
+        <ol class="breadcrumb margin-bottom-0">
+            <li class="breadcrumb-item"><a class="link-text" href="/dailywork">Trabajo Diario</a></li>`;
+
+    let href = ``;
+
+    if (currentPage !== "TRABAJO DIARIO") {
+        // Verificar si la página actual es "MI PERFIL" o "MI EQUIPO" para omitir "USUARIOS" o "EQUIPOS"
+        if (currentPage === "MI PERFIL" || currentPage === "MI EQUIPO") {
+            breadcrumbHTML += `<li class="breadcrumb-item active" aria-current="page">${currentPage}</li>`;
+        } else {
             for (let i = 0; i < path.length; i++) {
                 href += `/` + path[i];
-                
+
                 if (i === path.length - 1) {
-                    breadcrumbHTML += `<li class="breadcrumb-item active" aria-current="page">`+ currentPage +`</li>`;
+                    breadcrumbHTML += `<li class="breadcrumb-item active" aria-current="page">${currentPage}</li>`;
                 } else {
-                    breadcrumbHTML += `<li class="breadcrumb-item"><a class="link-text" href="`+ href+`">`+transformedList[i].charAt(0).toUpperCase() + transformedList[i].slice(1)+`</a></li>`;
+                    // Si la miga actual es "GESTION", agrega el evento para ir atrás
+                    if (transformedList[i] === "GESTION") {
+                        breadcrumbHTML += `<li class="breadcrumb-item">
+                            <a class="link-text" href="javascript:void(0);" onclick="history.back();">GESTION</a>
+                        </li>`;
+                    } else {
+                        breadcrumbHTML += `<li class="breadcrumb-item">
+                            <a class="link-text" href="${href}">${transformedList[i].charAt(0).toUpperCase() + transformedList[i].slice(1)}</a>
+                        </li>`;
+                    }
                 }
             }
         }
-        breadcrumbHTML += '</ol></nav>';
-        breadcrumbContainer.innerHTML = breadcrumbHTML;
-    });
+    }
+
+    breadcrumbHTML += '</ol></nav>';
+    breadcrumbContainer.innerHTML = breadcrumbHTML;
+});
+
+
+
+
+

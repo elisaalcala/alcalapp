@@ -57,10 +57,7 @@ public class TicketController {
 	}
 	
 	@GetMapping("/{id}")
-	public String ticketPage(Model model, @PathVariable long id, HttpServletRequest request) {
-
-		HttpSession session = request.getSession();
-		Team team = (Team) session.getAttribute("team");
+	public String ticketPage(Model model, @PathVariable long id) {
 
 		List<String> allStatus = new ArrayList<>(Arrays.asList("Backlog", "In Progress", "Closed", "Blocked", "Test", "Ready to UAT", "Ready to PRO", "Resolved"));
 
@@ -68,7 +65,8 @@ public class TicketController {
 
 		model.addAttribute("ticket", ticket);
 		model.addAttribute("allStatus", allStatus);
-		model.addAttribute("allEmployees", team.getEmployeeMap().values());
+		
+		model.addAttribute("allEmployees", ticket.getTeamAssign().getEmployeeMap().values());
 		model.addAttribute("page", ticket.getNameTicket());
 		model.addAttribute("historial", ticket.getMessageTicket());
 		
@@ -110,7 +108,7 @@ public class TicketController {
 		HttpSession session = request.getSession();
 		Team team = (Team) session.getAttribute("team");
 
-		Boolean deletedTicket = alcalappService.deleteTicket(id, team);
+		alcalappService.deleteTicket(id, team);
 		String redirectUrl = "/tickets";
 		return ResponseEntity.ok().body("{\"redirectUrl\": \"" + redirectUrl + "\"}");
 	}

@@ -99,26 +99,33 @@ public class ProjectControllerTest {
     @Test
     @WithMockUser(username = "johndoe", roles = "USER")
     public void testProjectPageById() throws Exception {
-        Project project = new Project();
-        project.setNameProject("Test Project");
+    	
         Team team = new Team();
         team.setEmployeeMap(new HashMap<>());
         Employee employee = new Employee();
         employee.setEmployeeName("Test Employee");
-        team.getEmployeeMap().put((long) 1, employee);
+        team.getEmployeeMap().put(1L, employee);
+
+        Project project = new Project();
+        project.setNameProject("Test Project");
+        project.setTeamAssign(team); 
 
         when(projectService.findById(anyLong())).thenReturn(project);
 
-        List<String> allStatus = Arrays.asList("Backlog", "In Progress", "Closed", "Blocked", "Test", "Ready to UAT", "Ready to PRO", "Finish");
+        List<String> allStatus = Arrays.asList(
+                "Backlog", "In Progress", "Closed", "Blocked", "Test",
+                "Ready to UAT", "Ready to PRO", "Finish"
+        );
 
         mockMvc.perform(get("/projects/1").sessionAttr("team", team))
                 .andExpect(status().isOk())
                 .andExpect(view().name("project"))
                 .andExpect(model().attribute("project", project))
                 .andExpect(model().attribute("allStatus", allStatus))
-                .andExpect(model().attribute("allEmployees", team.getEmployeeMap().values()))
+                .andExpect(model().attribute("allEmployees", team.getEmployeeMap().values())) 
                 .andExpect(model().attribute("page", "Test Project"));
     }
+
 
     @Test
     @WithMockUser(username = "johndoe", roles = "USER")

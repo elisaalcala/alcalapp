@@ -4,7 +4,7 @@
   <div class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="cloneModalLabelProject">Clonar Ticket - ${project.nameProject}</h5>
+              <h5 class="modal-title" id="cloneModalLabelProject">Clonar Proyecto - ${project.nameProject}</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -40,7 +40,7 @@
                         <label for="cloneProjectReleaseName" class="form-label">Release:</label>
                         <select class="form-select" id="cloneProjectReleaseName">
                             <option value="" selected disabled>Seleccionar release</option>
-                            <c:forEach items="${openReleases}" var="release">
+                            <c:forEach items="${releasesOpen}" var="release">
                                 <option value="${release.nameRelease}" ${project.releaseName == release.nameRelease ? 'selected' : ''}>${release.nameRelease}</option>
                             </c:forEach>
                         </select>
@@ -57,11 +57,13 @@
                     </div>
                     <div class="mb-3">
                         <label for="cloneProjectTeamNameAssign" class="form-label">Equipo:</label>
-                        <select class="form-select" id="cloneProjectTeamNameAssign">
+                        <select class="form-select" id="cloneProjectTeamNameAssign"
+                                <c:if test="${role == 'MANAGER'}">disabled</c:if>>
                             <option value="" selected disabled>Seleccionar equipo</option>
                             <c:forEach items="${createTicketTeamsList}" var="team">
-                                <option value="${team.nameTeam}" ${project.teamNameAssign == team.nameTeam ? 'selected' : ''}>${team.nameTeam}</option>
+                                <option value="${team.nameTeam}" ${employee.nameTeam == team.nameTeam ? 'selected' : ''}>${team.nameTeam}</option>
                             </c:forEach>
+                            <option value="${employee.nameTeam}" ${role == 'MANAGER' ? 'selected' : ''}>${employee.nameTeam}</option>
                         </select>
                     </div>
                     
