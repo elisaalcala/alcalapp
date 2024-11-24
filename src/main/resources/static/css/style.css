@@ -310,6 +310,7 @@ table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date, table.dataT
     font-weight: 900;
     font-size: .9rem;
     text-transform: uppercase;
+    margin-bottom: 12px;
   }
   .ticket-info .row, .margin-left-15{
     margin-left: 15px;
@@ -855,4 +856,38 @@ ul.weeks, ul.days{
   color: #fff;
   background-color: #49828ff5;
   border-color: #49828ff5;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #49828ff5; /* Color del fondo al marcar */
+    border-color: #49828ff5;    /* Color del borde al marcar */
+}
+
+input[type="checkbox"]:checked::after {
+    content: '✔'; /* Personaliza el check */
+    color: white; /* Color del check (blanco) */
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.translucent_button {
+    background-color: #ffffff00;
+    color: black;
+    padding: 0;
 }

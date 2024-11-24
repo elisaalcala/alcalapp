@@ -117,7 +117,7 @@ public class ReleaseServiceImplTest {
 
         assertEquals(employee, result.getEmployeeCreation());
         assertEquals(employee.getUserEmployee(), result.getEmployeeUserCreation());
-        assertEquals("Start", result.getStatusRelease());
+        assertEquals("Backlog", result.getStatusRelease());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
         String formattedDate = dateFormat.format(proDate);
         assertEquals("R" + formattedDate, result.getNameRelease());

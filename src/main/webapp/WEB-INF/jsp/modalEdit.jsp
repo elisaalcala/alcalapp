@@ -38,15 +38,6 @@
                   <option value="PRO" ${ticket.environmentTicket == 'PRO' ? 'selected' : ''}>PRO</option>
               </select>
           </div>
-          <div class="mb-3">
-              <label for="editTicketTeamNameAssign" class="form-label">Equipo:</label>
-              <select class="form-select" id="editTicketTeamNameAssign">
-                  <option value="" selected disabled>Seleccionar equipo</option>
-                  <c:forEach items="${createTicketTeamsList}" var="team">
-                      <option value="${team.nameTeam}" ${ticket.teamNameAssign == team.nameTeam ? 'selected' : ''}>${team.nameTeam}</option>
-                  </c:forEach>
-              </select>
-          </div>
             <!-- Agrega más campos de edición según sea necesario -->
           </form>
         </div>

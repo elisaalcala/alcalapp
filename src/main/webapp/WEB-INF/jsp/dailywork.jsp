@@ -103,9 +103,13 @@
                               <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                   aria-labelledby="dropdownMenuLink">
                                   <a class="dropdown-item nav-colorlink" href="/releases/${table.idRelease}">Ver Release</a>
-                                  <a class="dropdown-item createProjectLink nav-colorlink" data-release-id="${table.idRelease}" data-target="#createModalProject" >Añadir Proyecto</a>
-                                  <div class="dropdown-divider"></div>
-                                  <a class="dropdown-item deleteProjectLink nav-colorlink text-danger" data-release-id="${table.idRelease}" data-target="#deleteModalRelease" href="#">Eliminar Release</a>
+                                  <sec:authorize access="hasRole('ADMIN') OR hasRole('MANAGER')">
+                                    <a class="dropdown-item createProjectLink nav-colorlink" data-release-id="${table.idRelease}" data-target="#createModalProject" >Añadir Proyecto</a>
+                                    <sec:authorize access="hasRole('ADMIN')">
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item deleteProjectLink nav-colorlink text-danger" data-release-id="${table.idRelease}" data-target="#deleteModalRelease" href="#">Eliminar Release</a>
+                                    </sec:authorize>
+                                  </sec:authorize>
                               </div>
                         </div>
                     </div>
@@ -384,7 +388,7 @@
         <!-- Footer  -->
         <%@ include file="footer.jsp" %>
       </section>
-      <%@ include file="modalNewUser.jsp" %>
+
       <%@ include file="modalCreate.jsp" %>
       <%@ include file="modalLogout.jsp" %>
       <%@ include file="modalCreateRelease.jsp" %>

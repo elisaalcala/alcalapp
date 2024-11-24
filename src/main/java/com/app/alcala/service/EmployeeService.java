@@ -1,5 +1,7 @@
 package com.app.alcala.service;
 
+import java.util.List;
+
 import com.app.alcala.entities.Employee;
 import com.app.alcala.entities.Project;
 import com.app.alcala.entities.Team;
@@ -23,6 +25,9 @@ public interface EmployeeService {
 	void delete(Employee employeeDelete);
 
 	Employee createNewEmployee(Employee employeeNew, Team team);
+
+	List<Employee> findAll();
+
 
 	
 

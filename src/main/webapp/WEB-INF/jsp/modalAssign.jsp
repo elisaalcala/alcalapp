@@ -24,19 +24,23 @@
                                             </c:otherwise>
                                         </c:choose>
                                         <c:forEach items="${allEmployees}" var="employeelist"> 
-                                            <c:if test="${empty ticket.employeeUserAssign or not employeelist.userEmployee eq ticket.employeeUserAssign}">
-                                                <option value="${employeelist.userEmployee}">${employeelist.employeeName} ${employeelist.employeeLastName}</option>
-                                            </c:if>
+                                            <option value="${employeelist.userEmployee}">${employeelist.employeeName} ${employeelist.employeeLastName}</option>
                                         </c:forEach>
                                     </select>
+                                    
+                                    <c:if test="${ticket.teamAssign.nameTeam eq employee.team.nameTeam}">
+                                        <button type="button" class="btn bg-cyan-800" id="assignToMeButton">Asignarme a mí</button>
+                                    </c:if>
+                                    <c:if test="${!(ticket.teamAssign.nameTeam eq employee.team.nameTeam)}">
+                                        <button type="button" class="btn bg-cyan-800" id="assignToMeButton" disabled >Asignarme a mí</button>
+                                    </c:if>
                                 
-                                <button type="button" class="btn bg-cyan-800" id="assignToMeButton">Asignarme a mí</button>
                             </div>
                             
                             
                         </div>
                         <div id="alertMessageAssign" class="alert alert-danger m-top" role="alert" style="display: none;"></div>
-                        <a href="#" id="quitAssign">Quitar Asignación</a>
+                        <a href="#" class="nav-colorlink " id="quitAssign">Quitar Asignación</a>
                     </form>
 
                 </div>

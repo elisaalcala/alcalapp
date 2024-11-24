@@ -83,14 +83,14 @@
 
         // Script para el botón "Asignarme a mí"
         document.getElementById('assignToMeButtonProject').addEventListener('click', function() {
-        
+            
             var selectElement = document.querySelector('.assignedEmployee');
             
             var employeeName = document.getElementById('employeeNameAssignToMe').value;
             var employeeLastName = document.getElementById('employeeLastNameAssignToMe').value;
-
+            
             for (var i = 0; i < selectElement.options.length; i++) {
-                if (selectElement.options[i].textContent === employeeName + ` ` + employeeLastName) {
+                if (selectElement.options[i].text === employeeName + ` ` + employeeLastName) {
                     selectElement.options[i].selected = true;
                     break;
                 }
@@ -343,7 +343,7 @@
         if (localStorage.getItem('openAssignMeProjectModal') === 'true') {
             // Eliminar la bandera del localStorage para evitar clics adicionales en futuras visitas
             localStorage.removeItem('openAssignMeProjectModal');
-            
+            debugger
             // Simular el clic en el botón con id `deleteButton`
             var assignToMeLinkProject = document.getElementById('assignToMeLinkProject');
             if (assignToMeLinkProject) {
@@ -351,6 +351,37 @@
             }
         }
 
+    });
+
+    //DesAsignar Ticket Link
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.getElementById('unassignFromMeLinkProject').addEventListener('click', function() {
+            
+            var employeeDesAssignToMe = 'Sin asignar';
+            var projectId = document.getElementById('projectId').value;
+            var url = `/projects/`+ projectId + `/assign`;
+            
+            fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(employeeDesAssignToMe)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error al asignar el proyecto');
+                }
+                return response.json();
+            })
+            .then(data => {
+                window.location.href = data.redirectUrl;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        });
     });
 
     //Calendar

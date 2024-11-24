@@ -8,6 +8,7 @@ import com.app.alcala.entities.Project;
 import com.app.alcala.entities.Team;
 import com.app.alcala.entities.Ticket;
 import com.app.alcala.entities.User;
+import com.app.alcala.web.model.EmployeeDTO;
 import com.app.alcala.web.model.EmployeePerTeam;
 import com.app.alcala.web.model.ProjectTable;
 import com.app.alcala.web.model.TableTeam;
@@ -53,6 +54,13 @@ public interface AlcalappService {
 	List<EmployeePerTeam> getEmployeesPerTeam(Collection<Employee> values, Employee employeesession);
 
 	Employee createUserAndEmployee(User userNew, Employee employeeNew);
+
+	Employee editEmployee(long id, EmployeeDTO employeeDTO);
+
+	Employee deleteUser(long id);
+
+    User findByUserName(String name);
+
 
 
 

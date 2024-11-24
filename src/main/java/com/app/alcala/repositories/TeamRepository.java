@@ -9,6 +9,8 @@ import com.app.alcala.entities.Team;
 public interface TeamRepository extends JpaRepository<Team, Long>{
 	
 	Optional<Team> findByNameTeam(String nameTeam);
+
+	Team findByIdTeam(long id);
 	
 	
 }

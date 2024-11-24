@@ -37,14 +37,16 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="createTicketTeamNameAssign" class="form-label">Equipo:</label>
+                        <label for="createTicketTeamNameAssign" class="form-label">Equipo destino:</label>
                         <select class="form-select" id="cloneTicketTeamNameAssign">
                             <option value="" selected disabled>Seleccionar equipo</option>
                             <c:forEach items="${createTicketTeamsList}" var="team">
-                                <option value="${team.nameTeam}" ${ticket.teamNameAssign == team.nameTeam ? 'selected' : ''}>${team.nameTeam}</option>
+                                <option value="${team.nameTeam}">${team.nameTeam}</option>
                             </c:forEach>
+                            <option value="${employee.nameTeam}">${employee.nameTeam}</option>
                         </select>
                     </div>
+
                 
               </form>
           </div>
