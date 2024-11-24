@@ -1,10 +1,8 @@
 package com.app.alcala.web.controller;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -47,7 +45,6 @@ import com.app.alcala.service.impl.UserDetailsServiceImpl;
 import com.app.alcala.web.model.ProjectTable;
 import com.app.alcala.web.model.TableTeam;
 import com.app.alcala.web.model.WorkLoad;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(AlcalappController.class)
 @Import(SecurityConfiguration.class)
@@ -71,8 +68,7 @@ public class AlcalappControllerTest {
     private AlcalappService alcalappService;
     @MockBean
     private UserDetailsServiceImpl userDetailsService;
-    @Autowired
-    private ObjectMapper objectMapper;
+
     
 
     @Test
@@ -211,7 +207,6 @@ public class AlcalappControllerTest {
         List<Team> teams = Arrays.asList(new Team());
         List<Employee> employees = Arrays.asList(new Employee());
 
-        // Simular el comportamiento de los servicios
         when(teamService.findAll()).thenReturn(teams);
         when(employeeService.findAll()).thenReturn(employees);
 
