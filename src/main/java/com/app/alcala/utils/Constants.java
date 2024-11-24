@@ -1,5 +1,6 @@
 package com.app.alcala.utils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,6 +35,8 @@ public class Constants {
 	public static final List<String> STATUS_READY = Arrays.asList("Test", "Ready to UAT", "Ready to PRO");
 
 	public static final List<String> ALL_STATUS_RELEASES = Arrays.asList("Backlog", "In Progress", "Closed");
+    public static final List<String> ALL_STATUS_PRJ = (Arrays.asList("Backlog", "In Progress", "Closed", "Blocked", "Test", "Ready to UAT", "Ready to PRO", "Finish"));
+    public static final List<String> ALL_POSITIONS = (Arrays.asList("Junior Developer", "Mid Developer", "Senior Developer", "Fullstack Developer", "Data Engineer", "DevOps Engineer", "QA Analyst", "Tech Lead"));
 
 	// MESSAGE
 	public static final String CREATED_BY = "Creado por ";

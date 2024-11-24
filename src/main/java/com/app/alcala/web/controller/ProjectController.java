@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import com.app.alcala.entities.Project;
 import com.app.alcala.entities.Team;
 import com.app.alcala.service.AlcalappService;
 import com.app.alcala.service.ProjectService;
+import com.app.alcala.utils.Constants;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -65,13 +67,10 @@ public class ProjectController {
 	@GetMapping("/{id}")
 	public String projectPage(Model model, @PathVariable long id) {
 
-
-		List<String> allStatus = new ArrayList<>(Arrays.asList("Backlog", "In Progress", "Closed", "Blocked", "Test", "Ready to UAT", "Ready to PRO", "Finish"));
-
 		Project project = projectService.findById(id);
 
 		model.addAttribute("project", project);
-		model.addAttribute("allStatus", allStatus);
+		model.addAttribute("allStatus", Constants.ALL_STATUS_PRJ);
 		model.addAttribute("allEmployees", project.getTeamAssign().getEmployeeMap().values());
 		model.addAttribute("page", project.getNameProject());
 		return "project";

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="modal fade" id="editModalEmployee" tabindex="-1" aria-labelledby="editModalLabelEmployee" aria-hidden="true">
   <div class="modal-dialog">
@@ -36,7 +37,7 @@
                                 value="${employeeSelect.employeeDni}"required>
                         </div>
 
-                        <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+                        
 
                         <div class="mb-3">
                             <label for="editBirthDate" class="form-label">Fecha de Nacimiento:</label>
@@ -70,15 +71,11 @@
                             <label for="editEmployeePosition" class="form-label">Puesto:</label>
                             <select class="form-select" name="employeePosition" id="editEmployeePosition"
                                     <c:if test="${(sessionUsername == employeeSelect.userEmployee && role != 'ADMIN') || (role != 'ADMIN' && role != 'MANAGER')}">disabled</c:if> >
-                                <option value="" disabled selected>Seleccionar puesto</option>
-                                <option value="Junior Developer">Junior Developer</option>
-                                <option value="Mid Developer">Mid Developer</option>
-                                <option value="Senior Developer">Senior Developer</option>
-                                <option value="Fullstack Developer">Fullstack Developer</option>
-                                <option value="Data Engineer">Data Engineer</option>
-                                <option value="DevOps Engineer">DevOps Engineer</option>
-                                <option value="QA Analyst">QA Analyst</option>
-                                <option value="Tech Lead">Tech Lead</option>
+                                <c:forEach items="${allPositions}" var="position">
+                                    <option value="${position}" ${employeeSelect.employeePosition == position ? 'selected' : ''}>
+                                        ${position}
+                                    </option>
+                                </c:forEach>
                             </select>
                         </div>
 

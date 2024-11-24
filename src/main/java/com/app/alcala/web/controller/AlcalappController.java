@@ -263,6 +263,7 @@ public class AlcalappController {
 		User user = alcalappService.findByUserName(name);
 		model.addAttribute("role", user.getRoles().get(0));
 		model.addAttribute("sessionUsername", name);
+        model.addAttribute("allPositions", Constants.ALL_POSITIONS);
 
 		Employee employeeSelect = employeeService.findByEmployeeId(id);
 		model.addAttribute("employeeSelect", employeeSelect);
@@ -276,11 +277,11 @@ public class AlcalappController {
 	}
 
 	@PutMapping("/users/{id}/edit")
-	public ResponseEntity<String> updateUser(@PathVariable long id, @RequestBody EmployeeDTO employeeDTO, Model model) {
+	public ResponseEntity<String> updateUser(@PathVariable long id, @RequestBody EmployeeDTO employeeDTO) {
 
 		Employee employee = alcalappService.editEmployee(id, employeeDTO);
 		String redirectUrl = "/users/" + employee.getEmployeeId();
-
+        
 		return ResponseEntity.ok().body("{\"redirectUrl\": \"" + redirectUrl + "\"}");
 	}
 

@@ -310,6 +310,7 @@ table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date, table.dataT
     font-weight: 900;
     font-size: .9rem;
     text-transform: uppercase;
+    margin-bottom: 12px;
   }
   .ticket-info .row, .margin-left-15{
     margin-left: 15px;
@@ -883,4 +884,10 @@ input[type="checkbox"]:checked::after {
     justify-content: center;
     align-items: center;
     height: 100%;
+}
+
+.translucent_button {
+    background-color: #ffffff00;
+    color: black;
+    padding: 0;
 }

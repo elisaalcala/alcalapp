@@ -81,7 +81,7 @@
                                             <dt class="col">Estado actual:</dt>
                                             <c:if test="${ticket.teamNameAssign == team.nameTeam || role == 'ADMIN'}">
                                                 <div class="ticket-button dropdown m-left" style="width: 50%">
-                                                    <button class="btn bg-base-light dropdown-toggle" type="button" id="changeStatusButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button class="btn bg-base-light dropdown-toggle translucent_button" type="button" id="changeStatusButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         ${ticket.statusTicket}
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -108,9 +108,10 @@
                                                 <c:when test="${empty ticket.employeeUserAssign}">
                                                     <dd class="col" id="employeeUserAssign">
                                                         <c:if test="${(ticket.teamNameAssign == employee.nameTeam) || role == 'ADMIN'}">
-                                                            <div class="ticket-button m-left" style="width: 50%;">
-                                                                <button type="button" class="btn bg-base-light" id="assignButton" data-bs-toggle="modal" data-bs-target="#assignModal">
+                                                            <div class="ticket-button" style="width: 50%;">
+                                                                <button type="button" class="btn bg-base-light translucent_button" id="assignButton" data-bs-toggle="modal" data-bs-target="#assignModal">
                                                                     Asignar
+                                                                    <i style="cursor: pointer; margin-left: 4px;" class="fa-solid fa-pencil"></i>
                                                                 </button>
                                                             </div>
                                                         </c:if>
@@ -139,11 +140,14 @@
                                         <div class="row">
                                             <dt class="col">Equipo Asignado:</dt>
                                             <dd class="col" id="teamNameAssign">
-                                                ${ticket.teamNameAssign}
+                                                <c:if test="${employee.nameTeam != ticket.teamNameAssign && role != 'ADMIN'}">
+                                                    ${ticket.teamNameAssign}
+                                                </c:if>
                                                 <c:if test="${employee.nameTeam == ticket.teamNameAssign || role == 'ADMIN'}">
-                                                    <a>
-                                                        <i style="cursor: pointer; margin-left: 4px;" class="fa-solid fa-pencil" data-bs-toggle="modal" data-bs-target="#moveModal"></i>
-                                                    </a>
+                                                    <button type="button" class="btn bg-base-light translucent_button" id="assignButton" data-bs-toggle="modal" data-bs-target="#moveModal">
+                                                        ${ticket.teamNameAssign}
+                                                        <a><i style="cursor: pointer; margin-left: 4px;" class="fa-solid fa-paper-plane"></i></a>
+                                                    </button>
                                                 </c:if>
                                             </dd>
                                         </div>

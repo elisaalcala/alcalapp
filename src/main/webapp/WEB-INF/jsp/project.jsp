@@ -90,7 +90,7 @@
                                         <dt class="col">Estado actual:</dt>
                                         <c:if test="${employee.nameTeam == project.teamNameAssign || role == 'ADMIN'}">
                                             <div class="ticket-button dropdown" style="width: 50%">
-                                                <button class="btn bg-base-light dropdown-toggle" type="button" id="changeStatusButtonProject" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  >
+                                                <button class="btn bg-base-light dropdown-toggle translucent_button" type="button" id="changeStatusButtonProject" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  >
                                                     ${project.statusProject}
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -121,8 +121,9 @@
                                                     <c:choose>
                                                         <c:when test="${(employee.nameTeam == project.teamNameAssign && role == 'MANAGER') || role == 'ADMIN'}">
                                                             <div class="ticket-button m-left" style="margin-left: 0px;">
-                                                                <button type="button" class="btn bg-base-light" id="assignButton" data-bs-toggle="modal" data-bs-target="#assignModalProject">
+                                                                <button type="button" class="btn bg-base-light translucent_button" id="assignButton" data-bs-toggle="modal" data-bs-target="#assignModalProject">
                                                                     Asignar
+                                                                    <i style="cursor: pointer; margin-left: 4px;" class="fa-solid fa-pencil"></i>
                                                                 </button>
                                                             </div>
                                                         </c:when>

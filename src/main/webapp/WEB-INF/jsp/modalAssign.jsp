@@ -40,7 +40,7 @@
                             
                         </div>
                         <div id="alertMessageAssign" class="alert alert-danger m-top" role="alert" style="display: none;"></div>
-                        <a href="#" id="quitAssign">Quitar Asignación</a>
+                        <a href="#" class="nav-colorlink " id="quitAssign">Quitar Asignación</a>
                     </form>
 
                 </div>
