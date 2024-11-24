@@ -265,10 +265,6 @@ public class ReleaseAndProjectTest {
 
         driver.get("https://localhost:" + this.port + "/projects/" + projectId);
         
-//        wait.until(ExpectedConditions.attributeToBe(By.id("descripcionProject"), "value",
-//                "Nueva descripción del proyecto"));
-//        WebElement updatedDescriptionField = driver.findElement(By.id("descripcionProject"));
-//        assertEquals("Nueva descripción del proyecto", updatedDescriptionField.getAttribute("value"));
 
         WebElement deleteButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("deleteButton")));
 

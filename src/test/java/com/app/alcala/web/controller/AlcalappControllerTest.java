@@ -131,11 +131,14 @@ public class AlcalappControllerTest {
         List<Team> createTicketTeamsList = Arrays.asList(new Team());
         List<Release> releasesOpen = Arrays.asList(new Release());
 
+        com.app.alcala.entities.User user = new com.app.alcala.entities.User();
+        user.setRoles(Arrays.asList("USER"));
         // Configurar las respuestas de los servicios mockeados
         when(employeeService.findByUserEmployee("johndoe")).thenReturn(employee);
         when(teamService.findByNameTeam("TeamA")).thenReturn(team);
         when(teamService.findTeamsToSendTicket(any(Team.class))).thenReturn(createTicketTeamsList);
         when(releaseService.findByReleasesOpen()).thenReturn(releasesOpen);
+        when(alcalappService.findByUserName(any())).thenReturn(user);
 
         List<ProjectTable> projectsTables = Arrays.asList(new ProjectTable());
         List<Ticket> ticketsNotCompleted = Arrays.asList(new Ticket());

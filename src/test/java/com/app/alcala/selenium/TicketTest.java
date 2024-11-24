@@ -62,7 +62,7 @@ public class TicketTest {
 	options.addArguments("--window-size=1920,1080");
 
         driver = new ChromeDriver(options);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(100));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         
     }
 
@@ -77,9 +77,11 @@ public class TicketTest {
     public void testTicketActions() {
     	
 
-		userRepository.save(new User("testTicket", passwordEncoder.encode("test"), "USER"));
+		userRepository.save(new User("testTicket", passwordEncoder.encode("test"), "ADMIN"));
 		Employee employeeTest = new Employee();
 		employeeTest.setUserEmployee("testTicket");
+		employeeTest.setEmployeeName("testTicket");
+		employeeTest.setEmployeeLastName("testTicket");
 		employeeService.save(employeeTest);
 		Team teamTest = new Team();
 		teamTest.setNameTeam("teamTestTicket");
@@ -93,9 +95,11 @@ public class TicketTest {
 		teamService.save(teamTest);
 		
 		
-		userRepository.save(new User("testAssign", passwordEncoder.encode("test"), "USER"));
+		userRepository.save(new User("testAssign", passwordEncoder.encode("test"), "ADMIN"));
 		Employee employeeTestAssign = new Employee();
 		employeeTestAssign.setUserEmployee("testAssign");
+		employeeTestAssign.setEmployeeName("testAssign");
+		employeeTestAssign.setEmployeeLastName("testAssign");
 		employeeService.save(employeeTestAssign);
 		Team teamTestAssign = new Team();
 		teamTestAssign.setNameTeam("teamTestAssign");
@@ -207,7 +211,9 @@ public class TicketTest {
         wait.until(ExpectedConditions.invisibilityOf(assignModal));
 
         WebElement assignedEmployee = driver.findElement(By.id("employeeUserAssign"));
-        assertEquals("testAssign", assignedEmployee.getText(), "El ticket no se ha asignado correctamente");
+        String fullText = assignedEmployee.getText();
+        String processedText = fullText.split("\n")[0].trim(); // Extraer solo la primera línea
+        assertEquals("testAssign", processedText, "El ticket no se ha asignado correctamente");
 
         WebElement changeStatusButton = driver.findElement(By.id("changeStatusButton"));
         changeStatusButton.click();
@@ -215,9 +221,7 @@ public class TicketTest {
         WebElement newStatusOption = driver.findElement(By.id("Resolved"));
         newStatusOption.click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("ticketStatus"), "Resolved"));
-        WebElement statusDisplay = driver.findElement(By.id("ticketStatus"));
-        assertEquals("Resolved", statusDisplay.getText());
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("changeStatusButton"), "Resolved"));
 
         WebElement editButton = driver.findElement(By.id("editButton"));
         editButton.click();
@@ -233,11 +237,6 @@ public class TicketTest {
         saveChangesButton.click();
         
     	driver.get("https://localhost:" + this.port + "/tickets/" + ticketId);
-
-//    	wait.until(ExpectedConditions.attributeToBe(By.id("descriptionTicket"), "value",
-//                "Nueva descripción del ticket"));
-//        WebElement updatedDescriptionField = driver.findElement(By.id("descriptionTicket"));
-//        assertEquals("Nueva descripción del ticket", updatedDescriptionField.getAttribute("value"));
 
         WebElement deleteButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("deleteButton")));
         
